@@ -1,0 +1,272 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	@external .orderTable_pending, .orderTable_delivery, .orderTable_finish, .itemTable_row, .itemTable_col1, .itemTable_col2, .itemTable_col3, .itemTable_col4;
+	.orderTable {
+		display: table;
+		width: 100%;
+		border: 1px #e2e9e6 solid;
+		border-top: none;
+		overflow: hidden;
+		background: white;
+	}
+	
+	.orderTable_col1 {
+		position: relative;
+		display: table-cell;
+		padding: 10px;
+		width: 30px;
+		vertical-align: middle;
+		color: white;
+		cursor: pointer;
+		table-layout: fixed;
+		
+		-webkit-transition: color .10s linear, background-color .10s ease-in-out;
+		-moz-transition: color .10s linear, background-color .10s ease-in-out;
+		-o-transition: color .10s linear, background-color .10s ease-in-out;
+		transition: color .10s linear, background-color .10s ease-in-out;
+	}
+	
+	.orderTable_col1 i{
+		margin-left: 4px;
+	}
+	
+	.orderTable_col1:hover {
+		background: #efefef;
+		color: #42a5f5;
+		
+		-webkit-transition: color .10s linear, background-color .10s ease-in-out;
+		-moz-transition: color .10s linear, background-color .10s ease-in-out;
+		-o-transition: color .10s linear, background-color .10s ease-in-out;
+		transition: color .10s linear, background-color .10s ease-in-out;
+	}
+	
+	.orderTable_pending {
+		background: #fb8c00;
+	}
+	
+	.orderTable_delivery {
+		background: #8bc34a;
+	}
+	
+	.orderTable_finish {
+		background: #42a5f5;
+	}
+	
+	.orderTable_col2 {
+		display: table-cell;
+		vertical-align: middle;
+		border-left: 1px #e2e9e6 solid;
+		padding: 0px 15px;
+		width: 70%;
+	}
+	
+	.orderTable_col2_table {
+		display: table;
+		width: 100%;
+	}
+	
+	.orderTable_col3 {
+		display: table-cell;
+		vertical-align: middle;
+		border-left: 1px #e2e9e6 solid;
+		/* padding-left: 15px; */
+		text-align: center;
+		min-width: 100px;
+	}
+	
+	.orderTable_col4 {
+		display: table-cell;
+		vertical-align: middle;
+		border-left: 1px #e2e9e6 solid;
+		text-align: center;
+		width: 150px;
+		min-width: 150px;
+		cursor: pointer;
+		table-layout: fixed;
+	}
+	
+	.orderTable_col4_label {
+		border: none;
+		cursor: pointer;
+		margin-left: 5px;
+		height: 30px;
+		text-align-last: center;
+	}
+	
+	.orderTable_col4_label option {
+		font-size: 14px;
+	}
+	
+	.orderTable_col4 i {
+		float: left;
+	}
+	
+	.orderTable_col5 {
+		position: relative;
+		display: table-cell;
+		border-left: 1px #e2e9e6 solid;
+		border-right: 2px #e2e9e6 solid;
+		padding: 10px;
+		width: 30px;
+		min-width: 30px;
+		vertical-align: middle;
+		cursor: pointer;
+		table-layout: fixed;
+		text-align: center;
+	}
+	
+	.orderTable_col5:hover {
+		color: red;
+	}
+	
+	.customerTable {
+		display: table-cell;
+		vertical-align: middle;
+		width: 50%;
+		border-right: 1px #e2e9e6 solid;
+		-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+		-moz-box-sizing: border-box; /* Firefox, other Gecko */
+		box-sizing: border-box; /* Opera/IE 8+ */
+		padding-right: 15px;
+		padding-top: 15px;
+	}
+	
+	.customerTable_row {
+		overflow: hidden;
+		margin-bottom: 15px;
+	}
+	
+	.itemTable {
+		display: table-cell;
+		vertical-align: middle;
+		width: 50%;
+		/* border-left: 1px #e2e9e6 solid; */
+		-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+		-moz-box-sizing: border-box; /* Firefox, other Gecko */
+		box-sizing: border-box; /* Opera/IE 8+ */
+		padding-left: 5px;
+		padding-top: 5px;
+	}
+	
+	.itemTable_row {
+		display: table;
+		width: 100%;
+	}
+	
+	.itemTable_col1 {
+		display: table-cell;
+		padding: 10px;
+		width: 40px;
+		vertical-align: middle;
+	}
+	
+	.itemTable_col1 img {
+		border: 1px #BDBDBD solid;
+	}
+	
+	.itemTable_col2 {
+		display: table-cell;
+		padding: 10px;
+		width: 80%;
+		vertical-align: middle;
+	}
+	
+	.itemTable_col3 {
+		display: table-cell;
+		padding: 10px;
+		width: 50px;
+		vertical-align: middle;
+		table-layout: fixed;
+		white-space: nowrap;
+	}
+	
+	.itemTable_col4 {
+		display: table-cell;
+		padding: 10px;
+		width: 100px;
+		vertical-align: middle;
+		white-space: nowrap;
+	}
+	
+	.anchor {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+	</ui:style>
+	<g:HTMLPanel ui:field="orderTableRow" styleName="{style.orderTable}">
+		<g:HTMLPanel ui:field="col1" styleName="{style.orderTable_col1}">
+			<i class="material-icons">&#xE24D;</i>
+			<g:Anchor ui:field="orderDetail" styleName="{style.anchor}"></g:Anchor>
+		</g:HTMLPanel>
+
+		<g:HTMLPanel styleName="{style.orderTable_col2}">
+			<g:HTMLPanel styleName="{style.orderTable_col2_table}">
+				<g:HTMLPanel styleName="{style.customerTable}">
+					<g:HTMLPanel styleName="{style.customerTable_row}">
+						<div style="float: left; margin-right: 10px;">Họ Tên:</div>
+						<g:Label ui:field="customerName"></g:Label>
+					</g:HTMLPanel>
+					<g:HTMLPanel styleName="{style.customerTable_row}">
+						<div style="float: left; margin-right: 10px;">Địa chỉ:</div>
+						<g:Label ui:field="customerAddress"></g:Label>
+					</g:HTMLPanel>
+					<g:HTMLPanel styleName="{style.customerTable_row}">
+						<div style="float: left; margin-right: 10px;">Số ĐT:</div>
+						<g:Label ui:field="customerPhone"></g:Label>
+					</g:HTMLPanel>
+					<g:HTMLPanel styleName="{style.customerTable_row}">
+						<div style="float: left; margin-right: 10px;">Email:</div>
+						<g:Label ui:field="customerEmail"></g:Label>
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+	
+				<g:HTMLPanel ui:field="itemsCol" styleName="{style.itemTable}">
+					<g:HTMLPanel styleName="{style.itemTable_row}">
+						<g:HTMLPanel styleName="{style.itemTable_col1}">
+							<g:Image width="30px" height="30px" url="../Resources/1.png"></g:Image>
+						</g:HTMLPanel>
+						<g:Label styleName="{style.itemTable_col2}">Sản phẩm 1</g:Label>
+						<g:Label styleName="{style.itemTable_col3}">5</g:Label>
+						<g:Label styleName="{style.itemTable_col4}">190.000</g:Label>
+					</g:HTMLPanel>
+	
+					<g:HTMLPanel styleName="{style.itemTable_row}">
+						<g:HTMLPanel styleName="{style.itemTable_col1}">
+							<g:Image width="30px" height="30px" url="../Resources/2.png"></g:Image>
+						</g:HTMLPanel>
+						<g:Label styleName="{style.itemTable_col2}">Sản phẩm 2</g:Label>
+						<g:Label styleName="{style.itemTable_col3}">10</g:Label>
+						<g:Label styleName="{style.itemTable_col4}">1.190.000</g:Label>
+					</g:HTMLPanel>
+	
+					<g:HTMLPanel styleName="{style.itemTable_row}">
+						<g:HTMLPanel styleName="{style.itemTable_col1}">
+							<g:Image width="30px" height="30px" url="../Resources/3.png"></g:Image>
+						</g:HTMLPanel>
+						<g:Label styleName="{style.itemTable_col2}">Sản phẩm 3</g:Label>
+						<g:Label styleName="{style.itemTable_col3}">15 x 90.000</g:Label>
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+			</g:HTMLPanel>
+		</g:HTMLPanel>
+
+		<g:Label ui:field="orderSum" styleName="{style.orderTable_col3}">1.000.000</g:Label>
+
+		<g:Label ui:field="orderCreateDate" styleName="{style.orderTable_col3}"></g:Label>
+
+		<g:HTMLPanel styleName="{style.orderTable_col4}">
+			<g:ListBox ui:field="orderStatus" styleName="{style.orderTable_col4_label}"></g:ListBox>
+			<!-- <i class="material-icons">&#xE5C5;</i> -->
+		</g:HTMLPanel>
+		
+		<g:HTMLPanel styleName="{style.orderTable_col5}">
+			<i class="material-icons">&#xE872;</i>
+			<g:Anchor ui:field="deleteButton" styleName="{style.anchor}"></g:Anchor>
+		</g:HTMLPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

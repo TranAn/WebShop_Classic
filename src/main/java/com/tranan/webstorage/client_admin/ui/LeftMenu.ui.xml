@@ -1,0 +1,217 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	@external .LeftMenu_s1, .LeftMenu_s1_active;
+	.s1 {
+		position: relative;
+		float: left;
+		width: 250px;
+		height: 100%;
+		overflow: hidden;
+	}
+	
+	.s2 {
+		height: 64px;
+		background: #42a5f5;
+		color: #fff;
+		letter-spacing: 0.2em;
+		cursor: pointer;
+		font-family: "Ubuntu", sans-serif;
+		padding-left: 15px;
+		line-height: 3.8;
+		font-weight: 600;
+		font-size: 16px;
+	}
+	
+	.s3 {
+		background: #212121;
+		overflow: hidden;
+		height: 100%;
+	}
+	
+	.s4 {
+		position: relative;
+		height: 155px;
+		border-bottom: 1px solid #2e2e2e;
+	}
+	
+	.s5 {
+		position: relative;
+		overflow: hidden;
+		margin: auto;
+		margin-top: 20px;
+		width: 80px;
+		height: 80px;
+		border-radius: 40px;
+		background: white;
+	}
+	
+	.s6 {
+		color: #fff;
+		font-size: 18px;
+		margin-top: 20px;
+		text-align: center;
+	}
+	
+	.s7 {
+		position: relative;
+		border-bottom: 1px solid #2e2e2e;
+	}
+	
+	.s8 {
+		position: relative;
+		height: 48px;
+		color: #757575;
+		font-family: 'Roboto', sans-serif;
+		cursor: pointer;
+	}
+	
+	.s8:hover {
+		background: black;
+	}
+	
+	.s8:hover span {
+		color: #ffffff;
+	}
+	
+	.s8_active {
+		position: relative;
+		height: 48px;
+		color: white;
+		font-family: 'Roboto', sans-serif;
+		cursor: pointer;
+	}
+	
+	.s8_active:hover {
+		background: black;
+	}
+	
+	.s9 {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+	
+	.LeftMenu_s1 {
+		position: relative;
+		height: 48px;
+		color: #757575;
+		font-family: 'Roboto', sans-serif;
+		cursor: pointer;
+	}
+	
+	.LeftMenu_s1:hover {
+		background: black;
+	}
+	
+	.LeftMenu_s1:hover span {
+		color: #ffffff;
+	}
+	
+	.LeftMenu_s1_active {
+		position: relative;
+		height: 48px;
+		color: white;
+		font-family: 'Roboto', sans-serif;
+		cursor: pointer;
+	}
+	
+	.LeftMenu_s1_active:hover {
+		background: black;
+	}
+	</ui:style>
+	<g:HTMLPanel styleName="{style.s1}">
+		<g:HTMLPanel styleName="{style.s2}">PRETTY GAL</g:HTMLPanel>
+
+		<g:HTMLPanel styleName="{style.s3}">
+			<g:HTMLPanel styleName="{style.s4}">
+				<g:HTMLPanel styleName="{style.s5}">
+					<g:Image width="100%" height="100%" url="../Resources/user.png"></g:Image>
+				</g:HTMLPanel>
+				<g:Label styleName="{style.s6}">User Name</g:Label>
+			</g:HTMLPanel>
+
+			<g:HTMLPanel styleName="{style.s7}">
+				<g:HTMLPanel ui:field="shopMenuPanel" styleName="{style.s8}">
+					<div style="float:left; margin-left: 15px; margin-top: 12px;">
+						<i class="material-icons">&#xE8D1;</i>
+					</div>
+					<span
+						style="float:left; margin-left: 10px; line-height: 3.2; font-size: 15px; font-weight: 600;">
+						<g:Label>Cửa Hàng</g:Label>
+					</span>
+					<g:Anchor ui:field="shopMenu" styleName="{style.s9}"></g:Anchor>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel ui:field="saleMenuPanel" styleName="{style.s8}">
+					<div style="float:left; margin-left: 15px; margin-top: 12px;">
+						<i class="material-icons">&#xE8B1;</i>
+					</div>
+					<span
+						style="float:left; margin-left: 10px; line-height: 3.2; font-size: 15px; font-weight: 600;">
+						<g:Label>Khuyến Mại</g:Label>
+					</span>
+					<g:Anchor ui:field="saleMenu" styleName="{style.s9}"></g:Anchor>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel ui:field="storeMenuPanel" styleName="{style.s8_active}">
+					<div style="float:left; margin-left: 15px; margin-top: 12px;">
+						<i class="material-icons">&#xE8F1;</i>
+					</div>
+					<span
+						style="float:left; margin-left: 10px; line-height: 3.2; font-size: 15px; font-weight: 600;">
+						<g:Label>Kho Hàng</g:Label>
+					</span>
+					<g:Anchor ui:field="storeMenu" styleName="{style.s9}"></g:Anchor>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel ui:field="orderMenuPanel" styleName="{style.s8}">
+					<div style="float:left; margin-left: 15px; margin-top: 12px;">
+						<i class="material-icons">&#xE14F;</i>
+					</div>
+					<span
+						style="float:left; margin-left: 10px; line-height: 3.2; font-size: 15px; font-weight: 600;">
+						<g:Label>Đơn Hàng</g:Label>
+					</span>
+					<g:Anchor ui:field="orderMenu" styleName="{style.s9}"></g:Anchor>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel ui:field="chartMenuPanel" styleName="{style.s8}">
+					<div style="float:left; margin-left: 15px; margin-top: 12px;">
+						<i class="material-icons">&#xE24B;</i>
+					</div>
+					<span
+						style="float:left; margin-left: 10px; line-height: 3.2; font-size: 15px; font-weight: 600;">
+						<g:Label>Thống Kê</g:Label>
+					</span>
+					<g:Anchor ui:field="chartMenu" styleName="{style.s9}"></g:Anchor>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel ui:field="infoMenuPanel" styleName="{style.s8}">
+					<div style="float:left; margin-left: 15px; margin-top: 12px;">
+						<i class="material-icons">&#xE0CA;</i>
+					</div>
+					<span
+						style="float:left; margin-left: 10px; line-height: 3.2; font-size: 15px; font-weight: 600;">
+						<g:Label>Thông Tin</g:Label>
+					</span>
+					<g:Anchor ui:field="infoMenu" styleName="{style.s9}"></g:Anchor>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel ui:field="logoutPanel" styleName="{style.s8}">
+					<div style="float:left; margin-left: 15px; margin-top: 12px;">
+						<i class="material-icons">&#xE879;</i>
+					</div>
+					<span
+						style="float:left; margin-left: 10px; line-height: 3.2; font-size: 15px; font-weight: 600;">
+						<g:Label>Đăng Xuất</g:Label>
+					</span>
+					<g:Anchor ui:field="logout" styleName="{style.s9}"></g:Anchor>
+				</g:HTMLPanel>
+			</g:HTMLPanel>
+		</g:HTMLPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

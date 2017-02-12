@@ -1,0 +1,429 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:m="urn:import:com.tranan.webstorage.client_admin.sub_ui">
+	<ui:style>
+	@external .OrderTable_pending, .OrderTable_delivery, .OrderTable_finish;
+	.s1 {
+		position: relative;
+		width: 100%;
+		overflow-x: hidden;
+		/* background: black; */
+	}
+	
+	.s2 {
+		position: relative;
+		padding: 40px 20px;
+		overflow: hidden;
+	}
+	
+	.s3 {
+		position: relative;
+		float: left;
+		width: 100%;
+		/* margin-right: 20px; */
+		overflow: hidden;
+	}
+	
+	.s4 {
+		position: relative;
+		overflow: hidden;
+		margin-bottom: 30px;
+	}
+	
+	.s5 {
+		font-size: 22px;
+		font-weight: 400;
+		float: left;
+		margin-left: 2px;
+	}
+	
+	.s6 {
+		position: relative;
+		float: right;
+		padding: 7px 10px;
+		border: 1px solid #efefef;
+		box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17);
+		-webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17);
+		background: #ffffff;
+		border-radius: 2px;
+		font-size: 12px;
+		cursor: pointer;
+		font-weight: 600;
+		color: #444444;
+		letter-spacing: 0.08em;
+		margin-left: 10px;
+		margin-right: 2px;
+		margin-bottom: 2px;
+		-webkit-transition: color .5s linear, background-color .5s ease-in-out;
+		-moz-transition: color .5s linear, background-color .5s ease-in-out;
+		-o-transition: color .5s linear, background-color .5s ease-in-out;
+		transition: color .5s linear, background-color .5s ease-in-out;
+	}
+	
+	.s6 i {
+		font-size: 16px !important;
+		font-weight: bold;
+	}
+	
+	.s6:hover {
+		background: #efefef;
+		border: 1px solid #efefef;
+		-webkit-transition: color .10s linear, background-color .10s ease-in-out;
+		-moz-transition: color .10s linear, background-color .10s ease-in-out;
+		-o-transition: color .10s linear, background-color .10s ease-in-out;
+		transition: color .10s linear, background-color .10s ease-in-out;
+		webkit-transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+		transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+	
+	.anchor {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		cursor: pointer;
+	}
+	
+	.s7 {
+		position: relative;
+		float: left;
+	}
+	
+	.s8 {
+		position: relative;
+		overflow: hidden;
+		margin-bottom: 15px;
+	}
+	
+	.orderTable {
+		display: table;
+		width: 100%;
+		border: 1px #e2e9e6 solid;
+		overflow: hidden;
+		background: white;
+		height: 40px;
+		background: #42a5f5;
+		color: white;
+	}
+	
+	.orderTable_col1 {
+		display: table-cell;
+		padding: 10px;
+		width: 30px;
+		min-width: 28px;
+		vertical-align: middle;
+		table-layout: fixed;
+	}
+	
+	.orderTable_col2 {
+		display: table-cell;
+		border-left: 1px #e2e9e6 solid;
+		padding: 0px 15px;
+		width: 70%;
+	}
+	
+	.orderTable_col3 {
+		display: table-cell;
+		vertical-align: middle;
+		border-left: 1px #e2e9e6 solid;
+		/* padding-left: 15px; */
+		text-align: center;
+		min-width: 100px;
+	}
+	
+	.orderTable_col4 {
+		display: table-cell;
+		vertical-align: middle;
+		border-left: 1px #e2e9e6 solid;
+		text-align: center;
+		width: 150px;
+		min-width: 150px;
+		table-layout: fixed;
+	}
+	
+	.orderTable_col5 {
+		position: relative;
+		display: table-cell;
+		border-left: 1px #e2e9e6 solid;
+		border-right: 2px #e2e9e6 solid;
+		padding: 10px;
+		width: 30px;
+		min-width: 30px;
+		vertical-align: middle;
+		cursor: pointer;
+		table-layout: fixed;
+		text-align: center;
+	}
+	
+	.customerTable {
+		float: left;
+		width: 50%;
+		-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+		-moz-box-sizing: border-box; /* Firefox, other Gecko */
+		box-sizing: border-box; /* Opera/IE 8+ */
+		padding-right: 15px;
+		padding-top: 11px;
+	}
+	
+	.itemTable {
+		float: left;
+		width: 50%;
+		border-left: 1px #e2e9e6 solid;
+		-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+		-moz-box-sizing: border-box; /* Firefox, other Gecko */
+		box-sizing: border-box; /* Opera/IE 8+ */
+		padding-left: 15px;
+		height: 40px;
+		padding-top: 11px;
+	}
+	
+	.s9 {
+		position: relative;
+		overflow: hidden;
+		height: 0px;
+		background: white;
+		border: 1px solid #e2e9e6;
+		padding: 16px 20px;
+		padding-bottom: 0px;
+		margin: 1px 1px 30px 1px;
+		box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.17);
+		transition-property: all;
+		transition-duration: .5s;
+		transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+	}
+	
+	.s10 {
+		height: 20px;
+		background: #2e2e2e;
+		border: 1px #e2e9e6 solid;
+		border-bottom: none;
+		padding: 5px;
+		text-align: center;
+		color: white;
+		box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.17);
+	}
+	
+	.s11 {
+		position: relative;
+		overflow: hidden;
+		margin-bottom: 10px;
+		margin-left: 0px;
+	}
+	
+	.s12 {
+		float: left;
+		width: 105px;
+		padding-top: 12px;
+		text-align: right;
+		padding-right: 20px;
+		font-weight: bold;
+		color: #212121;
+		font-family: sans-serif;
+	}
+	
+	.s13 {
+		float: left;
+		width: 40%;
+		border: none;
+		border-bottom: 1px solid #e2e9e6;
+		margin-left: 20px;
+		margin-right: 20px;
+		margin-bottom: 15px;
+		height: 42px;
+		font-size: 14px;
+		color: #212121;
+		font-family: sans-serif;
+	}
+	
+	.s13:focus {
+		outline: none;
+		border-bottom: 1px solid #42a5f5;
+	}
+	
+	.s14 {
+		position: relative;
+		float: left;
+		padding: 10px 15px;
+		margin-left: 20px;
+		margin-right: 15px;
+		margin-bottom: 15px;
+		font-size: 12px;
+		color: #ffffff;
+		background-color: #128ef2;
+		border: 1px solid #0d89ed;
+		border-radius: 2px;
+		cursor: pointer;
+		font-weight: bold;
+		font-family: sans-serif;
+	}
+	
+	.s14:hover {
+		background: #42a5f5;
+		border: 1px solid #42a5f5;
+	}
+	
+	.s15 {
+		position: relative;
+		float: left;
+		padding: 10px 15px;
+		margin-right: 20px;
+		margin-bottom: 15px;
+		font-size: 12px;
+		color: #444;
+		background-color: #ffffff;
+		border: 1px solid #efefef;
+		border-radius: 2px;
+		cursor: pointer;
+		font-weight: bold;
+		font-family: sans-serif;
+	}
+	
+	.s15:hover {
+		background: #efefef;
+		border: 1px solid #efefef;
+	}
+	
+	.s16 input {
+		width: 15px;
+		height: 15px;
+		margin-right: 8px;
+	}
+	
+	.s17 {
+		margin-top: 2px;
+		font-size: 13px;
+		color: #9E9E9E;
+		-webkit-transition: color .5s linear, background-color .5s ease-in-out;
+		-moz-transition: color .5s linear, background-color .5s ease-in-out;
+		-o-transition: color .5s linear, background-color .5s ease-in-out;
+		transition: color .5s linear, background-color .5s ease-in-out;
+	}
+	
+	.s18 {
+		float: left;
+		position: relative;
+		margin-left: 18px;
+		margin-right: 10px;
+		margin-bottom: 10px;
+	}
+	
+	.OrderTable_pending {
+		color: #FB8C00;
+		font-weight: bold;
+		-webkit-transition: color .5s linear, background-color .5s ease-in-out;
+		-moz-transition: color .5s linear, background-color .5s ease-in-out;
+		-o-transition: color .5s linear, background-color .5s ease-in-out;
+		transition: color .5s linear, background-color .5s ease-in-out;
+	}
+	
+	.OrderTable_delivery {
+		color: #8BC34A;
+		font-weight: bold;
+		-webkit-transition: color .5s linear, background-color .5s ease-in-out;
+		-moz-transition: color .5s linear, background-color .5s ease-in-out;
+		-o-transition: color .5s linear, background-color .5s ease-in-out;
+		transition: color .5s linear, background-color .5s ease-in-out;
+	}
+	
+	.OrderTable_finish {
+		color: #42a5f5;
+		font-weight: bold;
+		-webkit-transition: color .5s linear, background-color .5s ease-in-out;
+		-moz-transition: color .5s linear, background-color .5s ease-in-out;
+		-o-transition: color .5s linear, background-color .5s ease-in-out;
+		transition: color .5s linear, background-color .5s ease-in-out;
+	}
+	</ui:style>
+	<g:ScrollPanel ui:field="scrollTable" styleName="{style.s1}">
+		<g:HTMLPanel styleName="{style.s2}">
+			<g:HTMLPanel styleName="{style.s3}">
+				<g:HTMLPanel styleName="{style.s4}">
+					<g:Label ui:field="orderTableTitle" styleName="{style.s5}">Đơn Bán Hàng</g:Label>
+
+					<g:HTMLPanel styleName="{style.s6}">
+						<div style="float:left; margin-right: 5px; margin-top:1px;">
+							<i class="material-icons ItemTable_s1">&#xE145;</i>
+						</div>
+						<div style="float:left; line-height: 1.6;">
+							<g:Label>Tạo Đơn Hàng</g:Label>
+						</div>
+						<g:Anchor ui:field="addOrderButton" styleName="{style.anchor}"></g:Anchor>
+					</g:HTMLPanel>
+					
+					<g:HTMLPanel ui:field="filterButtonPanel" styleName="{style.s6}">
+						<div style="float:left; margin-right: 8px; margin-top:1px;">
+							<i class="material-icons ItemTable_s1">&#xE152;</i>
+						</div>
+						<div style="float:left; line-height: 1.6;">
+							<g:Label>Bộ Lọc</g:Label>
+						</div>
+						<g:Anchor ui:field="filterButton" styleName="{style.anchor}"></g:Anchor>
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+				
+				<g:HTMLPanel ui:field="filterTable" visible="false">
+					<g:HTMLPanel styleName="{style.s10}">
+						<g:Label>Bộ Lọc</g:Label>
+					</g:HTMLPanel>
+					<g:HTMLPanel ui:field="filterTableContent" styleName="{style.s9}" visible="true">
+						<g:HTMLPanel styleName="{style.s11}">
+							<g:Label styleName="{style.s12}">Lọc theo</g:Label>
+							<g:ListBox ui:field="filterListBox" styleName="{style.s13}"></g:ListBox>
+						</g:HTMLPanel>
+						
+						<g:HTMLPanel styleName="{style.s11}">
+							<g:Label styleName="{style.s12}"></g:Label>
+							<g:HTMLPanel>
+								<g:HorizontalPanel styleName="{style.s18}">
+									<g:CheckBox ui:field="pendingBox" styleName="{style.s16}"></g:CheckBox>
+									<g:Label ui:field="pendingBoxText" styleName="{style.s17}">Đợi giao hàng</g:Label>
+									<g:Anchor ui:field="pendingBoxAnchor" styleName="{style.anchor}"></g:Anchor>
+								</g:HorizontalPanel>
+								<g:HorizontalPanel styleName="{style.s18}">
+									<g:CheckBox ui:field="deliveryBox" styleName="{style.s16}"></g:CheckBox>
+									<g:Label ui:field="deliveryBoxText" styleName="{style.s17}">Đang giao hàng</g:Label>
+									<g:Anchor ui:field="deliveryBoxAnchor" styleName="{style.anchor}"></g:Anchor>
+								</g:HorizontalPanel>
+								<g:HorizontalPanel styleName="{style.s18}">
+									<g:CheckBox ui:field="finishBox" styleName="{style.s16}"></g:CheckBox>
+									<g:Label ui:field="finishBoxText" styleName="{style.s17}">Hoàn thành</g:Label>
+									<g:Anchor ui:field="finishBoxAnchor" styleName="{style.anchor}"></g:Anchor>
+								</g:HorizontalPanel>				
+							</g:HTMLPanel>
+						</g:HTMLPanel>
+						
+						<div style="margin-top:20px;"></div>
+						<g:HTMLPanel styleName="{style.s11}">
+							<g:Label styleName="{style.s12}"></g:Label>
+							<g:HTMLPanel styleName="{style.s14}">
+								Lọc Đơn Hàng
+								<g:Anchor ui:field="startFilterButton" styleName="{style.anchor}"></g:Anchor>
+							</g:HTMLPanel>
+							<g:HTMLPanel styleName="{style.s15}">
+								Tắt Bộ Lọc
+								<g:Anchor ui:field="cancelFilterButton" styleName="{style.anchor}"></g:Anchor>
+							</g:HTMLPanel>
+						</g:HTMLPanel>
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel styleName="{style.orderTable}">
+					<g:HTMLPanel styleName="{style.orderTable_col1}"></g:HTMLPanel>
+					<g:HTMLPanel styleName="{style.orderTable_col2}">
+						<g:HTMLPanel styleName="{style.customerTable}">Khách hàng</g:HTMLPanel>
+						<g:HTMLPanel styleName="{style.itemTable}">Sản phẩm</g:HTMLPanel>
+					</g:HTMLPanel>
+					<g:Label styleName="{style.orderTable_col3}">Tổng tiền</g:Label>
+					<g:Label styleName="{style.orderTable_col3}">Ngày tạo đơn</g:Label>
+					<g:HTMLPanel styleName="{style.orderTable_col4}">Tình trạng</g:HTMLPanel>
+					<g:HTMLPanel styleName="{style.orderTable_col5}"></g:HTMLPanel>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel ui:field="orderTable" styleName="{style.s8}"></g:HTMLPanel>
+
+				<m:Pager styleName="{style.s7}" ui:field="pager"></m:Pager>
+			</g:HTMLPanel>
+		</g:HTMLPanel>
+	</g:ScrollPanel>
+</ui:UiBinder> 

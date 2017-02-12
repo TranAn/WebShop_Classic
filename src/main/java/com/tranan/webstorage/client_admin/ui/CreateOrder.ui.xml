@@ -1,0 +1,579 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:g2="urn:import:com.google.gwt.user.datepicker.client">
+	<ui:style>
+	@external .CreateOrder_s1, .CreateOrder_s2, .CreateOrder_s3, .CreateOrder_s4, .CreateOrder_s4_left, .CreateOrder_s5, .CreateOrder_s6, .CreateOrder_s7, .CreateOrder_s8, ..CreateOrder_s9, .anchor, .CreateOrder_pending, .CreateOrder_delivery, .CreateOrder_finish;
+	.s1 {
+		position: relative;
+		width: 100%;
+		overflow-x: hidden;
+		/* background: black; */
+	}
+	
+	.s2 {
+		position: relative;
+		overflow: hidden;
+		margin: 25px 20px;
+		background: #fff;
+		border: 1px solid #e2e9e6;
+		box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.17);
+	}
+	
+	.s3 {
+		position: relative;
+		overflow: hidden;
+		background: #f5f5f5;
+	}
+	
+	.s4 {
+		position: relative;
+		float: left;
+		width: 160px;
+		height: 40px;
+		background: #fff;
+		color: #42a5f5;
+		background-color: #ffffff;
+		border-right: 1px solid #e2e9e6;
+		cursor: pointer;
+		font-weight: 600;
+		line-height: 3;
+		box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.17);
+		margin-top: 1px;
+		font-family: sans-serif;
+	}
+	
+	.s4 i {
+		font-size: 15px;
+	}
+	
+	.anchor {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		cursor: pointer;
+	}
+	
+	.s5 {
+		position: relative;
+		overflow: hidden;
+		margin-top: 15px;
+		margin-left: 10px;
+		margin-right: 10px;
+		/* margin-bottom: 10px; */
+	}
+	
+	.s6 {
+		float: left;
+		width: 190px;
+		padding-top: 14px;
+		text-align: right;
+		padding-left: 20px;
+		padding-right: 20px;
+		font-weight: bold;
+		color: #212121;
+		font-family: sans-serif;
+	}
+	
+	.s7 {
+		float: left;
+		width: 60%;
+		border: none;
+		border-bottom: 1px solid #e2e9e6;
+		margin-left: 20px;
+		margin-right: 20px;
+		/* margin-bottom: 15px; */
+		height: 42px;
+		font-size: 15px;
+		color: #333333;
+	}
+	
+	.s7:focus {
+		outline: none;
+		border-bottom: 1px solid #42a5f5;
+	}
+	
+	.s8 {
+		position: relative;
+		float: left;
+		padding: 10px 15px;
+		margin-left: 20px;
+		margin-right: 15px;
+		margin-bottom: 15px;
+		font-size: 12px;
+		color: #ffffff;
+		background-color: #128ef2;
+		border: 1px solid #0d89ed;
+		border-radius: 2px;
+		cursor: pointer;
+		font-weight: bold;
+		font-family: sans-serif;
+	}
+	
+	.s8:hover {
+		background: #42a5f5;
+		border: 1px solid #42a5f5;
+	}
+	
+	.s9 {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		cursor: pointer;
+	}
+	
+	.s10 {
+		position: relative;
+		float: left;
+		padding: 10px 15px;
+		margin-right: 20px;
+		margin-bottom: 15px;
+		font-size: 12px;
+		color: #444;
+		background-color: #ffffff;
+		border: 1px solid #efefef;
+		border-radius: 2px;
+		cursor: pointer;
+		font-weight: bold;
+		font-family: sans-serif;
+	}
+	
+	.s10:hover {
+		background: #efefef;
+		border: 1px solid #efefef;
+	}
+	
+	.s11 {
+		position: relative;
+		overflow: hidden;
+		margin-top: 25px;
+		margin-left: 45px;
+		margin-right: 45px;
+		margin-bottom: 20px;
+	}
+	
+	.s12 {
+		float: left;
+		font-size: 16px;
+		font-weight: bold;
+		color: #212121;
+		font-family: sans-serif;
+	}
+	
+	.s13 {
+		float: left;
+		margin-left: 16px;
+		margin-right: 20px;
+		margin-top: 14px;
+		/* margin-bottom: 15px; */
+		font-size: 15px;
+		color: #333333;
+	}
+	
+	.s14 input {
+		width: 15px;
+		height: 15px;
+		margin-right: 10px;
+	}
+	
+	.s15 {
+		margin-top: 2px;
+		font-size: 13px;
+		color: #9E9E9E;
+		-webkit-transition: color .5s linear, background-color .5s ease-in-out;
+		-moz-transition: color .5s linear, background-color .5s ease-in-out;
+		-o-transition: color .5s linear, background-color .5s ease-in-out;
+		transition: color .5s linear, background-color .5s ease-in-out;
+	}
+	
+	.s16 {
+		position: relative;
+		overflow: hidden;
+		margin-top: 35px;
+		margin-left: 10px;
+		margin-right: 10px;
+		margin-bottom: 15px;
+		/* margin-bottom: 10px; */
+	}
+	
+	.s17 {
+		float: left;
+		font-size: 16px;
+		font-weight: bold;
+		color: #212121;
+		font-family: sans-serif;
+	}
+	
+	.s18 {
+		float: right;
+		color: #42a5f5;
+		cursor: pointer;
+	}
+	
+	.s19 {
+		
+	}
+	
+	.s20 {
+		position: relative;
+	}
+	
+	.CreateOrder_s1 {
+		font-size: 14px;
+		margin-left: 2px;
+	}
+	
+	.CreateOrder_s2 {
+		display: table;
+		width: 100%;
+		border-top: 1px #e2e9e6 solid;
+		overflow: hidden;
+	}
+	
+	.CreateOrder_s3 {
+		display: table-cell;
+		padding: 10px;
+		width: 50px;
+		vertical-align: middle;
+		text-align: center;
+	}
+	
+	.CreateOrder_s4 {
+		position: relative;
+		display: table-cell;
+		vertical-align: middle;
+		border-left: 1px #e2e9e6 solid;
+		/* padding-left: 15px; */
+		text-align: center;
+		min-width: 100px;
+		width: 100px;
+		table-layout: fixed;
+	}
+	
+	.CreateOrder_s4 input {
+		position: relative;
+		border: none;
+		color: #333;
+		width: 80%;
+		text-align: center;
+		border-bottom: 1px solid #e2e9e6;
+	}
+	
+	.CreateOrder_s4 input:focus {
+		outline: none;
+		border-bottom: 1px solid #42a5f5;
+	}
+	
+	.CreateOrder_s4_left {
+		display: table-cell;
+		vertical-align: middle;
+		border-left: 1px #e2e9e6 solid;
+		padding-left: 15px;	
+	}
+	
+	.CreateOrder_s5 {
+		position: relative;
+		display: table-cell;
+		vertical-align: middle;
+		border-left: 1px #e2e9e6 solid;
+		text-align: center;
+		min-width: 90px;
+	}
+	
+	.CreateOrder_s5 input {
+		position: relative;
+		border: none;
+		color: #333;
+		width: 80%;
+		text-align: center;
+		border-bottom: 1px solid #e2e9e6;
+		padding-left: 10px;
+	}
+	
+	.CreateOrder_s5 input:focus {
+		outline: none;
+		border-bottom: 1px solid #42a5f5;
+	}
+	
+	.CreateOrder_s6 {
+		display: table;
+		width: 100%;
+		border-top: 1px #e2e9e6 solid;
+		border-bottom: 1px #e2e9e6 solid;
+		overflow: hidden;
+		height: 40px;
+		background: #ffffff;
+		/* color: white; */
+		margin-bottom: 20px;
+		font-weight: bold;
+	}
+	
+	.CreateOrder_s7 {
+		display: table-cell;
+		vertical-align: middle;
+		border-left: 1px #e2e9e6 solid;
+		padding-left: 15px;
+		padding-right: 15px;
+		text-align: right;
+	}
+	
+	.CreateOrder_s8 {
+		display: table;
+		width: 100%;
+		border-top: 1px #e2e9e6 solid;
+		overflow: hidden;
+		height: 30px;
+		background: #2e2e2e;
+		color: white;
+		margin-top: 30px;
+	}
+	
+	.CreateOrder_s9 {
+		position: relative;
+		display: table-cell;
+		vertical-align: middle;
+		border-left: 1px #e2e9e6 solid;
+		/* padding-left: 15px; */
+		text-align: center;
+		min-width: 40px;
+		width: 40px;
+		table-layout: fixed;
+		cursor: pointer;
+	}
+	
+	.CreateOrder_s9:hover {
+		color: red;
+	}
+	
+	.CreateOrder_pending {
+		color: #FB8C00;
+		font-weight: bold;
+		-webkit-transition: color .5s linear, background-color .5s ease-in-out;
+		-moz-transition: color .5s linear, background-color .5s ease-in-out;
+		-o-transition: color .5s linear, background-color .5s ease-in-out;
+		transition: color .5s linear, background-color .5s ease-in-out;
+	}
+	
+	.CreateOrder_delivery {
+		color: #8BC34A;
+		font-weight: bold;
+		-webkit-transition: color .5s linear, background-color .5s ease-in-out;
+		-moz-transition: color .5s linear, background-color .5s ease-in-out;
+		-o-transition: color .5s linear, background-color .5s ease-in-out;
+		transition: color .5s linear, background-color .5s ease-in-out;
+	}
+	
+	.CreateOrder_finish {
+		color: #42a5f5;
+		font-weight: bold;
+		-webkit-transition: color .5s linear, background-color .5s ease-in-out;
+		-moz-transition: color .5s linear, background-color .5s ease-in-out;
+		-o-transition: color .5s linear, background-color .5s ease-in-out;
+		transition: color .5s linear, background-color .5s ease-in-out;
+	}
+	
+	.s21 {
+		color: #42a5f5;
+		cursor: pointer;
+		margin-left: 15px;
+	}
+	
+	.s23 {
+		position: relative;
+		overflow: hidden;
+		margin-top: 30px;
+		margin-left: 10px;
+		margin-right: 10px;
+		/* margin-bottom: 10px; */
+	}
+	</ui:style>
+	<g:ScrollPanel ui:field="scroll" styleName="{style.s1}">
+		<g:HTMLPanel styleName="{style.s2}">
+			<g:HTMLPanel styleName="{style.s3}">
+				<g:HTMLPanel ui:field="itemTabHeader" styleName="{style.s4}">
+					<div style="float: left; margin: 2px 5px 0px 24px;">
+						<i class="material-icons">&#xE24D;</i>
+					</div>
+					<g:Label>Tạo Đơn Hàng</g:Label>
+					<g:Anchor ui:field="itemTabBtn" styleName="{style.anchor}"></g:Anchor>
+				</g:HTMLPanel>
+			</g:HTMLPanel>
+
+			<g:HTMLPanel>
+				<g:HTMLPanel styleName="{style.s11}">
+					<g:Label styleName="{style.s12}">Thông Tin Khách Hàng</g:Label>
+					<g:Anchor ui:field="findCustomer" styleName="{style.s18}">
+						<i class="material-icons CreateOrder_s1">&#xE8B6;</i>
+						Tìm Khách Hàng
+					</g:Anchor>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel styleName="{style.s5}">
+					<g:HTMLPanel styleName="{style.s6}">
+						<g:Label>Tên Khách Hàng</g:Label>
+					</g:HTMLPanel>
+					<g:TextBox ui:field="nameCustomer" styleName="{style.s7}"></g:TextBox>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel styleName="{style.s5}">
+					<g:HTMLPanel styleName="{style.s6}">
+						<g:Label>Địa Chỉ</g:Label>
+					</g:HTMLPanel>
+					<g:TextBox ui:field="addressCustomer" styleName="{style.s7}"></g:TextBox>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel styleName="{style.s5}">
+					<g:HTMLPanel styleName="{style.s6}">
+						<g:Label>Số Điện Thoại</g:Label>
+					</g:HTMLPanel>
+					<g:TextBox ui:field="phoneCustomer" width="30%"
+						styleName="{style.s7}"></g:TextBox>
+				</g:HTMLPanel>
+				
+				<g:HTMLPanel styleName="{style.s5}">
+					<g:HTMLPanel styleName="{style.s6}">
+						<g:Label>Email</g:Label>
+					</g:HTMLPanel>
+					<g:TextBox ui:field="emailCustomer" width="30%"
+						styleName="{style.s7}"></g:TextBox>
+				</g:HTMLPanel>
+				
+				<g:HTMLPanel ui:field="newCustomerPanel" styleName="{style.s23}" visible="false">
+					<g:HTMLPanel styleName="{style.s6}">
+						<g:Label></g:Label>
+					</g:HTMLPanel>
+					<g:Anchor ui:field="newCustomer" styleName="{style.s21}">
+						<i class="material-icons">&#xE03B;</i>
+						Tạo Khách Hàng Mới
+					</g:Anchor>
+				</g:HTMLPanel>
+
+				<div
+					style="border-bottom: 1px #e2e9e6 solid; width: 100%; margin: 35px 0px 30px 0px;"></div>
+
+				<g:HTMLPanel styleName="{style.s11}">
+					<g:Label styleName="{style.s17}">Thông Tin Đơn Hàng</g:Label>
+					<g:Anchor ui:field="addItemButton" styleName="{style.s18}">
+						<i class="material-icons CreateOrder_s1">&#xE145;</i>
+						Thêm Sản Phẩm
+					</g:Anchor>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel ui:field="orderDetailPanel">
+					<g:HTMLPanel styleName="CreateOrder_s8">
+						<g:HTMLPanel styleName="CreateOrder_s3">
+							<g:HTMLPanel width="50px">Ảnh</g:HTMLPanel>
+						</g:HTMLPanel>
+						<g:Label width="70%" styleName="CreateOrder_s4_left">Tên sản phẩm</g:Label>
+						<g:Label styleName="CreateOrder_s4">Đơn giá</g:Label>
+						<g:Label styleName="CreateOrder_s5">Số lượng</g:Label>
+						<g:Label styleName="CreateOrder_s4">Tổng tiền</g:Label>
+						<g:HTMLPanel styleName="CreateOrder_s9"/>										
+					</g:HTMLPanel>
+	
+					<g:HTMLPanel ui:field="itemTable" styleName="{style.s19}">
+						<!-- <g:HTMLPanel styleName="CreateOrder_s2">
+							<g:HTMLPanel styleName="CreateOrder_s3">
+								<g:Image width="50px" height="50px" url="../Resources/1.png"></g:Image>
+							</g:HTMLPanel>
+							<g:Label width="70%" styleName="CreateOrder_s4_left">Item 1</g:Label>
+							<g:HTMLPanel styleName="CreateOrder_s4">
+								<g:LongBox >1.000.000</g:LongBox>
+							</g:HTMLPanel>	
+							<g:HTMLPanel styleName="CreateOrder_s5">						
+								<g:IntegerBox >2</g:IntegerBox>
+							</g:HTMLPanel>
+							<g:Label styleName="CreateOrder_s4">2.000.000</g:Label>
+							<g:HTMLPanel styleName="CreateOrder_s9">
+								<i class="material-icons">&#xE872;</i>
+								<g:Anchor styleName="{style.anchor}"></g:Anchor>
+							</g:HTMLPanel>
+						</g:HTMLPanel>
+						<g:HTMLPanel styleName="CreateOrder_s2">
+							<g:HTMLPanel styleName="CreateOrder_s3">
+								<g:Image width="50px" height="50px" url="../Resources/2.png"></g:Image>
+							</g:HTMLPanel>
+							<g:Label width="70%" styleName="CreateOrder_s4_left">Item 2</g:Label>
+							<g:Label styleName="CreateOrder_s4">1.000.000</g:Label>
+							<g:Label styleName="CreateOrder_s5">100</g:Label>
+							<g:Label styleName="CreateOrder_s4">1.000.000</g:Label>
+							<g:HTMLPanel styleName="CreateOrder_s9">
+								<i class="material-icons">&#xE872;</i>
+							</g:HTMLPanel>
+						</g:HTMLPanel> -->
+					</g:HTMLPanel>
+	
+					<g:HTMLPanel styleName="CreateOrder_s6">
+						<g:Label styleName="CreateOrder_s7">Tổng tiền</g:Label>
+						<g:Label ui:field="txbSum" width="100px" styleName="CreateOrder_s4">0</g:Label>
+						<g:HTMLPanel styleName="CreateOrder_s9"/>								
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel styleName="{style.s5}">
+					<g:HTMLPanel styleName="{style.s6}">
+						<g:Label>Ngày Tạo Đơn</g:Label>
+					</g:HTMLPanel>
+					<g2:DateBox ui:field="createDateBox" width="30%"
+						styleName="{style.s7}"></g2:DateBox>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel styleName="{style.s5}">
+					<g:HTMLPanel styleName="{style.s6}">
+						<g:Label>Kênh Bán</g:Label>
+					</g:HTMLPanel>
+					<g:SuggestBox ui:field="saleChannelBox" width="30%" styleName="{style.s7}"></g:SuggestBox>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel styleName="{style.s5}">
+					<g:HTMLPanel styleName="{style.s6}">
+						<g:Label>Tình Trạng</g:Label>
+					</g:HTMLPanel>
+					<g:HTMLPanel styleName="{style.s13}">
+						<g:HorizontalPanel styleName="{style.s20}">
+							<g:CheckBox ui:field="pendingBox" styleName="{style.s14}"></g:CheckBox>
+							<g:Label ui:field="pendingBoxText" styleName="{style.s15}">Đợi giao hàng</g:Label>
+							<g:Anchor ui:field="pendingBoxAnchor" styleName="anchor"></g:Anchor>
+						</g:HorizontalPanel>
+						<div style="margin-top: 8px;"></div>
+						<g:HorizontalPanel styleName="{style.s20}">
+							<g:CheckBox ui:field="deliveryBox" styleName="{style.s14}"></g:CheckBox>
+							<g:Label ui:field="deliveryBoxText" styleName="{style.s15}">Đang giao hàng</g:Label>
+							<g:Anchor ui:field="deliveryBoxAnchor" styleName="anchor"></g:Anchor>
+						</g:HorizontalPanel>
+						<div style="margin-top: 8px;"></div>
+						<g:HorizontalPanel styleName="{style.s20}">
+							<g:CheckBox ui:field="finishBox" styleName="{style.s14}"></g:CheckBox>
+							<g:Label ui:field="finishBoxText" styleName="{style.s15}">Hoàn thành</g:Label>
+							<g:Anchor ui:field="finishBoxAnchor" styleName="anchor"></g:Anchor>
+						</g:HorizontalPanel>
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+				
+				<g:HTMLPanel ui:field="finishDatePanel" styleName="{style.s5}" visible="false">
+					<g:HTMLPanel styleName="{style.s6}">
+						<g:Label>Ngày Hoàn Thành</g:Label>
+					</g:HTMLPanel>
+					<g2:DateBox ui:field="finishDateBox" width="30%"
+						styleName="{style.s7}"></g2:DateBox>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel styleName="{style.s16}">
+					<g:Label styleName="{style.s6}"></g:Label>
+					<g:HTMLPanel styleName="{style.s8}">
+						Lưu Đơn Hàng
+						<g:Anchor ui:field="saveButton" styleName="{style.s9}"></g:Anchor>
+					</g:HTMLPanel>
+					<g:HTMLPanel styleName="{style.s10}">
+						Hủy Bỏ
+						<g:Anchor ui:field="exitButton" styleName="{style.s9}"></g:Anchor>
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+			</g:HTMLPanel>
+
+		</g:HTMLPanel>
+	</g:ScrollPanel>
+</ui:UiBinder> 

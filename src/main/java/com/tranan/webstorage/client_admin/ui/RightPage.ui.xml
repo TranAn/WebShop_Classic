@@ -1,0 +1,196 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:pg="urn:import:com.tranan.webstorage.client_admin.sub_ui">
+	<ui:style>
+	@external .RightPage_s1, .RightPage_s2;
+	.s1 {
+		position: relative;
+		float: left;
+		width: calc(100% - 250px);
+		height: 100%;
+		overflow: hidden;
+		font-family: 'Noto Serif', serif;
+	}
+	
+	.s2 {
+		background: white;
+		height: 64px;
+		border-bottom: 1px solid #eeeeee;
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+	}
+	
+	.s3 {
+		position: relative;
+		float: right;
+		border-left: 1px solid #eeeeee;
+		height: 100%;
+		cursor: pointer;
+	}
+	
+	.s4 {
+		float: left;
+		color: #212121;
+		font-size: 15px;
+		font-weight: 400;
+		font-family: 'Roboto', sans-serif;
+		line-height: 4.3;
+		margin-right: 2px;
+	}
+	
+	.s5 {
+		float: left;
+		margin: 24px 10px 0px 0px;
+	}
+	
+	.RightPage_s1 {
+		font-size: 18px;
+	}
+	
+	.RightPage_s2 {
+		font-size: 25px;
+	}
+	
+	.s6 {
+		position: relative;
+		width: 19px;
+		height: 18px;
+		border-radius: 40px;
+		/* background: #42a5f5; */
+		background: #fb8c00;
+		color: white;
+		font-size: 12px;
+		font-weight: bold;
+		text-align: center;
+		line-height: 1.5;
+	}
+	
+	.s7 {
+		position: relative;
+		float: left;
+		height: 100%;
+	}
+	
+	.s8 {
+		position: relative;
+		width: 100%;
+		overflow: hidden;		
+	}
+	
+	.s9 {
+		position: relative;
+		float: left;
+		height: 100%;
+		border-right: 1px solid #eee;
+		padding: 21px 15px;
+		cursor: pointer;
+		color: #212121; 
+		-webkit-transition: color .5s linear, background-color .5s ease-in-out;
+		-moz-transition: color .5s linear, background-color .5s ease-in-out;
+		-o-transition: color .5s linear, background-color .5s ease-in-out;
+		transition: color .5s linear, background-color .5s ease-in-out;
+	}
+	
+	.s9 i {
+		float: left;
+		color: #212121;
+		font-size: 22px;
+		-webkit-transition: color .5s linear, background-color .5s ease-in-out;
+		-moz-transition: color .5s linear, background-color .5s ease-in-out;
+		-o-transition: color .5s linear, background-color .5s ease-in-out;
+		transition: color .5s linear, background-color .5s ease-in-out;
+	}
+	
+	.s9:hover {
+		background: #efefef;
+		color: #42a5f5;
+		-webkit-transition: color .10s linear, background-color .10s ease-in-out;
+		-moz-transition: color .10s linear, background-color .10s ease-in-out;
+		-o-transition: color .10s linear, background-color .10s ease-in-out;
+		transition: color .10s linear, background-color .10s ease-in-out;
+	}
+	
+	.s9:hover i {
+		color: #42a5f5;
+		-webkit-transition: color .10s linear, background-color .10s ease-in-out;
+		-moz-transition: color .10s linear, background-color .10s ease-in-out;
+		-o-transition: color .10s linear, background-color .10s ease-in-out;
+		transition: color .10s linear, background-color .10s ease-in-out;
+	}
+	
+	.s10 {
+		float:left; 
+		margin-left: 8px; 
+		margin-top: 3px; 
+		font-size: 15px;
+		font-weight: 400;
+    	font-family: "Roboto", sans-serif;
+	}
+	
+	.anchor {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+ 	}
+	</ui:style>
+	<g:HTMLPanel ui:field="right_page" styleName="{style.s1}">
+		<g:HTMLPanel styleName="{style.s2}">
+			<g:HTMLPanel styleName="{style.s7}">
+				<g:HTMLPanel ui:field="OrderToolbar" visible="false">
+					<g:HTMLPanel styleName="{style.s9}">
+						<i class="material-icons">&#xE5DB;</i>
+						<g:Label styleName="{style.s10}">Đơn Nhập</g:Label>
+						<g:Anchor ui:field="orderInBtn" styleName="{style.anchor}"></g:Anchor>
+					</g:HTMLPanel>
+					<g:HTMLPanel styleName="{style.s9}">
+						<i class="material-icons">&#xE5D8;</i>
+						<g:Label styleName="{style.s10}">Đơn Bán</g:Label>
+						<g:Anchor ui:field="orderOutBtn" styleName="{style.anchor}"></g:Anchor>
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+				<g:HTMLPanel ui:field="CreateOrderToolbar" visible="false">
+					<g:HTMLPanel styleName="{style.s9}">
+						<i class="material-icons">&#xE5C4;</i>
+						<g:Label styleName="{style.s10}">Quay Lại</g:Label>
+						<g:Anchor ui:field="createOrderBackBtn" styleName="{style.anchor}"></g:Anchor>
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+				<g:HTMLPanel ui:field="CreateItemToolbar" visible="false">
+					<g:HTMLPanel styleName="{style.s9}">
+						<i class="material-icons">&#xE5C4;</i>
+						<g:Label styleName="{style.s10}">Quay Lại</g:Label>
+						<g:Anchor ui:field="createItemBackBtn" styleName="{style.anchor}"></g:Anchor>
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+			</g:HTMLPanel>
+			
+			<g:HTMLPanel width="500px" styleName="{style.s7}">
+				<pg:NoticePanel></pg:NoticePanel>
+			</g:HTMLPanel>
+
+			<g:HTMLPanel styleName="{style.s3}">
+				<div
+					style="float: left; width: 30px; height: 30px; border-radius: 40px; overflow: hidden; margin: 16px 8px 0px 15px;">
+					<g:Image width="100%" height="100%" url="../Resources/user.png"></g:Image>
+				</div>
+				<g:Label styleName="{style.s4}">User</g:Label>
+				<g:HTMLPanel styleName="{style.s5}">
+					<i class="material-icons RightPage_s1">&#xE5C5;</i>
+				</g:HTMLPanel>
+			</g:HTMLPanel>
+
+			<g:HTMLPanel styleName="{style.s3}">
+				<div style="float: left; margin: 20px 5px 0px 15px;">
+					<!-- <i class="material-icons RightPage_s2">&#xE7F5;</i> -->
+					<i class="material-icons RightPage_s2">&#xE14F;</i>
+				</div>
+				<div style="float: left; margin: 24px 15px 0px 0px;">
+					<g:Label styleName="{style.s6}">2</g:Label>
+				</div>
+			</g:HTMLPanel>
+		</g:HTMLPanel>
+
+		<g:HTMLPanel ui:field="right_page_body" styleName="{style.s8}"></g:HTMLPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

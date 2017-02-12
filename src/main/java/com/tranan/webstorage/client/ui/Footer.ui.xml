@@ -1,0 +1,89 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.s1 {
+		position: relative;
+		background-color: rgba(83, 81, 81, 1);
+		border-top: 0px solid rgba(83, 81, 81, 1);
+		border-bottom: 0px solid rgba(83, 81, 81, 1);
+		height: 400px;
+		width: 100%;
+	}
+	
+	.s2 {
+		position: relative;
+		margin: auto;
+		width: 900px;
+	}
+	
+	.s3 {
+		position: relative;
+		float: left;
+		margin-top: 35px;
+	}
+	
+	.s4 {
+		position: relative;
+		float: left;
+		margin: 35px;
+		margin-left: 100px;
+		margin-right: 0px;
+	}
+	
+	.s5 {
+		float: left;
+		margin-left: 15px;
+		color: #FFFFFF;
+		font-size: 15px;
+	}
+	
+	.s6 {
+		margin-top: 30px;
+		overflow: hidden;
+	}
+	</ui:style>
+	<g:HTMLPanel styleName="{style.s1}">
+		<g:HTMLPanel styleName="{style.s2}">
+			<g:HTMLPanel styleName="{style.s3}">
+				<span
+					style="display: block;color: #D3D3D3;font-size: 16px;letter-spacing: 0.1em;">Contact purchase :</span>
+
+				<div style="margin-top: 30px;overflow:hidden">
+					<span
+						style="float:left;color: #FFFFFF; border-bottom: 1px silver dotted;font-size: 15px;">Phone:</span>
+					<g:Label styleName="{style.s5}"> (04) 123456789</g:Label>
+				</div>
+				<div style="margin-top: 10px;overflow:hidden">
+					<span
+						style="float:left;color: #FFFFFF; border-bottom: 1px silver dotted;font-size: 15px;">Email:</span>
+					<g:Label styleName="{style.s5}"> best_seller@gmail.com</g:Label>
+				</div>
+				<div style="margin-top: 10px;overflow:hidden">
+					<span
+						style="float:left;color: #FFFFFF; border-bottom: 1px silver dotted;font-size: 15px;">Zalo:</span>
+					<g:Label styleName="{style.s5}"> (04) 987654321</g:Label>
+				</div>
+			</g:HTMLPanel>
+
+			<g:HTMLPanel styleName="{style.s4}">
+				<span
+					style="display: block;color: #D3D3D3;font-size: 16px;letter-spacing: 0.1em;">Join us on facebook :</span>
+
+				<g:HTMLPanel styleName="{style.s6}">
+					<g:Image url="Resources/fanpage.png"></g:Image>
+				</g:HTMLPanel>
+			</g:HTMLPanel>
+			
+			<g:HTMLPanel styleName="{style.s4}">
+				<span
+					style="display: block;color: #D3D3D3;font-size: 16px;letter-spacing: 0.1em;">Web design :</span>
+
+				<div style="margin-top: 10px;overflow:hidden">
+					<span
+						style="float:left;color: #FFFFFF; border-bottom: 1px silver dotted;font-size: 15px;">antp17290@gmail.com</span>
+				</div>
+			</g:HTMLPanel>
+		</g:HTMLPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

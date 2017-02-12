@@ -1,0 +1,673 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	@external .CreateItem_s1, .CreateItem_s2, .CreateItem_s3, .CreateItem_s4, .CreateItem_s5, .CreateItem_s6, .CreateItem_s7, .CreateItem_s8, .CreateItem_s9, .CreateItem_s10, .CreateItem_s11, .CreateItem_s12, .CreateItem_s12_deactive, .CreateItem_s13, .CreateItem_s14, .CreateItem_s15, .CreateItem_s16, .CreateItem_s16_active, .CreateItem_s17, .CreateItem_s18, .CreateItem_s19;
+	.s1 {
+		position: relative;
+		width: 100%;
+		overflow-x: hidden;
+		/* background: black; */
+	}
+	
+	.s2 {
+		position: relative;
+		overflow: hidden;
+		margin: 25px 20px;
+		background: #fff;
+		border: 1px solid #e2e9e6;
+		box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.17);
+	}
+	
+	.s3 {
+		position: relative;
+		overflow: hidden;
+		background: #f5f5f5;
+	}
+	
+	.s4 {
+		position: relative;
+		float: left;
+		width: 170px;
+		height: 40px;
+		background: #fff;
+		color: #42a5f5;
+		background-color: #ffffff;
+		border-right: 1px solid #e2e9e6;
+		cursor: pointer;
+		font-weight: 600;
+		line-height: 3;
+		box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.17);
+		margin-top: 1px;
+		font-family: sans-serif;
+	}
+	
+	.s4_deactive {
+		position: relative;
+		float: left;
+		width: 170px;
+		height: 40px;
+		background: #f5f5f5;
+		color: #a4abb2;
+		cursor: pointer;
+		font-weight: 600;
+		line-height: 3;
+		margin-top: 1px;
+		font-family: sans-serif;
+	}
+	
+	.s5 {
+		position: relative;
+		overflow: hidden;
+		margin-top: 15px;
+		margin-left: 10px;
+		margin-right: 10px;
+		margin-bottom: 10px;
+	}
+	
+	.s6 {
+		float: left;
+		width: 14%;
+		padding-top: 14px;
+		text-align: right;
+		padding-left: 20px;
+		padding-right: 20px;
+		font-weight: bold;
+		color: #212121;
+		font-family: sans-serif;
+	}
+	
+	.s7 {
+		overflow: hidden;
+		float: left;
+		padding-left: 20px;
+		padding-right: 20px;
+		color: #212121;
+	}
+	
+	.s8 {
+		position: relative;
+		float: left;
+		height: 120px;
+		margin-right: 10px;
+	}
+	
+	.s9 {
+		width: 120px;
+		height: 100%;
+		float: left;
+		background-color: #f5f5f5;
+	}
+	
+	.s10 {
+		position: relative;
+		float: left;
+		padding: 6px 10px;
+		border: 1px solid #efefef;
+		box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17);
+		-webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17);
+		background: #ffffff;
+		border-radius: 2px;
+		font-size: 12px;
+		cursor: pointer;
+		font-weight: 500;
+		color: #444444;
+		letter-spacing: 0.08em;
+		margin-top: 40px;
+		margin-right: 2px;
+		-webkit-transition: color .5s linear, background-color .5s ease-in-out;
+		-moz-transition: color .5s linear, background-color .5s ease-in-out;
+		-o-transition: color .5s linear, background-color .5s ease-in-out;
+		transition: color .5s linear, background-color .5s ease-in-out;
+	}
+	
+	.s10:hover {
+		background: #efefef;
+		border: 1px solid #efefef;
+		-webkit-transition: background-color .5s ease-in-out;
+		-moz-transition: background-color .5s ease-in-out;
+		-o-transition: background-color .5s ease-in-out;
+		transition: background-color .5s ease-in-out;
+		webkit-transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+		transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+	
+	.s11 {
+		float: left;
+		width: 60%;
+		border: none;
+		border-bottom: 1px solid #e2e9e6;
+		margin-left: 20px;
+		margin-right: 20px;
+		margin-bottom: 15px;
+		height: 42px;
+		font-size: 15px;
+		color: #333333;
+	}
+	
+	.s11:focus {
+		outline: none;
+		border-bottom: 1px solid #42a5f5;
+	}
+	
+	.s12 {
+		position: relative;
+		overflow: hidden;
+		float: left;
+		width: 60%;
+		margin-left: 20px;
+		margin-right: 20px;
+		margin-bottom: 15px;
+		font-size: 15px;
+		color: #333333;
+	}
+	
+	.s13 {
+		position: relative;
+		float: left;
+		padding: 10px 15px;
+		margin-left: 20px;
+		margin-right: 15px;
+		margin-bottom: 15px;
+		font-size: 12px;
+		color: #ffffff;
+		background-color: #128ef2;
+		border: 1px solid #0d89ed;
+		border-radius: 2px;
+		cursor: pointer;
+		font-weight: bold;
+		font-family: sans-serif;
+	}
+	
+	.s13:hover {
+		background: #42a5f5;
+		border: 1px solid #42a5f5;
+	}
+	
+	.s14 {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		cursor: pointer;
+	}
+	
+	.CreateItem_s1 {
+		font-size: 15px;
+	}
+	
+	.CreateItem_s2 {
+		font-size: 44px;
+		color: #757575;
+		margin-top: 40px;
+		margin-left: 40px;
+	}
+	
+	.CreateItem_s3 {
+		position: relative;
+		float: left;
+		width: 120px;
+		height: 120px;
+		margin-right: 10px;
+	}
+	
+	.CreateItem_s3:hover .CreateItem_s4 {
+		height: 30px;
+	}
+	
+	.CreateItem_s4 {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		height: 0px;
+		background: rgba(255, 255, 255, .75);
+		font-family: 'Raleway', sans-serif;
+		text-align: center;
+		font-size: 16px;
+		line-height: 3;
+		transition-property: all;
+		transition-duration: .5s;
+		transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+		cursor: pointer;
+		color: #42a5f5 !important;
+		font-weight: 600;
+		font-family: sans-serif;
+		font-size: 13px;
+		z-index: 2;
+	}
+	
+	.CreateItem_s4 i {
+		color: red !important;
+		font-size: 16px;
+	}
+	
+	.CreateItem_s5 {
+		display: none;
+	}
+	
+	.CreateItem_s6 {
+		width: 120px;
+		height: 100%;
+		float: left;
+		background-color: #f5f5f5;
+	}
+	
+	.s15 {
+		margin-bottom: 10px;
+		overflow: hidden;
+	}
+	
+	.s16 {
+		color: #42a5f5;
+		margin-bottom: 20px;
+		cursor: pointer;
+	}
+	
+	.CreateItem_s7 {
+		overflow: hidden;
+		width: 100%;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	
+	.CreateItem_s8 {
+		float: left;
+		margin-right: 10px;
+	}
+	
+	.CreateItem_s9 {
+		float: left;
+		width: 30%;
+		margin-right: 25px;
+		border: none;
+		border-bottom: 1px solid #e2e9e6;
+		margin-left: 20px;
+		margin-right: 20px;
+		margin-bottom: 15px;
+		height: 30px;
+		font-size: 15px;
+		color: #333333;
+	}
+	
+	.CreateItem_s9:FOCUS {
+		outline: none;
+		border-bottom: 1px solid #42a5f5;
+	}
+	
+	.CreateItem_s10 {
+		position: relative;
+		float: left;
+		cursor: pointer;
+	}
+	
+	.CreateItem_s10:hover i {
+		color: red;
+	}
+	
+	.CreateItem_s11 {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		cursor: pointer;
+	}
+	
+	.s17 {
+		position: relative;
+		float: left;
+		padding: 10px 15px;
+		margin-right: 20px;
+		margin-bottom: 15px;
+		font-size: 12px;
+		color: #444;
+		background-color: #ffffff;
+		border: 1px solid #efefef;
+		border-radius: 2px;
+		cursor: pointer;
+		font-weight: bold;
+		font-family: sans-serif;
+	}
+	
+	.s17:hover {
+		background: #efefef;
+		border: 1px solid #efefef;
+	}
+	
+	.s18 {
+		position: relative;
+		float: left;
+		width: 60%;
+		margin-left: 20px;
+		margin-bottom: 20px;
+	}
+	
+	.s19 {
+		width: 100%;
+		height: 20px;
+		border: 1px #e2e9e6 solid;
+		padding: 5px 14px;
+		background: black;
+		color: white;
+		text-align: center;
+	}
+	
+	.CreateItem_s12 {
+		position: relative;
+		float: left;
+		width: 170px;
+		height: 40px;
+		background: #fff;
+		color: #42a5f5;
+		background-color: #ffffff;
+		border-right: 1px solid #e2e9e6;
+		cursor: pointer;
+		font-weight: 600;
+		line-height: 3;
+		box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.17);
+		margin-top: 1px;
+		font-family: sans-serif;
+	}
+	
+	.CreateItem_s12_deactive {
+		position: relative;
+		float: left;
+		width: 170px;
+		height: 40px;
+		background: #f5f5f5;
+		color: #a4abb2;
+		cursor: pointer;
+		font-weight: 600;
+		line-height: 3;
+		margin-top: 1px;
+		font-family: sans-serif;
+	}
+	
+	.CreateItem_s13 {
+		width: 100%;
+		height: 30px;
+		border: 1px #e2e9e6 solid;
+		border-top: none;
+		padding: 5px 14px;
+	}
+	
+	.CreateItem_s14 {
+		float: left;
+		border: none;
+		color: #333333;
+		margin-top: 6px;
+		width: 85%;
+	}
+	
+	.CreateItem_s14:focus {
+		outline: none;
+		border-bottom: 1px solid #42a5f5;
+	}
+	
+	.CreateItem_s15 {
+		position: relative;
+		float: right;
+		border-left: 1px #e2e9e6 solid;
+		width: 50px;
+		height: 100%;
+		cursor: pointer;
+	}
+	
+	.CreateItem_s15:hover {
+		color: red;
+	}
+	
+	.s20 {
+		width: 60%;
+		float: left;
+		margin-left: 20px;
+		margin-bottom: 15px;
+		color: #333;
+	}
+	
+	.s21 {
+		position: relative;
+		overflow: hidden;
+		width: 100%;
+		margin-top: 10px;
+		border-top: 1px #e2e9e6 solid;
+	}
+	
+	.CreateItem_s16 {
+		position: relative;
+		height: 30px;
+		padding: 5px 14px;
+		background-color: #fff;
+    	border: 1px #e2e9e6 solid;
+    	border-top: none;
+    	color: #444;
+    	cursor: pointer;
+	}
+	
+	.CreateItem_s16_active {
+		background: #9CCC65;
+		color: white;
+	}
+	
+	.CreateItem_s17 {
+		float: left;
+		margin-top: 5px;
+		width: 80%;
+	}
+	
+	.CreateItem_s18 {
+		float: right;
+		border-left: 1px solid #efefef;
+		width: 25px;
+		height: 100%;
+    	padding-left: 15px;
+    	cursor: pointer;
+	}
+	
+	.CreateItem_s18 input {
+		width: 15px;
+		height: 15px;
+		margin-top: 7px;
+	}
+	
+	.CreateItem_s19 {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 120px;
+		height: 30px;
+		background: rgba(255, 255, 255, .75);
+		text-align: center;
+		line-height: 2.3;
+		color: #212121;
+		font-weight: 600;
+		font-family: sans-serif;
+		z-index: 1;
+		cursor: default;
+	}
+	</ui:style>
+
+	<g:ScrollPanel ui:field="scroll" styleName="{style.s1}">
+		<g:HTMLPanel styleName="{style.s2}">
+			<g:HTMLPanel styleName="{style.s3}">
+				<g:HTMLPanel ui:field="itemTabHeader" styleName="{style.s4}">
+					<div style="float: left; margin: 2px 5px 0px 24px;">
+						<i class="material-icons CreateItem_s1">&#xE150;</i>
+					</div>
+					<g:Label>Thêm Sản Phẩm</g:Label>
+					<g:Anchor ui:field="itemTabBtn" styleName="{style.s14}"></g:Anchor>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel ui:field="catalogTabHeader" width="225px" styleName="{style.s4_deactive}">
+					<div style="float: left; margin: 2px 6px 0px 24px;">
+						<i class="material-icons CreateItem_s1">&#xE051;</i>
+					</div>
+					<g:Label>Tạo Danh Mục Sản Phẩm</g:Label>
+					<g:Anchor ui:field="catalogTabBtn" styleName="{style.s14}"></g:Anchor>
+				</g:HTMLPanel>
+			</g:HTMLPanel>
+
+			<!-- Tab1 -->
+			<g:HTMLPanel ui:field="addItemTab" visible="true">
+				<g:HTMLPanel styleName="{style.s5}">
+					<g:HTMLPanel styleName="{style.s6}">
+						<g:Label>Ảnh</g:Label>
+						<span
+							style="font-size: 12px; color:#9E9E9E; line-height:3; font-weight:500;">(Tối đa 5 ảnh)</span>
+					</g:HTMLPanel>
+
+					<g:HTMLPanel styleName="{style.s7}">
+						<g:HTMLPanel ui:field="imgPanel" styleName="{style.s8}">
+							<g:HTMLPanel ui:field="samplePhoto" styleName="{style.s9}">
+								<i class="material-icons CreateItem_s2">&#xE3B0;</i>
+							</g:HTMLPanel>
+							
+							<g:HTMLPanel ui:field="avatarTitle" styleName="CreateItem_s19">Ảnh Đại Diện</g:HTMLPanel>
+						</g:HTMLPanel>
+
+						<g:HTMLPanel ui:field="container" styleName="{style.s10}">
+							<div style="text-align: center; line-height: 1.6;">
+								<g:Label>Thêm Ảnh</g:Label>
+							</div>
+							<a style="position:absolute;top:0;left:0;width:100%;height:100%"
+								id="pick_files" href="javascript:;"></a>
+						</g:HTMLPanel>
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel styleName="{style.s5}">
+					<g:Label styleName="{style.s6}">Tên sản phẩm</g:Label>
+					<g:TextBox ui:field="nameText" styleName="{style.s11}"></g:TextBox>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel styleName="{style.s5}">
+					<g:Label styleName="{style.s6}">Giá gốc</g:Label>
+					<g:HTMLPanel>
+						<g:LongBox ui:field="costText" width="20%" styleName="{style.s11}"></g:LongBox>
+						<span
+							style="float:left; margin-left: 0px; margin-top: 15px; font-size: 15px; color: #BDBDBD;">VND</span>
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel styleName="{style.s5}">
+					<g:Label styleName="{style.s6}">Giá bán</g:Label>
+					<g:HTMLPanel>
+						<g:LongBox ui:field="priceText" width="20%" styleName="{style.s11}"></g:LongBox>
+						<span
+							style="float:left; margin-left: 0px; margin-top: 15px; font-size: 15px; color: #BDBDBD;">VND</span>
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel styleName="{style.s5}" visible="false">
+					<g:Label styleName="{style.s6}">Khuyến mại</g:Label>
+					<g:IntegerBox ui:field="saleText" width="10%"
+						styleName="{style.s11}"></g:IntegerBox>
+					<span
+						style="float:left; margin-left: 0px; margin-top: 15px; font-size: 15px; color: #BDBDBD;">%</span>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel styleName="{style.s5}">
+					<g:Label styleName="{style.s6}">Chủng loại / Màu sắc</g:Label>
+					<div style="float:left; overflow: hidden; width: 60%; margin-left: 20px;">
+						<g:HTMLPanel ui:field="itemTypeTable" styleName="{style.s15}">
+							<!-- <g:HTMLPanel styleName="CreateItem_s7"> <g:Label styleName="CreateItem_s8">Tên 
+								/ Màu</g:Label> <g:TextBox styleName="CreateItem_s9"></g:TextBox> <g:Label 
+								styleName="CreateItem_s8">Số lượng</g:Label> <g:IntegerBox styleName="CreateItem_s9"></g:IntegerBox> 
+								<g:HTMLPanel styleName="CreateItem_s10"> <i class="material-icons">&#xE872;</i> 
+								</g:HTMLPanel> </g:HTMLPanel> -->
+						</g:HTMLPanel>
+						<g:HTMLPanel styleName="{style.s16}">
+							<g:Anchor ui:field="addItemTypeButton">Thêm
+								chủng loại</g:Anchor>
+						</g:HTMLPanel>
+					</div>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel ui:field="quantityPanel" styleName="{style.s5}">
+					<g:Label styleName="{style.s6}">Số lượng</g:Label>
+					<g:IntegerBox ui:field="quantityText" width="10%"
+						styleName="{style.s11}"></g:IntegerBox>
+				</g:HTMLPanel>
+				
+				<g:HTMLPanel ui:field="catalogRow" styleName="{style.s5}">
+					<g:Label styleName="{style.s6}">Danh mục</g:Label>
+					<g:HTMLPanel styleName="{style.s20}">
+					
+						<g:HTMLPanel ui:field="itemCatalogsTable" styleName="{style.s21}">
+							<g:HTMLPanel styleName="CreateItem_s16 CreateItem_s16_active">
+								<g:Label styleName="CreateItem_s17">Catalog1</g:Label>
+								<g:HTMLPanel styleName="CreateItem_s18">
+									<g:CheckBox></g:CheckBox>
+								</g:HTMLPanel>
+							</g:HTMLPanel>	
+						</g:HTMLPanel>
+						
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel styleName="{style.s5}">
+					<g:Label styleName="{style.s6}">Thông tin sản phẩm</g:Label>
+					<g:HTMLPanel styleName="{style.s12}">
+						<g:TextArea ui:field="descriptionTxb"></g:TextArea>
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel styleName="{style.s5}">
+					<g:Label styleName="{style.s6}"></g:Label>
+					<g:HTMLPanel styleName="{style.s13}">
+						Lưu Sản Phẩm
+						<g:Anchor ui:field="saveButton" styleName="{style.s14}"></g:Anchor>
+					</g:HTMLPanel>
+					<g:HTMLPanel styleName="{style.s17}">
+						Hủy Bỏ
+						<g:Anchor ui:field="exitButton" styleName="{style.s14}"></g:Anchor>
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+			</g:HTMLPanel>
+
+			<!-- Tab2 -->
+			<g:HTMLPanel ui:field="editCatalogTab" visible="false">
+				<g:HTMLPanel styleName="{style.s5}">
+					<g:HTMLPanel styleName="{style.s6}">
+						<g:Label>Tên Danh Mục</g:Label>
+					</g:HTMLPanel>
+					<g:TextBox ui:field="nameCatalog" styleName="{style.s11}"></g:TextBox>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel styleName="{style.s5}">
+					<g:Label styleName="{style.s6}"></g:Label>
+					<g:HTMLPanel styleName="{style.s13}">
+						Lưu Danh Mục
+						<g:Anchor ui:field="saveCatalogButton" styleName="{style.s14}"></g:Anchor>
+					</g:HTMLPanel>
+					<g:HTMLPanel styleName="{style.s17}">
+						Hủy Bỏ
+						<g:Anchor ui:field="exitCatalogButton" styleName="{style.s14}"></g:Anchor>
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel styleName="{style.s5}">
+					<g:Label styleName="{style.s6}"></g:Label>
+
+					<g:HTMLPanel ui:field="catalogTable" styleName="{style.s18}" visible="false">
+						<g:HTMLPanel ui:field="catalogTableTitle" styleName="{style.s19}">
+							<g:Label>Danh mục sản phẩm</g:Label>
+						</g:HTMLPanel>
+
+						<!-- <g:HTMLPanel styleName="{style.s20}">
+							<g:TextBox styleName="{style.s21}">Catalog 1</g:TextBox>
+							<g:HTMLPanel styleName="{style.s22}">
+								<div style="margin-top:2px; margin-left: 19px;">
+									<i class="material-icons">&#xE872;</i>
+								</div>
+							</g:HTMLPanel>
+						</g:HTMLPanel> -->
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+			</g:HTMLPanel>
+
+		</g:HTMLPanel>
+	</g:ScrollPanel>
+</ui:UiBinder> 

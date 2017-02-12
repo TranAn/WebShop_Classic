@@ -1,0 +1,93 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	@external .NoticePanel_loading1, .NoticePanel_loading2, .NoticePanel_successImage, .NoticePanel_failImage, .NoticePanel_successNotice, .NoticePanel_failNotice;
+	.s1 {
+		float: left;
+		margin: 15px 15px 0px 20px;
+		width: 30px;
+		height: 30px;
+	}
+	
+	.NoticePanel_successImage {
+		float: left;
+		margin: 18px 15px 0px 20px;
+		width: 25px;
+		height: 25px;
+		border-radius: 100px;
+		background: #C5E1A5;
+	}
+	
+	.NoticePanel_successImage i {
+		font-size: 15px;
+		color: white;
+		margin: 5px 5px;
+	}
+	
+	.NoticePanel_failImage {
+		float: left;
+		margin: 18px 15px 0px 20px;
+		width: 25px;
+		height: 25px;
+		border-radius: 100px;
+		background: #FF8A65;
+	}
+	
+	.NoticePanel_failImage i {
+		font-size: 15px;
+		color: white;
+		margin: 5px 5px;
+	}
+	
+	.NoticePanel_loading1 {
+		float: left;
+		font-family: "Ubuntu", sans-serif;
+		color: #42a5f5;
+		line-height: 4;
+		font-size: 15px;
+		-webkit-transition: color .6s linear, background-color .6s ease-in-out;
+		-moz-transition: color .6s linear, background-color .6s ease-in-out;
+		-o-transition: color .6s linear, background-color .6s ease-in-out;
+		transition: color .6s linear, background-color .6s ease-in-out;
+	}
+	
+	.NoticePanel_loading2 {
+		color: #d3def6;
+		float: left;
+		font-family: "Ubuntu", sans-serif;
+		line-height: 4;
+		font-size: 15px;
+		-webkit-transition: color .6s linear, background-color .6s ease-in-out;
+		-moz-transition: color .6s linear, background-color .6s ease-in-out;
+		-o-transition: color .6s linear, background-color .6s ease-in-out;
+		transition: color .6s linear, background-color .6s ease-in-out;
+	}
+	
+	.NoticePanel_successNotice {
+		float: left;
+		font-family: "Ubuntu", sans-serif;
+		color: #AED581;
+		line-height: 4;
+		font-size: 15px;
+	}
+	
+	.NoticePanel_failNotice {
+		float: left;
+		font-family: "Ubuntu", sans-serif;
+		color: #FF8A65;
+		line-height: 4;
+		font-size: 15px;
+	}
+	</ui:style>
+	<g:HTMLPanel>
+		<g:Image ui:field="loadImg" visible="false" styleName="{style.s1}" url="../Resources/load1.gif"></g:Image>
+		<g:HTMLPanel ui:field="successImg" visible="false" styleName="NoticePanel_successImage">
+			<i class="material-icons">&#xE5CA;</i>
+		</g:HTMLPanel>
+		<g:HTMLPanel ui:field="failImg" visible="false" styleName="NoticePanel_failImage">
+			<i class="material-icons">&#xE5CD;</i>
+		</g:HTMLPanel>
+		<g:Label ui:field="noticeLabel" styleName="NoticePanel_loading1"></g:Label>
+	</g:HTMLPanel>
+</ui:UiBinder> 

@@ -1,0 +1,189 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	@external .Shop_s1, .Shop_s1_open;
+	.s1 {
+		text-align: center;
+		font-size: 35px;
+		letter-spacing: 10px;
+		color: #303132;
+		margin-top: 55px;
+		font-family: times new roman, times, serif;
+		font-weight: 600;
+	}
+	
+	.s2 {
+		width: 40px;
+		margin: auto;
+		margin-top: 30px;
+		border-bottom: 1px black solid;
+	}
+	
+	.s3 {
+		position: relative;
+		width: 900px;
+		margin: auto;
+		margin-top: 40px;
+	}
+	
+	.s4 {
+		position: relative;
+		width: 280px;
+		height: 300px;
+		background: silver;
+		overflow: hidden;
+		cursor: pointer;
+	}
+	
+	.s5 {
+		position: relative;
+		overflow: hidden;
+		margin-bottom: 50px;
+	}
+	
+	.s6 {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+	
+	.s7 {
+		position: relative;
+		float: left;
+		width: 280px;
+		margin: 0px 10px 50px 10px;
+	}
+	
+	.s8 {
+		color: #303132;
+		font-weight: 400;
+		margin-top: 20px;
+		font-size: 18px;
+		font-family: 'Raleway', sans-serif;
+	}
+	
+	.s9 {
+		opacity: 0.5;
+		color: #303132;
+		font-weight: 400;
+		margin-top: 10px;
+		margin-right: 10px;
+		font-size: 15px;
+		font-family: 'Raleway', sans-serif;
+		text-decoration: line-through;
+		float: left;
+	}
+	
+	.s10 {
+		float: left;
+		color: #303132;
+		font-weight: 400;
+		margin-top: 10px;
+		font-size: 15px;
+		font-family: 'Raleway', sans-serif;
+	}
+	
+	.s11 {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+	}
+	
+	.Shop_s1 {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		height: 0px;
+		background: rgba(255, 255, 255, .75);
+		font-family: 'Raleway', sans-serif;
+		text-align: center;
+		font-size: 16px;
+		line-height: 3;
+		transition-property: all;
+		transition-duration: .5s;
+		transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+	}
+	
+	.Shop_s1_open {
+		height: 50px;
+	}
+	</ui:style>
+	<g:HTMLPanel styleName="{style.s5}">
+		<g:Label styleName="{style.s1}">ON SALE</g:Label>
+		<g:HTMLPanel styleName="{style.s2}"></g:HTMLPanel>
+
+		<g:HTMLPanel styleName="{style.s3}">
+			<g:HTMLPanel styleName="{style.s7}">
+				<g:HTMLPanel styleName="{style.s4}">
+					<g:Anchor ui:field="item1" styleName="{style.s11}"></g:Anchor>
+					<g:Image url="Resources/1.png" styleName="{style.s6}"></g:Image>
+					<g:HTMLPanel ui:field="item1_view" styleName="{style.Shop_s1}">QUICK VIEW</g:HTMLPanel>
+				</g:HTMLPanel>
+				<g:Label styleName="{style.s8}">I'm a Product</g:Label>
+				<g:Label styleName="{style.s9}">$19.99</g:Label>
+				<g:Label styleName="{style.s10}">$15.00</g:Label>
+			</g:HTMLPanel>
+
+			<g:HTMLPanel styleName="{style.s7}">
+				<g:HTMLPanel styleName="{style.s4}">
+					<g:Anchor ui:field="item2" styleName="{style.s11}"></g:Anchor>
+					<g:Image url="Resources/2.png" styleName="{style.s6}"></g:Image>
+					<g:HTMLPanel ui:field="item2_view" styleName="{style.Shop_s1}">QUICK VIEW</g:HTMLPanel>
+				</g:HTMLPanel>
+				<g:Label styleName="{style.s8}">I'm a Product</g:Label>
+				<!-- <g:Label styleName="{style.s9}">$18.99</g:Label> -->
+				<g:Label styleName="{style.s10}">$15.00</g:Label>
+			</g:HTMLPanel>
+
+			<g:HTMLPanel styleName="{style.s7}">
+				<g:HTMLPanel styleName="{style.s4}">
+					<g:Anchor ui:field="item3" styleName="{style.s11}"></g:Anchor>
+					<g:Image url="Resources/3.png" styleName="{style.s6}"></g:Image>
+					<g:HTMLPanel ui:field="item3_view" styleName="{style.Shop_s1}">QUICK VIEW</g:HTMLPanel>
+				</g:HTMLPanel>
+				<g:Label styleName="{style.s8}">I'm a Product</g:Label>
+				<g:Label styleName="{style.s9}">$32.50</g:Label>
+				<g:Label styleName="{style.s10}">$20.00</g:Label>
+			</g:HTMLPanel>
+
+			<g:HTMLPanel styleName="{style.s7}">
+				<g:HTMLPanel styleName="{style.s4}">
+					<g:Anchor ui:field="item4" styleName="{style.s11}"></g:Anchor>
+					<g:Image url="Resources/4.png" styleName="{style.s6}"></g:Image>
+					<g:HTMLPanel ui:field="item4_view" styleName="{style.Shop_s1}">QUICK VIEW</g:HTMLPanel>
+				</g:HTMLPanel>
+				<g:Label styleName="{style.s8}">I'm a Product</g:Label>
+				<!-- <g:Label styleName="{style.s9}">$16.99</g:Label> -->
+				<g:Label styleName="{style.s10}">$10.00</g:Label>
+			</g:HTMLPanel>
+
+			<g:HTMLPanel styleName="{style.s7}">
+				<g:HTMLPanel styleName="{style.s4}">
+					<g:Anchor ui:field="item5" styleName="{style.s11}"></g:Anchor>
+					<g:Image url="Resources/5.png" styleName="{style.s6}"></g:Image>
+					<g:HTMLPanel ui:field="item5_view" styleName="{style.Shop_s1}">QUICK VIEW</g:HTMLPanel>
+				</g:HTMLPanel>
+				<g:Label styleName="{style.s8}">I'm a Product</g:Label>
+				<g:Label styleName="{style.s9}">$16.99</g:Label>
+				<g:Label styleName="{style.s10}">$10.00</g:Label>
+			</g:HTMLPanel>
+
+			<g:HTMLPanel styleName="{style.s7}">
+				<g:HTMLPanel styleName="{style.s4}">
+					<g:Anchor ui:field="item6" styleName="{style.s11}"></g:Anchor>
+					<g:Image url="Resources/6.png" styleName="{style.s6}"></g:Image>
+					<g:HTMLPanel ui:field="item6_view" styleName="{style.Shop_s1}">QUICK VIEW</g:HTMLPanel>
+				</g:HTMLPanel>
+				<g:Label styleName="{style.s8}">I'm a Product</g:Label>
+				<!-- <g:Label styleName="{style.s9}">$36.99</g:Label> -->
+				<g:Label styleName="{style.s10}">$30.99</g:Label>
+			</g:HTMLPanel>
+		</g:HTMLPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

@@ -1,0 +1,110 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.s1 {
+		position: relative;
+		overflow: hidden;
+		width: 900px;
+		margin: auto;
+		margin-top: 150px;
+		margin-bottom: 100px;
+	}
+	
+	.s2 {
+		text-align: center;
+		color: #303132;
+		font-weight: 500;
+		font-size: 16px;
+		font-family: 'Raleway', sans-serif;
+		line-height: 1.5em;
+		padding: 0px 100px 0px 100px;
+	}
+	
+	.s3 {
+		position: relative;
+		margin-top: 30px;
+		overflow: hidden;
+	}
+	
+	.s4 {
+		position: relative;
+		float: left;
+		width: 300px;
+		height: 300px;
+		background: silver;
+		margin-right: 10px;
+	}
+	
+	.s5 {
+		position: relative;
+		float: left;
+		width: 565px;
+		margin-left: 25px;
+		overflow: hidden;
+	}
+	
+	.s6 {
+		color: #303132;
+		font-weight: 700;
+		font-size: 16px;
+		font-family: 'Raleway', sans-serif;
+		margin-bottom: 30px;
+	}
+	
+	.s7 {
+		color: #303132;
+		font-weight: 500;
+		font-size: 14px;
+		font-family: 'Raleway', sans-serif;
+		margin-top: 15px;
+	}
+	
+	.s8 {
+		color: #303132;
+		font-weight: 700;
+		font-size: 16px;
+		font-family: 'Raleway', sans-serif;
+		margin-bottom: 30px;
+		text-align: center;
+		letter-spacing: 0.3em;
+	}
+	
+	.s9 {
+		width: 100%;
+		height: 100%;
+	}
+	</ui:style>
+	<g:HTMLPanel styleName="{style.s1}">
+		<g:HTMLPanel styleName="{style.s2}">I'm a paragraph. Click here to add
+			your own text and edit
+			me. It’s easy. Just click “Edit Text” or double
+			click me to add your
+			own content and make changes to the font. I’m a
+			great place for you
+			to tell a story and let your users know a little
+			more about you.
+		</g:HTMLPanel>
+
+		<div style="width: 100%; margin-top: 30px; border-top: 1px #D3D3D3 solid"></div>
+
+		<g:HTMLPanel styleName="{style.s3}">
+			<g:HTMLPanel styleName="{style.s4}">
+				<g:Image styleName="{style.s9}" url="Resources/6_-Online-Shop.jpg"></g:Image>
+			</g:HTMLPanel>
+			<g:HTMLPanel styleName="{style.s5}">
+				<g:Label styleName="{style.s6}">Shop Name</g:Label>
+				<g:Label styleName="{style.s7}">Address: 18 alley 115/16, An duong street</g:Label>
+				<g:Label styleName="{style.s7}">Email: best_seller@gmail.com</g:Label>
+				<g:Label styleName="{style.s7}">Phone: (04) 123-456-789</g:Label>
+				<g:Label styleName="{style.s7}">Zalo: best_seller_No1</g:Label>
+			</g:HTMLPanel>
+		</g:HTMLPanel>
+
+		<div style="width: 100%; margin-top: 30px; border-top: 1px #D3D3D3 solid"></div>
+
+		<g:HTMLPanel styleName="{style.s3}">
+			<g:HTMLPanel styleName="{style.s8}">FAQ</g:HTMLPanel>
+		</g:HTMLPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="2.5"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee                
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>admin.html</welcome-file>
+	</welcome-file-list>
+
+	<!-- Register objectify entity -->
+	<servlet>
+		<servlet-name>register</servlet-name>
+		<servlet-class>com.tranan.webstorage.server.DataRegister</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+
+	<!-- Objectify Filter -->
+	<filter>
+		<filter-name>ObjectifyFilter</filter-name>
+		<filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ObjectifyFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- DataStore service -->
+	<servlet>
+		<servlet-name>data_service1</servlet-name>
+		<servlet-class>com.tranan.webstorage.server.DataServiceImpl</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>data_service1</servlet-name>
+		<url-pattern>/prettygal_admin/dataservice</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>photoupload_service</servlet-name>
+		<servlet-class>com.tranan.webstorage.server.UploadService</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>photoupload_service</servlet-name>
+		<url-pattern>/photo_upload</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+		<filter-name>UploadCrossDomainFilter</filter-name> <!-- mandatory -->
+		<filter-class>com.tranan.webstorage.server.UploadCrossDomain</filter-class> <!-- mandatory -->
+		<!-- <init-param> optional <param-name>test</param-name> <param-value>testValue</param-value> 
+			</init-param> -->
+	</filter>
+	<filter-mapping>
+		<filter-name>UploadCrossDomainFilter</filter-name> <!-- mandatory -->
+		<url-pattern>/_ah/upload/*</url-pattern> <!-- either url-pattern or servlet-name is mandatory -->
+		<!-- <servlet-name>LoginServlet</servlet-name> -->
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+
+</web-app>

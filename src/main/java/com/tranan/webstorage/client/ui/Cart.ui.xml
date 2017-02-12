@@ -1,0 +1,112 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.s1 {
+		position: relative;
+		overflow: hidden;
+		width: 900px;
+		margin: auto;
+		margin-top: 150px;
+		margin-bottom: 100px;
+	}
+	
+	.s2 {
+		position: relative;
+		overflow: hidden;
+	}
+	
+	.s3 {
+		position: relative;
+		float: left;
+		font-size: 28px;
+		font-weight: 400;
+		line-height: 28px;
+		font-family: 'Raleway', sans-serif;
+	}
+	
+	.s4 {
+		position: relative;
+		float: right;
+		width: 280px;
+		height: 41px;
+		background: #f37021;
+		color: #FFFFFF;
+		font-size: 14px;
+		text-align: center;
+		line-height: 2.9;
+		cursor: pointer;
+	}
+	
+	.s4:hover {
+		opacity: .7;
+	}
+	
+	.s5 {
+		position: relative;
+		float: left;
+		width: 152px;
+	}
+	
+	.s6 {
+		position: relative;
+		float: left;
+		margin-left: 35px;
+		width: 380px;
+	}
+	
+	.s7 {
+		position: relative;
+		float: left;
+		margin-left: 44px;
+	}
+	
+	.s8 {
+		float: right;
+	}
+	
+	.s9 {
+		position: relative;
+		overflow: hidden;
+		margin-top: 35px;
+		color: #303132;
+		font-weight: 600;
+		font-size: 12px;
+		font-family: 'Raleway', sans-serif;
+	}
+	
+	.s10 {
+		position: relative;
+		float: right;
+		margin-top: 30px;
+		margin-bottom: 30px;
+		color: #303132;
+		font-weight: 400;
+		font-size: 20px;
+		font-family: 'Raleway', sans-serif;
+	}
+	</ui:style>
+	<g:HTMLPanel styleName="{style.s1}">
+		<g:HTMLPanel styleName="{style.s2}">
+			<g:Label styleName="{style.s3}">My Cart (2)</g:Label>
+			<g:HTMLPanel styleName="{style.s4}">CHECKOUT</g:HTMLPanel>
+		</g:HTMLPanel>
+
+		<g:HTMLPanel styleName="{style.s9}">
+			<g:Label styleName="{style.s5}">PRODUCT</g:Label>
+			<g:Label styleName="{style.s6}">ITEM</g:Label>
+			<g:Label styleName="{style.s7}">QUANTITY</g:Label>
+			<g:Label styleName="{style.s8}">TOTAL</g:Label>
+		</g:HTMLPanel>
+
+		<div style="width: 100%; margin-top: 15px; border-bottom: 1px #D3D3D3 solid"></div>
+
+		<g:HTMLPanel ui:field="cart_items"></g:HTMLPanel>
+
+		<div style="overflow:hidden">
+			<g:Label styleName="{style.s10}">Subtotal: $34.98</g:Label>
+		</div>
+
+		<g:HTMLPanel styleName="{style.s4}">CHECKOUT</g:HTMLPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

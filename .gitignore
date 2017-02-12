@@ -1,0 +1,6 @@
+.gwt
+.settings
+.classpath
+.project
+target/
+*~

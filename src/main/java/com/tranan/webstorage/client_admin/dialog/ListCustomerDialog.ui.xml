@@ -1,0 +1,337 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:m="urn:import:com.tranan.webstorage.client_admin.sub_ui">
+	<ui:style>
+	@external .Dialog, .ListCustomerDialog_table, .ListCustomerDialog_table_header, .ListCustomerDialog_table_col1, .ListCustomerDialog_table_col2, .ListCustomerDialog_table_col3, .ListCustomerDialog_table_col4, .ListCustomerDialog_table_col5, .ListCustomerDialog_table_col6, .ListItemDialg_s7focus;
+	.s1 {
+		background: white;
+		overflow: hidden;
+		-webkit-transition: height 10s; /* For Safari 3.1 to 6.0 */
+		transition: height 10s;
+	}
+	
+	.s2 {
+		overflow: hidden;
+		padding: 10px 15px;
+		background: #42a5f5;
+		color: white;
+		font-size: 14px;
+		font-weight: bold;
+	}
+	
+	.s3 {
+		height: 40px;
+		padding: 10px 0px;
+		background: white;
+		border-bottom: 1px solid #eee;
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+	}
+	
+	.s4 {
+		position: relative;
+		float: left;
+		padding: 10px 15px;
+		margin-left: 20px;
+		margin-right: 15px;
+		margin-bottom: 15px;
+		font-size: 12px;
+		color: #ffffff;
+		background-color: #128ef2;
+		border: 1px solid #0d89ed;
+		border-radius: 2px;
+		cursor: pointer;
+		font-weight: bold;
+		font-family: sans-serif;
+	}
+	
+	.s4:hover {
+		background: #42a5f5;
+		border: 1px solid #42a5f5;
+	}
+	
+	.s5 {
+		position: relative;
+		float: left;
+		padding: 10px 15px;
+		margin-bottom: 15px;
+		font-size: 12px;
+		color: #444;
+		background-color: #ffffff;
+		border: 1px solid #efefef;
+		border-radius: 2px;
+		cursor: pointer;
+		font-weight: bold;
+		font-family: sans-serif;
+	}
+	
+	.s5:hover {
+		background: #efefef;
+		border: 1px solid #efefef;
+	}
+	
+	.s5 i {
+		font-size: 16px !important;
+		font-weight: bold;
+	}
+	
+	.s6 {
+		float: right;
+		width: 0px;
+		height: 33px;
+		font-size: 14px;
+		color: #333333;
+		margin-left: 0px;
+		border:	1px solid #efefef;
+		padding-left: 10px;
+		-webkit-transition: width 0.2s; /* For Safari 3.1 to 6.0 */
+		transition: width 0.2s;
+	}
+	
+	.s6:focus {
+		outline: none;
+		border: 1px solid #42a5f5;
+	}
+	
+	.s7 {
+		position: relative;
+		float: left;
+		padding: 8px 15px;
+		font-size: 12px;
+		color: #444;
+		background-color: #ffffff;
+		border: 1px solid #efefef;
+		border-radius: 2px;
+		cursor: pointer;
+		font-weight: bold;
+		font-family: sans-serif;
+	}
+	
+	.s7:hover {
+		background: #efefef;
+		border: 1px solid #efefef;
+	}
+	
+	.s7 i {
+		font-size: 16px !important;
+		font-weight: bold;
+	}
+	
+	.ListItemDialg_s7focus {
+		background: #efefef;
+		border: 1px solid #efefef;
+	}
+	
+	.s8 {
+		overflow: hidden;
+	}
+	
+	.ListCustomerDialog_table {
+		display: table;
+		width: 100%;
+		border: 1px #e2e9e6 solid;
+		border-top: none;
+		overflow: hidden;
+		background: white;
+	}
+	
+	.ListCustomerDialog_table_header {
+		display: table;
+		width: 100%;
+		border: 1px #e2e9e6 solid;
+		border-top: none;
+		overflow: hidden;
+		background: #E0E0E0;
+	}
+	
+	.ListCustomerDialog_table_col1 {
+		display: table-cell;
+		padding: 10px;
+		width: 22px;
+		min-width: 22px;
+		vertical-align: middle;
+		table-layout: fixed;
+		cursor: pointer;
+	}
+	
+	.ListCustomerDialog_table_col1 input {
+		width: 15px;
+		height: 15px;
+		cursor: pointer;
+	}
+	
+	.ListCustomerDialog_table_col2 {
+		display: table-cell;
+		padding: 10px;
+		width: 30px;
+		min-width: 45px;
+		vertical-align: middle;
+		table-layout: fixed;
+		border-left: 1px #e2e9e6 solid;
+		text-align: center;
+	}
+	
+	.ListCustomerDialog_table_col3 {
+		display: table-cell;
+		padding: 10px;
+		width: 30%;
+		vertical-align: middle;
+		table-layout: fixed;
+		border-left: 1px #e2e9e6 solid;
+	}
+	
+	.ListCustomerDialog_table_col4 {
+		display: table-cell;
+		padding: 10px;
+		width: 30%;
+		min-width: 100px;
+		vertical-align: middle;
+		table-layout: fixed;
+	}
+	
+	.ListCustomerDialog_table_col5 {
+		display: table-cell;
+		padding: 10px;
+		width: 20%;
+		vertical-align: middle;
+		table-layout: fixed;
+	}
+	
+	.ListCustomerDialog_table_col6 {
+		display: table-cell;
+		padding: 10px;
+		width: 20px;
+		vertical-align: middle;
+		table-layout: fixed;
+		text-align: center;
+	}
+	
+	.s9 {
+		margin-top: -4px;
+		overflow: hidden;
+		margin-bottom: 20px;
+		display: inline-block;
+	}
+	
+	.Dialog {
+		background: #f6f7f8;
+		opacity: 1;
+		border: 1px solid #efefef;
+		box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17);
+		-webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17);
+		margin-right: 150px;
+	}
+	
+	.anchor {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		cursor: pointer;
+	}
+	
+	.s10 {
+		float: right;
+		width: 15px;
+		height: 15px;
+	}
+	
+	.s11{
+		float: right;	
+	}
+	
+	.s11 i {
+		color: #FFEB3B;
+		font-size: 19px;
+	}
+	
+	.s12 {
+		float: left;
+		color: yellow;
+		font-size: 12px;
+		margin-left: 8px;
+		margin-top: 3px;
+	}
+	</ui:style>
+	<g:HTMLPanel ui:field="dialog" styleName="{style.s1}">
+		<g:HTMLPanel styleName="{style.s2}">
+			<div style="float: left">Danh Sách Khách Hàng</div>
+			<g:Image ui:field="loadImg" visible="false" styleName="{style.s10}" url="../Resources/load3.gif"></g:Image>
+			<g:HTMLPanel ui:field="failNoticePanel" styleName="{style.s11}" visible="false">
+				<i style="float: left;" class="material-icons">&#xE002;</i>
+				<g:Label ui:field="failNotice" styleName="{style.s12}">Kết nối thất bại</g:Label>
+			</g:HTMLPanel>
+		</g:HTMLPanel>
+
+		<g:HTMLPanel styleName="{style.s3}">
+			<div style="float:left; margin-left: 20px;">
+				<g:TextBox styleName="{style.s6}" ui:field="searchTxb"
+					visible="false"></g:TextBox>
+				<g:HTMLPanel ui:field="cancelSearchButtonPanel" styleName="{style.s7}" visible="false">
+					<div style="float:left; margin-right: 5px; margin-top:0px;">
+						<i class="material-icons">&#xE14C;</i>
+					</div>
+					<div style="float:left; line-height: 1.6;">
+						<g:Label>Bỏ Tìm Kiếm</g:Label>
+					</div>
+					<g:Anchor ui:field="cancelSearchButton" styleName="{style.anchor}"></g:Anchor>
+				</g:HTMLPanel>
+				<g:HTMLPanel ui:field="searchButtonPanel" styleName="{style.s7}" visible="true">
+					<div style="float:left; margin-right: 5px; margin-top:0px;">
+						<i class="material-icons">&#xE8B6;</i>
+					</div>
+					<div style="float:left; line-height: 1.6;">
+						<g:Label>Tìm Kiếm</g:Label>
+					</div>
+					<g:Anchor ui:field="searchButton" styleName="{style.anchor}"></g:Anchor>
+				</g:HTMLPanel>
+			</div>
+
+			<div style="float:right; margin-right: 20px;">
+				<g:HTMLPanel styleName="{style.s4}">
+					Hoàn Thành
+					<g:Anchor ui:field="saveButton" styleName="{style.anchor}"></g:Anchor>
+				</g:HTMLPanel>
+				<g:HTMLPanel styleName="{style.s5}">
+					Hủy Bỏ
+					<g:Anchor ui:field="exitButton" styleName="{style.anchor}"></g:Anchor>
+				</g:HTMLPanel>
+			</div>
+		</g:HTMLPanel>
+
+		<g:HTMLPanel styleName="{style.s8}">
+			<g:HTMLPanel styleName="ListCustomerDialog_table_header">
+				<g:HTMLPanel styleName="ListCustomerDialog_table_col1"></g:HTMLPanel>
+				<g:Label styleName="ListCustomerDialog_table_col3">Họ tên</g:Label>
+				<g:Label styleName="ListCustomerDialog_table_col4">Địa chỉ</g:Label>
+				<g:Label styleName="ListCustomerDialog_table_col5">Số điện thoại</g:Label>
+				<g:Label styleName="ListCustomerDialog_table_col5">Email</g:Label>
+				<g:Label styleName="ListCustomerDialog_table_col6"></g:Label>
+			</g:HTMLPanel>
+		</g:HTMLPanel>
+
+		<g:ScrollPanel ui:field="scroll">
+			<g:HTMLPanel ui:field="itemTable" styleName="{style.s8}">
+				<g:HTMLPanel styleName="ListCustomerDialog_table">
+					<g:HTMLPanel styleName="ListCustomerDialog_table_col1">
+						<g:CheckBox></g:CheckBox>
+					</g:HTMLPanel>
+					<g:HTMLPanel styleName="ListCustomerDialog_table_col3">
+						<g:Label>Trần An</g:Label>
+					</g:HTMLPanel>
+					<g:Label styleName="ListCustomerDialog_table_col4">Số 18 ngách 115/16, phố An Dương, Tây Hồ, Hà Nội</g:Label>
+					<g:Label styleName="ListCustomerDialog_table_col5">0165-480-4281</g:Label>
+					<g:HTMLPanel styleName="ListCustomerDialog_table_col5">
+						<g:Label>antp@itpro.vn</g:Label>					
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+			</g:HTMLPanel>
+		</g:ScrollPanel>
+
+		<center style="box-shadow: 0 -4px 2px -5px #333;">
+			<g:HTMLPanel styleName="{style.s9}">
+				<m:Pager ui:field="pager"></m:Pager>
+			</g:HTMLPanel>
+		</center>
+	</g:HTMLPanel>
+</ui:UiBinder> 

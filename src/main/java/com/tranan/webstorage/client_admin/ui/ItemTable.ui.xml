@@ -1,0 +1,492 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:m="urn:import:com.tranan.webstorage.client_admin.sub_ui">
+	<ui:style>
+	@external .ItemTable_s1, .ItemTable_s2, .ItemTable_s3, .ItemTable_s4, .ItemTable_s5;
+	.s1 {
+		position: relative;
+		width: 100%;
+		overflow-x: hidden;
+		/* background: black; */
+	}
+	
+	.s2 {
+		position: relative;
+		padding: 40px 20px;
+		overflow: hidden;
+	}
+	
+	.s3 {
+		position: relative;
+		float: left;
+		width: 100%;
+		/* margin-right: 20px; */
+		overflow: hidden;
+	}
+	
+	.s4 {
+		position: relative;
+		float: right;
+		overflow: hidden;
+	}
+	
+	.s5 {
+		position: relative;
+		overflow: hidden;
+		margin-bottom: 30px;
+	}
+	
+	.s6 {
+		font-size: 22px;
+		font-weight: 400;
+		float: left;
+		margin-left: 2px;
+	}
+	
+	.s7 {
+		position: relative;
+		float: right;
+		padding: 7px 10px;
+		border: 1px solid #efefef;
+		box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17);
+		-webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17);
+		background: #ffffff;
+		border-radius: 2px;
+		font-size: 12px;
+		cursor: pointer;
+		font-weight: 600;
+		color: #444444;
+		letter-spacing: 0.08em;
+		margin-left: 10px;
+		margin-right: 2px;
+		margin-bottom: 2px;
+		-webkit-transition: color .5s linear, background-color .5s ease-in-out;
+		-moz-transition: color .5s linear, background-color .5s ease-in-out;
+		-o-transition: color .5s linear, background-color .5s ease-in-out;
+		transition: color .5s linear, background-color .5s ease-in-out;
+	}
+	
+	.s7:hover {
+		background: #efefef;
+		border: 1px solid #efefef;
+		-webkit-transition: color .10s linear, background-color .10s ease-in-out;
+		-moz-transition: color .10s linear, background-color .10s ease-in-out;
+		-o-transition: color .10s linear, background-color .10s ease-in-out;
+		transition: color .10s linear, background-color .10s ease-in-out;
+		webkit-transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+		transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+	
+	.s8 {
+		position: relative;
+		background: white;
+		border-bottom: 1px solid #e2e9e6;
+		box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.17);
+		margin: 0px 2px 15px 2px;
+	}
+	
+	.s9 {
+		background: #42a5f5;
+		position: relative;
+		overflow: hidden;
+		height: 32px;
+		/* font-weight: bold; */
+		display: table;
+		padding-left: 15px;
+		padding-top: 10px;
+		width: 100%;
+		color: white;
+		box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.17);
+	}
+	
+	.s10 {
+		position: relative;
+		/* float: left; */
+		margin: 1px 10px 0px 15px;
+		width: 70px;
+		display: table-cell;
+	}
+	
+	.s10_quantity {
+		position: relative;
+		/* float: left; */
+		margin: 1px 10px 0px 0px;
+		width: 80px;
+		display: table-cell;
+	}
+	
+	.s10_price {
+		position: relative;
+		/* float: left; */
+		margin: 1px 0px 0px 20px;
+		width: 130px;
+		display: table-cell;
+	}
+	
+	.s10_type {
+		position: relative;
+		/* float: left; */
+		margin: 1px 0px 0px 20px;
+		padding-right: 15px;
+		width: 140px;
+		display: table-cell;
+	}
+	
+	.s11 {
+		position: relative;
+		/* float: left; */
+		margin-top: 1px;
+		display: table-cell;
+	}
+	
+	.s12 {
+		position: relative;
+		float: right;
+		margin-left: 10px;
+		margin-right: 2px;
+		margin-bottom: 2px;
+	}
+	
+	.s13 {
+		float: right;
+		width: 0px;
+		height: 33px;
+		font-size: 14px;
+		color: #333333;
+		margin-left: -2px;
+		border: 1px solid #efefef;
+		border-left: none;
+		box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.17);
+		-webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.17);
+		padding-left: 10px;
+		-webkit-transition: width 0.2s; /* For Safari 3.1 to 6.0 */
+    	transition: width 0.2s;
+	}
+	
+	.s13:focus {
+		outline: none;
+		border: 1px solid #42a5f5;
+	}
+	
+	.s14 {
+		float: left;
+		margin-right: 8px;
+		cursor: pointer;	
+	}
+	
+	.s15 {
+		float: left;
+		color: #333333;
+		background-color: #ffffff;
+		padding: 10px 15px;
+		font-size: 15px;
+		font-weight: 500;
+	}
+	
+	.s16 {
+		widows: 100%;
+		margin-bottom: 18px;
+		background-color: #ffffff;
+		border: 1px solid #e2e9e6;
+	}
+	
+	.s17 {
+		position: relative;
+		overflow: hidden;
+		border-bottom: 1px solid #e2e9e6;
+	}
+	
+	.s18 {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+	
+	.s19 {
+		position: relative;
+		overflow: hidden;
+		margin: 0px 2px 15px 2px;
+	}
+	
+	.s20 {
+		position: relative;
+		float: right;
+	}
+	
+	.s21 {
+		position: relative;
+		float: right;
+		padding: 10px 15px;
+		margin-left: 15px;
+		font-size: 12px;
+		color: #ffffff;
+		background-color: #128ef2;
+		border: 1px solid #0d89ed;
+		border-radius: 2px;
+		cursor: pointer;
+		font-weight: bold;
+		font-family: sans-serif;
+	}
+	
+	.s21:hover {
+		background: #42a5f5;
+		border: 1px solid #42a5f5;
+	}
+	
+	.s22 {
+		position: relative;
+		float: left;
+	}
+	
+	.s23 {
+		position: relative;
+		float: right;
+		padding: 10px 15px;
+		margin-left: 15px;
+		margin-right: 2px;
+		font-size: 12px;
+		color: #444;
+		background-color: #ffffff;
+		border: 1px solid #efefef;
+		border-radius: 2px;
+		cursor: pointer;
+		font-weight: bold;
+		font-family: sans-serif;
+	}
+	
+	.s23:hover {
+		background: #efefef;
+		border: 1px solid #efefef;
+	}
+	
+	.ItemTable_s1 {
+		font-size: 16px !important;
+		font-weight: bold;
+	}
+	
+	.ItemTable_s2 {
+		font-size: 16px !important;
+		font-weight: bold;
+		float: right;
+		margin: 10px 10px 0px 0px;
+		cursor: pointer;
+	}
+	
+	.ItemTable_s2:hover {
+		color: #42a5f5 !important;
+	}
+	
+	.s24 {
+		position: relative;
+		overflow: hidden;
+		height: 0px;
+		background: white;
+		border: 1px solid #e2e9e6;
+		padding: 16px 20px;
+		padding-left: 50px;
+		padding-bottom: 0px;
+		margin: 1px 1px 30px 1px;
+		box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.17);
+		transition-property: all;
+		transition-duration: .5s;
+		transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+	}
+	
+	.ItemTable_s3 {
+		float: left;
+		width: 33%;
+		color: #42a5f5;
+		margin-bottom: 20px;
+		cursor: pointer;
+	}
+	
+	.ItemTable_s3:hover {
+		text-decoration: underline;
+	}
+	
+	.ItemTable_s4 {
+		float: left;
+		margin-right: 5px;
+	}
+	
+	.ItemTable_s5 {
+		float: left;
+	}
+	
+	.ItemTable_s5:hover {
+		text-decoration: underline;
+	}
+	
+	.s25 {
+		height: 20px;
+		background: #2e2e2e;
+		border: 1px #e2e9e6 solid;
+		border-bottom: none;
+		padding: 5px;
+		text-align: center;
+		color: white;
+		box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.17);
+	}
+	</ui:style>
+	<g:ScrollPanel ui:field="scrollTable" styleName="{style.s1}">
+		<g:HTMLPanel styleName="{style.s2}">
+
+			<g:HTMLPanel styleName="{style.s3}">
+				<g:HTMLPanel styleName="{style.s5}">
+					<g:Label ui:field="itemTableTitle" styleName="{style.s6}">Danh Sách Sản Phấm</g:Label>
+					
+					<g:HTMLPanel styleName="{style.s7}">
+						<div style="float:left; margin-right: 5px; margin-top:1px;">
+							<i class="material-icons ItemTable_s1">&#xE145;</i>
+						</div>
+						<div style="float:left; line-height: 1.6;">
+							<g:Label>Thêm Sản Phẩm</g:Label>
+						</div>
+						<g:Anchor ui:field="addItemButton" styleName="{style.s18}"></g:Anchor>
+					</g:HTMLPanel>
+					
+					<g:HTMLPanel styleName="{style.s7}">
+						<div style="float:left; margin-right: 8px; margin-top:1px;">
+							<i class="material-icons ItemTable_s1">&#xE558;</i>
+						</div>
+						<div style="float:left; line-height: 1.6;">
+							<g:Label>Nhập Kho</g:Label>
+						</div>
+						<g:Anchor ui:field="importItemButton" styleName="{style.s18}"></g:Anchor>
+					</g:HTMLPanel>
+					
+					<g:HTMLPanel ui:field="filterButtonPanel" styleName="{style.s7}">
+						<div style="float:left; margin-right: 8px; margin-top:1px;">
+							<i class="material-icons ItemTable_s1">&#xE152;</i>
+						</div>
+						<div style="float:left; line-height: 1.6;">
+							<g:Label>Bộ Lọc</g:Label>
+						</div>
+						<g:Anchor ui:field="filterButton" styleName="{style.s18}"></g:Anchor>
+					</g:HTMLPanel>
+					
+					<g:HTMLPanel ui:field="cancelFilterButtonPanel" styleName="{style.s7}" visible="false">
+						<div style="float:left; margin-right: 8px; margin-top:1px;">
+							<i class="material-icons ItemTable_s1">&#xE14C;</i>
+						</div>
+						<div style="float:left; line-height: 1.6;">
+							<g:Label>Tắt Bộ Lọc</g:Label>
+						</div>
+						<g:Anchor ui:field="cancelFilterButton" styleName="{style.s18}"></g:Anchor>
+					</g:HTMLPanel>
+					
+					<g:HTMLPanel styleName="{style.s12}">
+						<g:TextBox styleName="{style.s13}" ui:field="searchTxb" visible="false"></g:TextBox>
+						<g:HTMLPanel ui:field="searchButtonPanel" styleName="{style.s7}" visible="true">
+							<div style="float:left; margin-right: 8px; margin-top:1px;">
+								<i class="material-icons ItemTable_s1">&#xE8B6;</i>
+							</div>
+							<div style="float:left; line-height: 1.6;">
+								<g:Label>Tìm Kiếm</g:Label>
+							</div>
+							<g:Anchor ui:field="searchButton" styleName="{style.s18}"></g:Anchor>
+						</g:HTMLPanel>
+						<g:HTMLPanel ui:field="cancelSearchButtonPanel" styleName="{style.s7}" visible="false">
+							<div style="float:left; margin-right: 8px; margin-top:1px;">
+								<i class="material-icons ItemTable_s1">&#xE14C;</i>
+							</div>
+							<div style="float:left; line-height: 1.6;">
+								<g:Label>Bỏ Tìm Kiếm</g:Label>
+							</div>
+							<g:Anchor ui:field="cancelSearchButton" styleName="{style.s18}"></g:Anchor>
+						</g:HTMLPanel>
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+				
+				<g:HTMLPanel ui:field="filterTable" visible="false">
+					<g:HTMLPanel styleName="{style.s25}">
+						<g:Label>Lọc theo danh mục sản phẩm</g:Label>
+					</g:HTMLPanel>
+					<g:HTMLPanel ui:field="filterTableContent" styleName="{style.s24}" visible="true">
+						<!-- <g:HTMLPanel styleName="ItemTable_s3">
+							<g:HTMLPanel styleName="ItemTable_s4">
+								<i class="material-icons ItemTable_s1">&#xE152;</i>
+							</g:HTMLPanel>
+							<g:Label styleName="ItemTable_s5">Catalog1</g:Label>
+						</g:HTMLPanel> -->
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel ui:field="tableHeader" styleName="{style.s9}" visible="true">
+					<g:HTMLPanel styleName="{style.s10}">
+					</g:HTMLPanel>
+
+					<g:HTMLPanel styleName="{style.s11}" ui:field="nameColumn">
+						<g:Label>Tên sản phẩm</g:Label>
+					</g:HTMLPanel>
+
+					<g:HTMLPanel styleName="{style.s10_price}">
+						<div style="margin-left:-14px;">Giá gốc</div>
+					</g:HTMLPanel>
+
+					<g:HTMLPanel styleName="{style.s10_price}">
+						<div style="margin-left:-6px;">Giá bán</div>
+					</g:HTMLPanel>
+
+					<g:HTMLPanel styleName="{style.s10_type}">
+						<div style="text-align:left; margin-right:-5px;">Chủng loại / Số lượng</div>
+					</g:HTMLPanel>
+					
+					<g:HTMLPanel styleName="{style.s10_quantity}">
+						<div style="text-align:center;">Khuyến mại</div>
+					</g:HTMLPanel>
+
+					<g:HTMLPanel styleName="{style.s10}">
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+				
+				<g:HTMLPanel styleName="{style.s8}" ui:field="itemTable" visible="true"></g:HTMLPanel>
+				
+				<g:HTMLPanel styleName="{style.s19}" ui:field="itemImportTable" visible="false"></g:HTMLPanel>
+				
+				<g:HTMLPanel>
+					<m:Pager styleName="{style.s22}" ui:field="itemsPager"></m:Pager>
+					
+					<g:HTMLPanel ui:field="importTableControlBox" visible="false" styleName="{style.s20}">
+						<g:HTMLPanel ui:field="cancelButtonPanel" styleName="{style.s23}">
+							Hủy Bỏ
+							<g:Anchor ui:field="cancelButton" styleName="{style.s18}"></g:Anchor>
+						</g:HTMLPanel>
+						
+						<g:HTMLPanel ui:field="backButtonPanel" styleName="{style.s23}">
+							Quay Lại
+							<g:Anchor ui:field="backButton" styleName="{style.s18}"></g:Anchor>
+						</g:HTMLPanel>
+						
+						<g:HTMLPanel ui:field="nextButtonPanel" styleName="{style.s21}">
+							Nhập Số Lượng
+							<g:Anchor ui:field="nextButton" styleName="{style.s18}"></g:Anchor>
+						</g:HTMLPanel>	
+						
+						<g:HTMLPanel ui:field="applyButtonPanel" styleName="{style.s21}">
+							Hoàn Tất
+							<g:Anchor ui:field="applyButton" styleName="{style.s18}"></g:Anchor>
+						</g:HTMLPanel>	
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+			</g:HTMLPanel>
+
+			<!-- <g:HTMLPanel styleName="{style.s4}" ui:field="categorieTable">
+				<g:HTMLPanel styleName="{style.s12}">
+					<g:TextBox styleName="{style.s13}" ui:field="searchTxb"></g:TextBox>
+					<g:HTMLPanel styleName="{style.s14}">SEARCH</g:HTMLPanel>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel styleName="{style.s16}">
+					<g:HTMLPanel styleName="{style.s17}">
+						<g:Label styleName="{style.s15}">Categories</g:Label>
+						<i class="material-icons ItemTable_s2">&#xE145;</i>
+					</g:HTMLPanel>
+					<g:HTMLPanel ui:field="table"></g:HTMLPanel>
+				</g:HTMLPanel>
+			</g:HTMLPanel> -->
+		</g:HTMLPanel>
+	</g:ScrollPanel>
+</ui:UiBinder> 
