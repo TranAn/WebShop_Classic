@@ -35,12 +35,18 @@ public class AppHistoryMapper implements PlaceHistoryMapper {
 		
 		if (tokens[0].equals("order"))
 			return new OrderPlace();
+		
+		if (tokens[0].equals("sale"))
+			return new SalePlace();
 
 		else if (tokens[0].equals("create_item"))
 			return new CreateItemPlace(tokens[1], null);
 		
 		else if (tokens[0].equals("create_order"))
 			return new CreateOrderPlace(tokens[1], null);
+		
+		else if (tokens[0].equals("create_sale"))
+			return new CreateSalePlace(tokens[1], null);
 
 		else
 			return new ShopPlace();
@@ -59,6 +65,9 @@ public class AppHistoryMapper implements PlaceHistoryMapper {
 		
 		if (place instanceof OrderPlace)
 			return "order";
+		
+		if (place instanceof SalePlace)
+			return "sale";
 
 		if (place instanceof CreateItemPlace)
 			return "create_item" + delimiter
@@ -67,6 +76,10 @@ public class AppHistoryMapper implements PlaceHistoryMapper {
 		if (place instanceof CreateOrderPlace)
 			return "create_order" + delimiter
 					+ ((CreateOrderPlace) place).getToken();
+		
+		if (place instanceof CreateSalePlace)
+			return "create_sale" + delimiter
+					+ ((CreateSalePlace) place).getToken();
 
 		return null;
 	}

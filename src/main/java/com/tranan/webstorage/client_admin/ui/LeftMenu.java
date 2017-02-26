@@ -12,6 +12,7 @@ import com.tranan.webstorage.client_admin.PrettyGal;
 import com.tranan.webstorage.client_admin.place.CreateOrderPlace;
 import com.tranan.webstorage.client_admin.place.ItemPlace;
 import com.tranan.webstorage.client_admin.place.OrderPlace;
+import com.tranan.webstorage.client_admin.place.SalePlace;
 
 public class LeftMenu extends Composite {
 
@@ -53,6 +54,11 @@ public class LeftMenu extends Composite {
 		orderMenuPanel.setStyleName("LeftMenu_s1_active");
 	}
 	
+	public void onSalePlace() {
+		clearMenuStyle();
+		saleMenuPanel.setStyleName("LeftMenu_s1_active");
+	}
+	
 	@UiHandler("storeMenu")
 	void onStoreMenuClick(ClickEvent e) {
 		PrettyGal.placeController.goTo(new ItemPlace());
@@ -63,6 +69,12 @@ public class LeftMenu extends Composite {
 	void onOrderMenuClick(ClickEvent e) {
 		PrettyGal.placeController.goTo(new OrderPlace());
 		onOrderPlace();
+	}
+	
+	@UiHandler("saleMenu")
+	void onSaleMenuClick(ClickEvent e) {
+		PrettyGal.placeController.goTo(new SalePlace());
+		onSalePlace();
 	}
 
 }

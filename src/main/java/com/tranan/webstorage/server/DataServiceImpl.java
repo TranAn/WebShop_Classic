@@ -70,7 +70,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		// creates a document with all Post fields
 		String customer_doc = removeAccent(customer.getName().toLowerCase());
 		Document document = Document.newBuilder()
-				.setId(customer.getId().toString())
+				.setId(customer.getPhone().toString())
 				.addField(Field.newBuilder().setName("name")
 				.setText(customer_doc))
 				.build();
@@ -135,7 +135,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	
 	private Date getCurrentDate() {
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.HOUR_OF_DAY, 7);
+		cal.add(Calendar.HOUR_OF_DAY, -2);
 		return cal.getTime();
 	}
 
@@ -403,16 +403,14 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 				deliveryItem(order);
 		}
 		
-		if(order.getCustomer().getId() == null)
-			order.getCustomer().setId(createCustomer(order.getCustomer(), null));
-		if(order.getCustomer().getId() == null)
-			order.setCustomer(null);
+		if(order.getCustomer().getPhone() == null)
+			order.getCustomer().setPhone("1");
 
 		Key<Order> key = ofy().save().entity(order).now();
 		rtn = ofy().load().key(key).now();
 		
 		if(rtn.getCustomer() != null)
-			createCustomer(rtn.getCustomer(), rtn.getId());
+			addCustomerOrder(rtn.getCustomer(), rtn.getId());
 		
 		OrderChannel channel = new OrderChannel();
 		if(order.getSale_channel() == null || order.getSale_channel().isEmpty())
@@ -501,6 +499,15 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
+	public ListOrder getOrdersByCustomer(Customer customer) {
+		Collection<Order> orders = ofy().load().type(Order.class)
+				.ids(customer.getOrder_ids()).values();
+		ListOrder rtn = new ListOrder
+				(new ArrayList<Order>(orders), "", orders.size());
+		return rtn;
+	}
+
+	@Override
 	public boolean deleteOrder(Long id) {
 		Order order = ofy().load().type(Order.class).id(id).now();
 		if (order != null) {
@@ -513,18 +520,14 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			removeOrderStatusSize(es, order);
 			ofy().save().entity(es);
 			
-			Customer customer = ofy().load().type(Customer.class)
-					.id(order.getCustomer().getId()).now();
-			if(customer != null) {
-				customer.getOrder_ids().remove(order.getId());
-				ofy().save().entity(customer);
-			}
+			deleteCustomerOrder(order.getCustomer().getPhone(), id);
 			
 			if(order.getStatus() == Order.DELIVERY)
 				returnItem(order);
 
 			return true;
 		}
+		
 		return false;
 	}
 
@@ -562,34 +565,38 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		rtn.addAll(channels);
 		return rtn;
 	}
-
-	public Long createCustomer(Customer customer, Long order_id) {
-		if(customer.getId() == null) {
-			if(!customer.isEmpty()) {
-				if(order_id != null && !customer.getOrder_ids().contains(order_id))
-					customer.getOrder_ids().add(order_id);
-				Key<Customer> key = ofy().save().entity(customer).now();
-				Customer rtn = ofy().load().key(key).now();
+	
+	private void addCustomerOrder(Customer customer, Long order_id) {
+		if(!customer.getPhone().equals("1")) {
+			Customer cus = ofy().load().type(Customer.class).id(customer.getPhone()).now();
+			
+			if(cus == null && order_id != null) {
+				customer.getOrder_ids().add(order_id);
 				
-				createCustomerDocument(rtn);
+				ofy().save().entity(customer);
+				createCustomerDocument(customer);
 				
 				List<EntitiesSize> entitiesSizes = ofy().load()
 						.type(EntitiesSize.class).list();
 				EntitiesSize es = entitiesSizes.get(0);
 				es.setCustomer_size(es.getCustomer_size() + 1);
 				ofy().save().entity(es);
+			} 
+			else {
+				if(order_id != null && !cus.getOrder_ids().contains(order_id))
+					cus.getOrder_ids().add(order_id);
 			
-				return rtn.getId();
+				ofy().save().entity(cus);
 			}
-			else
-				return null;
 		}
-		else {
-			if(order_id != null && !customer.getOrder_ids().contains(order_id))
-				customer.getOrder_ids().add(order_id);
-			ofy().save().entity(customer).now();
-			
-			return customer.getId();
+	}
+	
+	private void deleteCustomerOrder(String customer_id, Long order_id) {
+		Customer customer = ofy().load().type(Customer.class).id(customer_id).now();
+		
+		if(customer != null) {
+			customer.getOrder_ids().remove(order_id);
+			ofy().save().entity(customer);
 		}
 	}
 

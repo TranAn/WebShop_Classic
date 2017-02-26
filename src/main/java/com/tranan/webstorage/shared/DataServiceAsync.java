@@ -36,6 +36,8 @@ public interface DataServiceAsync {
 	
 	void getOrdersByStatus(String cursor, int status, AsyncCallback<ListOrder> callback);
 	
+	void getOrdersByCustomer(Customer customer, AsyncCallback<ListOrder> callback);
+	
 	void deleteOrder(Long id, AsyncCallback<Boolean> callback);
 	
 	void updateOrderStatus(Long order_id, int status, AsyncCallback<Void> callback);

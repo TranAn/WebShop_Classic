@@ -1,7 +1,5 @@
 package com.tranan.webstorage.client_admin.ui;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,14 +16,11 @@ import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.CheckBox;
@@ -47,11 +42,9 @@ import com.tranan.webstorage.client_admin.dialog.ListCustomerDialog;
 import com.tranan.webstorage.client_admin.dialog.ListCustomerDialog.ListCustomerDialog_Listener;
 import com.tranan.webstorage.client_admin.dialog.ListItemDialog;
 import com.tranan.webstorage.client_admin.dialog.ListItemDialog.ListItemDialog_Listener;
-import com.tranan.webstorage.client_admin.place.ItemPlace;
 import com.tranan.webstorage.client_admin.place.OrderPlace;
 import com.tranan.webstorage.client_admin.sub_ui.NoticePanel;
 import com.tranan.webstorage.shared.Customer;
-import com.tranan.webstorage.shared.EntitiesSize;
 import com.tranan.webstorage.shared.Item;
 import com.tranan.webstorage.shared.Order;
 import com.tranan.webstorage.shared.OrderChannel;
@@ -106,8 +99,14 @@ public class CreateOrder extends Composite {
 					MultiWordSuggestOracle oracle = (MultiWordSuggestOracle)saleChannelBox.getSuggestOracle(); 
 					List<String> list = new ArrayList<String>();
 				    for(OrderChannel channel: OrderTable.channels)	{
-				    	oracle.add(channel.getName());
-				    	list.add(channel.getName());
+				    	if(channel.getName().equals(OrderChannel.DEFAULT_CHANNEL)) {
+//				    		oracle.add("Kênh Khác");
+//					    	list.add("Kênh Khác");
+				    	}
+				    	else {
+					    	oracle.add(channel.getName());
+					    	list.add(channel.getName());
+				    	}
 				    }
 				    oracle.setDefaultSuggestionsFromText(list);
 				}
@@ -122,8 +121,14 @@ public class CreateOrder extends Composite {
 			MultiWordSuggestOracle oracle = (MultiWordSuggestOracle)saleChannelBox.getSuggestOracle(); 
 			List<String> list = new ArrayList<String>();
 		    for(OrderChannel channel: OrderTable.channels)	{
-		    	oracle.add(channel.getName());
-		    	list.add(channel.getName());
+		    	if(channel.getName().equals(OrderChannel.DEFAULT_CHANNEL)) {
+//		    		oracle.add("Kênh Khác");
+//			    	list.add("Kênh Khác");
+		    	}
+		    	else {
+			    	oracle.add(channel.getName());
+			    	list.add(channel.getName());
+		    	}
 		    }
 		    oracle.setDefaultSuggestionsFromText(list);
 		}
@@ -160,6 +165,18 @@ public class CreateOrder extends Composite {
 			}
 		});
 		
+		phoneCustomer.addKeyPressHandler(new KeyPressHandler() {
+			
+			@Override
+			public void onKeyPress(KeyPressEvent event) {
+				char ch = event.getCharCode();
+				if(ch != '0' && ch != '1' && ch != '2' && ch != '3' && ch != '4' && ch != '5'
+						&& ch != '6' && ch != '7' && ch != '8' && ch != '9') {
+					phoneCustomer.cancelKey();
+				}
+			}
+		});
+		
 		getChannels();
 	}
 	
@@ -170,7 +187,7 @@ public class CreateOrder extends Composite {
 		if(order.getCustomer() != null) {
 			nameCustomer.setText(order.getCustomer().getName());
 			addressCustomer.setText(order.getCustomer().getAddress());
-			phoneCustomer.setText(order.getCustomer().getPhone());
+			phoneCustomer.setText(PrettyGal.phoneFormat(order.getCustomer().getPhone()));
 			emailCustomer.setText(order.getCustomer().getEmail());
 		}
 		
@@ -389,10 +406,14 @@ public class CreateOrder extends Composite {
 		//Create customer
 		Customer customer = new Customer();
 		if(this.customer != null)
-			customer.setId(this.customer.getId());
+			customer.setPhone(this.customer.getPhone());
 		customer.setName(nameCustomer.getText());
 		customer.setAddress(addressCustomer.getText());
-		customer.setPhone(phoneCustomer.getText().replaceAll("-", "").replaceAll(" ", ""));
+		try {
+			customer.setPhone(phoneCustomer.getText().replaceAll("-", "").replaceAll(" ", ""));
+		} catch (Exception exception) {
+			customer.setPhone("1");
+		}
 		customer.setEmail(emailCustomer.getText());
 		//Create order detail
 		order.setCustomer(customer);

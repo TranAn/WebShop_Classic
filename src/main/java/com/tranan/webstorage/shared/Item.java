@@ -34,6 +34,7 @@ public class Item implements Serializable, IsSerializable {
 	Long cost;
 	@Index
 	Long price;
+	Long sale_id;
 	int sale;
 	String description;
 
@@ -171,6 +172,14 @@ public class Item implements Serializable, IsSerializable {
 
 	public void setPrice(Long price) {
 		this.price = price;
+	}
+
+	public Long getSale_id() {
+		return sale_id;
+	}
+
+	public void setSale_id(Long sale_id) {
+		this.sale_id = sale_id;
 	}
 
 	public int getSale() {

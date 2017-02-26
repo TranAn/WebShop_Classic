@@ -163,6 +163,13 @@
 						<g:Anchor ui:field="createItemBackBtn" styleName="{style.anchor}"></g:Anchor>
 					</g:HTMLPanel>
 				</g:HTMLPanel>
+				<g:HTMLPanel ui:field="CreateSaleToolbar" visible="false">
+					<g:HTMLPanel styleName="{style.s9}">
+						<i class="material-icons">&#xE5C4;</i>
+						<g:Label styleName="{style.s10}">Quay Lại</g:Label>
+						<g:Anchor ui:field="createSaleBackBtn" styleName="{style.anchor}"></g:Anchor>
+					</g:HTMLPanel>
+				</g:HTMLPanel>
 			</g:HTMLPanel>
 			
 			<g:HTMLPanel width="500px" styleName="{style.s7}">

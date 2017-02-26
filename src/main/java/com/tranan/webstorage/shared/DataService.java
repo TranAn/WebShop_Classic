@@ -38,6 +38,8 @@ public interface DataService extends RemoteService {
 	
 	public ListOrder getOrdersByStatus(String cursor, int status);
 	
+	public ListOrder getOrdersByCustomer(Customer customer);
+	
 	public boolean deleteOrder(Long id);
 	
 	public void updateOrderStatus(Long order_id, int status);

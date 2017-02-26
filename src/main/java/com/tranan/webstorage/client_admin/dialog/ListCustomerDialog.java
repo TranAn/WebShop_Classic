@@ -298,7 +298,7 @@ public class ListCustomerDialog extends DialogBox {
 			panel2.addStyleName("ListCustomerDialog_table_col1");
 			final CheckBox cb = new CheckBox();
 			panel2.add(cb);
-			if(selectedCustomer != null && selectedCustomer.getId().equals(customer.getId())) {
+			if(selectedCustomer != null && selectedCustomer.getPhone().equals(customer.getPhone())) {
 				cb.setValue(true);
 				selectedCB = cb;
 			}

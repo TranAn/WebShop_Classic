@@ -1,0 +1,124 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:m="urn:import:com.tranan.webstorage.client_admin.sub_ui">
+	<ui:style>
+	.s1 {
+		position: relative;
+		width: 100%;
+		overflow-x: hidden;
+		/* background: black; */
+	}
+	
+	.s2 {
+		position: relative;
+		padding: 40px 20px;
+		overflow: hidden;
+	}
+	
+	.s3 {
+		position: relative;
+		float: left;
+		width: 100%;
+		/* margin-right: 20px; */
+		overflow: hidden;
+	}
+	
+	.s4 {
+		position: relative;
+		overflow: hidden;
+		margin-bottom: 30px;
+	}
+	
+	.s5 {
+		font-size: 22px;
+		font-weight: 400;
+		float: left;
+		margin-left: 2px;
+	}
+	
+	.s6 {
+		position: relative;
+		float: right;
+		padding: 7px 10px;
+		border: 1px solid #efefef;
+		box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17);
+		-webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17);
+		background: #ffffff;
+		border-radius: 2px;
+		font-size: 12px;
+		cursor: pointer;
+		font-weight: 600;
+		color: #444444;
+		letter-spacing: 0.08em;
+		margin-left: 10px;
+		margin-right: 2px;
+		margin-bottom: 2px;
+		-webkit-transition: color .5s linear, background-color .5s ease-in-out;
+		-moz-transition: color .5s linear, background-color .5s ease-in-out;
+		-o-transition: color .5s linear, background-color .5s ease-in-out;
+		transition: color .5s linear, background-color .5s ease-in-out;
+	}
+	
+	.s6 i {
+		font-size: 16px !important;
+		font-weight: bold;
+	}
+	
+	.s6:hover {
+		background: #efefef;
+		border: 1px solid #efefef;
+		-webkit-transition: color .10s linear, background-color .10s ease-in-out;
+		-moz-transition: color .10s linear, background-color .10s ease-in-out;
+		-o-transition: color .10s linear, background-color .10s ease-in-out;
+		transition: color .10s linear, background-color .10s ease-in-out;
+		webkit-transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+		transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+	
+	.anchor {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		cursor: pointer;
+	}
+	</ui:style>
+	<g:ScrollPanel ui:field="scrollTable" styleName="{style.s1}">
+		<g:HTMLPanel styleName="{style.s2}">
+			<g:HTMLPanel styleName="{style.s3}">
+				<g:HTMLPanel styleName="{style.s4}">
+					<g:Label ui:field="title" styleName="{style.s5}">Chương Trình Khuyến Mại</g:Label>
+
+					<g:HTMLPanel styleName="{style.s6}">
+						<div style="float:left; margin-right: 5px; margin-top:1px;">
+							<i class="material-icons">&#xE145;</i>
+						</div>
+						<div style="float:left; line-height: 1.6;">
+							<g:Label>Tạo Chương Trình Khuyến Mại</g:Label>
+						</div>
+						<g:Anchor ui:field="addSaleButton" styleName="{style.anchor}"></g:Anchor>
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+				
+				
+
+				<!-- <g:HTMLPanel styleName="{style.orderTable}">
+					<g:HTMLPanel styleName="{style.orderTable_col1}"></g:HTMLPanel>
+					<g:HTMLPanel styleName="{style.orderTable_col2}">
+						<g:HTMLPanel styleName="{style.customerTable}">Khách hàng</g:HTMLPanel>
+						<g:HTMLPanel styleName="{style.itemTable}">Sản phẩm</g:HTMLPanel>
+					</g:HTMLPanel>
+					<g:Label styleName="{style.orderTable_col3}">Tổng tiền</g:Label>
+					<g:Label styleName="{style.orderTable_col3}">Ngày tạo đơn</g:Label>
+					<g:HTMLPanel styleName="{style.orderTable_col4}">Tình trạng</g:HTMLPanel>
+					<g:HTMLPanel styleName="{style.orderTable_col5}"></g:HTMLPanel>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel ui:field="orderTable" styleName="{style.s8}"></g:HTMLPanel>
+
+				<m:Pager styleName="{style.s7}" ui:field="pager"></m:Pager> -->
+			</g:HTMLPanel>
+		</g:HTMLPanel>
+	</g:ScrollPanel>
+</ui:UiBinder> 

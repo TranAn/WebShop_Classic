@@ -308,6 +308,19 @@
 		margin-bottom: 10px;
 	}
 	
+	.s19 {
+		margin-left: 18px;
+		margin-right: 10px;
+		margin-bottom: 10px;
+		color: #42a5f5;
+		cursor: pointer;
+	}
+	
+	.s19 i {
+		font-size: 14px;
+		margin-left: 2px;
+	}
+	
 	.OrderTable_pending {
 		color: #FB8C00;
 		font-weight: bold;
@@ -372,7 +385,7 @@
 							<g:ListBox ui:field="filterListBox" styleName="{style.s13}"></g:ListBox>
 						</g:HTMLPanel>
 						
-						<g:HTMLPanel styleName="{style.s11}">
+						<g:HTMLPanel ui:field="statusFilter" styleName="{style.s11}">
 							<g:Label styleName="{style.s12}"></g:Label>
 							<g:HTMLPanel>
 								<g:HorizontalPanel styleName="{style.s18}">
@@ -391,6 +404,15 @@
 									<g:Anchor ui:field="finishBoxAnchor" styleName="{style.anchor}"></g:Anchor>
 								</g:HorizontalPanel>				
 							</g:HTMLPanel>
+						</g:HTMLPanel>
+						
+						<g:HTMLPanel ui:field="customerFilter" visible="false" styleName="{style.s11}">
+							<g:Label styleName="{style.s12}"></g:Label>
+							<g:Anchor ui:field="findCustomer" styleName="{style.s19}">
+								<i class="material-icons">&#xE8B6;</i>
+								Tìm Khách Hàng
+							</g:Anchor>
+							<div style="margin-bottom:10px;"></div>
 						</g:HTMLPanel>
 						
 						<div style="margin-top:20px;"></div>

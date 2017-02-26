@@ -116,8 +116,11 @@ public class PrettyGal implements EntryPoint {
 		return rtn;
 	}
 	
-	public static String phoneFormat(String number) {
-		return number.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "$1 - $2 - $3");
+	public static String phoneFormat(String phone) {
+		if(phone.equals("1"))
+			return "";
+		else
+			return phone.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "$1 - $2 - $3");
 	}
 
 }

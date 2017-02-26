@@ -112,7 +112,7 @@ public class OrderTable_Row extends Composite {
 		if(order.getCustomer() != null) {
 			customerName.setText(order.getCustomer().getName());
 			customerAddress.setText(order.getCustomer().getAddress());
-			customerPhone.setText(order.getCustomer().getPhone());
+			customerPhone.setText(PrettyGal.phoneFormat(order.getCustomer().getPhone()));
 			customerEmail.setText(order.getCustomer().getEmail());
 		}
 		

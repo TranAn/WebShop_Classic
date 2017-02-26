@@ -1,11 +1,11 @@
 package com.tranan.webstorage.client_admin.ui;
 
-import java.util.Date;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -20,18 +20,15 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
 import com.tranan.webstorage.client_admin.Ruler;
-import com.tranan.webstorage.client_admin.place.CreateItemPlace;
+import com.tranan.webstorage.client_admin.dialog.ListCustomerDialog;
+import com.tranan.webstorage.client_admin.dialog.ListCustomerDialog.ListCustomerDialog_Listener;
 import com.tranan.webstorage.client_admin.place.CreateOrderPlace;
-import com.tranan.webstorage.client_admin.sub_ui.ItemTable_Row;
 import com.tranan.webstorage.client_admin.sub_ui.NoticePanel;
 import com.tranan.webstorage.client_admin.sub_ui.OrderTable_Row;
 import com.tranan.webstorage.client_admin.sub_ui.OrderTable_Row.OrderTableRowListener;
 import com.tranan.webstorage.client_admin.sub_ui.Pager;
-import com.tranan.webstorage.client_admin.sub_ui.ItemTable_Row.ItemTableRowListener;
 import com.tranan.webstorage.client_admin.sub_ui.Pager.PagerListener;
-import com.tranan.webstorage.shared.Catalog;
-import com.tranan.webstorage.shared.Item;
-import com.tranan.webstorage.shared.ListItem;
+import com.tranan.webstorage.shared.Customer;
 import com.tranan.webstorage.shared.ListOrder;
 import com.tranan.webstorage.shared.Order;
 import com.tranan.webstorage.shared.OrderChannel;
@@ -70,6 +67,10 @@ public class OrderTable extends Composite {
 	Label deliveryBoxText;
 	@UiField 
 	Label finishBoxText;
+	@UiField
+	HTMLPanel statusFilter;
+	@UiField
+	HTMLPanel customerFilter;
 	
 	public static ListOrder listOrder;
 	public static List<OrderChannel> channels;
@@ -125,6 +126,39 @@ public class OrderTable extends Composite {
 	private void getFilterStatusOrder(String cursor) {
 		NoticePanel.onLoading();
 		PrettyGal.dataService.getOrdersByStatus(cursor, filter_status, new AsyncCallback<ListOrder>() {
+
+			@Override
+			public void onSuccess(ListOrder result) {
+				filterTable.setVisible(false);
+				filterTableContent.setHeight("0px");
+				
+				if (listOrder == null) {
+					if(result != null)
+						listOrder = result;
+					else {
+						listOrder = new ListOrder();
+						listOrder.setTotal(0);
+					}
+					initPager(result);
+				} else {
+					listOrder.setCursorStr(result.getCursorStr());
+					listOrder.getListOrder().addAll(result.getListOrder());
+				}
+
+				setTableView(result.getListOrder());
+				NoticePanel.endLoading();
+			}
+
+			@Override
+			public void onFailure(Throwable caught) {
+				NoticePanel.failNotice(PrettyGal.ERROR_MSG);
+			}
+		});
+	}
+	
+	private void getFilterCustomerOrder(Customer customer) {
+		NoticePanel.onLoading();
+		PrettyGal.dataService.getOrdersByCustomer(customer, new AsyncCallback<ListOrder>() {
 
 			@Override
 			public void onSuccess(ListOrder result) {
@@ -243,6 +277,21 @@ public class OrderTable extends Composite {
 		filterListBox.addItem("Tình trạng đơn hàng");
 		filterListBox.addItem("Khách hàng");
 		
+		filterListBox.addChangeHandler(new ChangeHandler() {
+			
+			@Override
+			public void onChange(ChangeEvent event) {
+				if(filterListBox.getSelectedIndex() == 0) {
+					statusFilter.setVisible(true);
+					customerFilter.setVisible(false);
+				}
+				else {
+					statusFilter.setVisible(false);
+					customerFilter.setVisible(true);
+				}
+			}
+		});
+		
 		pendingBox.setValue(true);
 		pendingBoxText.addStyleName("OrderTable_pending");
 		filter_status = Order.PENDING;
@@ -316,6 +365,25 @@ public class OrderTable extends Composite {
 		finishBox.setValue(true);
 		finishBoxText.addStyleName("OrderTable_finish");
 		filter_status = Order.FINISH;
+	}
+	
+	@UiHandler("findCustomer")
+	void onFindCustomerClick(ClickEvent e) {
+		final ListCustomerDialog dialog = new ListCustomerDialog(new ListCustomerDialog_Listener() {
+			
+			@Override
+			public void onSelectedCustomer(Customer selectedCustomer) {
+				listOrder = null;
+				getFilterCustomerOrder(selectedCustomer);
+			}
+		});
+		Timer t = new Timer() {
+
+			@Override
+			public void run() {
+				dialog.center();
+			}};
+		t.schedule(50);
 	}
 	
 }

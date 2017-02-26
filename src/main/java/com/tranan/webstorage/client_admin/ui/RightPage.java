@@ -12,6 +12,7 @@ import com.tranan.webstorage.client_admin.PrettyGal;
 import com.tranan.webstorage.client_admin.Ruler;
 import com.tranan.webstorage.client_admin.place.ItemPlace;
 import com.tranan.webstorage.client_admin.place.OrderPlace;
+import com.tranan.webstorage.client_admin.place.SalePlace;
 
 public class RightPage extends Composite {
 
@@ -27,6 +28,7 @@ public class RightPage extends Composite {
 	@UiField HTMLPanel OrderToolbar;
 	@UiField HTMLPanel CreateOrderToolbar;
 	@UiField HTMLPanel CreateItemToolbar;
+	@UiField HTMLPanel CreateSaleToolbar;
 
 	public RightPage() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -41,11 +43,17 @@ public class RightPage extends Composite {
 		OrderToolbar.setVisible(false);
 		CreateOrderToolbar.setVisible(false);
 		CreateItemToolbar.setVisible(false);
+		CreateSaleToolbar.setVisible(false);
 	}
 	
 	public void ShowCreateItemToolbar() {
 		HideAllToolbar();
 		CreateItemToolbar.setVisible(true);
+	}
+	
+	public void ShowCreateSaleToolbar() {
+		HideAllToolbar();
+		CreateSaleToolbar.setVisible(true);
 	}
 	
 	public void ShowOrderToolbar() {
@@ -72,5 +80,10 @@ public class RightPage extends Composite {
 	void onCreateItemBackBtnClick(ClickEvent e) {
 		PrettyGal.placeController.goTo(new ItemPlace());
 	}
-
+	
+	@UiHandler("createSaleBackBtn")
+	void onCreateSaleBackBtnClick(ClickEvent e) {
+		PrettyGal.placeController.goTo(new SalePlace());
+	}
+	
 }

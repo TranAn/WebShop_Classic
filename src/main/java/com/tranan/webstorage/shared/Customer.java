@@ -19,26 +19,25 @@ public class Customer implements Serializable, IsSerializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	Long id;
+	String phone;
 
 	List<Long> order_ids = new ArrayList<Long>();
 
 	String name;
 	String address;
-	String phone;
 	String email;
 
 	public Customer() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	public Long getId() {
-		return id;
+	
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public List<Long> getOrder_ids() {
@@ -65,14 +64,6 @@ public class Customer implements Serializable, IsSerializable {
 		this.address = address;
 	}
 
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -90,10 +81,10 @@ public class Customer implements Serializable, IsSerializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Customer other = (Customer) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (phone == null) {
+			if (other.phone != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!phone.equals(other.phone))
 			return false;
 		return true;
 	}
@@ -101,7 +92,7 @@ public class Customer implements Serializable, IsSerializable {
 	public boolean isEmpty() {
 		if((name == null || name.isEmpty())
 			&& (address == null || address.isEmpty())
-			&& (phone == null || phone.isEmpty())
+			&& (phone == null)
 			&& (email == null || email.isEmpty()))
 				return true;
 		return false;
