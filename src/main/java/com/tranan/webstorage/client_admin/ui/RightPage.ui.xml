@@ -193,7 +193,7 @@
 					<i class="material-icons RightPage_s2">&#xE14F;</i>
 				</div>
 				<div style="float: left; margin: 24px 15px 0px 0px;">
-					<g:Label styleName="{style.s6}">2</g:Label>
+					<g:Label styleName="{style.s6}">0</g:Label>
 				</div>
 			</g:HTMLPanel>
 		</g:HTMLPanel>

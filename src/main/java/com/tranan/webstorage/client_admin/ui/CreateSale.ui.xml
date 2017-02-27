@@ -2,7 +2,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:g2="urn:import:com.google.gwt.user.datepicker.client">
 	<ui:style>
-	@external .CreateSale_s1, .CreateSale_s2, .CreateSale_s3, .CreateSale_s4, .CreateSale_s4_left, .CreateSale_s5, .CreateSale_s6, .CreateSale_s7, .CreateSale_s8, ..CreateSale_s9, .anchor, .CreateSale_deactive, .CreateSale_active;
+	@external .CreateSale_s1, .CreateSale_s2, .CreateSale_s3, .CreateSale_s4, .CreateSale_s4_left, .CreateSale_s5, .CreateSale_s6, .CreateSale_s7, .CreateSale_s8, .CreateSale_s9, .anchor, .CreateSale_deactive, .CreateSale_active;
 	.s1 {
 		position: relative;
 		width: 100%;
@@ -280,7 +280,7 @@
 		vertical-align: middle;
 		border-left: 1px #e2e9e6 solid;
 		text-align: center;
-		min-width: 100px;
+		min-width: 120px;
 	}
 	
 	.CreateSale_s5 input {
@@ -302,9 +302,9 @@
 		display: table;
 		width: 100%;
 		border-top: 1px #e2e9e6 solid;
-		border-bottom: 1px #e2e9e6 solid;
+		/* border-bottom: 1px #e2e9e6 solid; */
 		overflow: hidden;
-		height: 40px;
+		height: 5px;
 		background: #ffffff;
 		/* color: white; */
 		margin-bottom: 20px;
@@ -418,7 +418,7 @@
 						</g:HTMLPanel>
 						<g:Label width="70%" styleName="CreateSale_s4_left">Tên sản phẩm</g:Label>
 						<g:Label styleName="CreateSale_s4">Giá bán</g:Label>
-						<g:Label styleName="CreateSale_s5">Khuyến mại</g:Label>
+						<g:Label styleName="CreateSale_s5">Khuyến mại (%)</g:Label>
 						<g:Label styleName="CreateSale_s4">Giá khuyến mại</g:Label>
 						<g:HTMLPanel styleName="CreateSale_s9"/>										
 					</g:HTMLPanel>
@@ -454,6 +454,8 @@
 							</g:HTMLPanel>
 						</g:HTMLPanel> -->
 					</g:HTMLPanel>
+					
+					<g:HTMLPanel styleName="CreateSale_s6"/>												
 				</g:HTMLPanel>
 
 				<g:HTMLPanel styleName="{style.s5}">

@@ -546,8 +546,8 @@
 					<g:Label styleName="{style.s6}">Giá gốc</g:Label>
 					<g:HTMLPanel>
 						<g:LongBox ui:field="costText" width="20%" styleName="{style.s11}"></g:LongBox>
-						<span
-							style="float:left; margin-left: 0px; margin-top: 15px; font-size: 15px; color: #BDBDBD;">VND</span>
+						<!-- <span
+							style="float:left; margin-left: 0px; margin-top: 15px; font-size: 15px; color: #BDBDBD;">VND</span> -->
 					</g:HTMLPanel>
 				</g:HTMLPanel>
 
@@ -555,8 +555,8 @@
 					<g:Label styleName="{style.s6}">Giá bán</g:Label>
 					<g:HTMLPanel>
 						<g:LongBox ui:field="priceText" width="20%" styleName="{style.s11}"></g:LongBox>
-						<span
-							style="float:left; margin-left: 0px; margin-top: 15px; font-size: 15px; color: #BDBDBD;">VND</span>
+						<!-- <span
+							style="float:left; margin-left: 0px; margin-top: 15px; font-size: 15px; color: #BDBDBD;">VND</span> -->
 					</g:HTMLPanel>
 				</g:HTMLPanel>
 
