@@ -610,7 +610,7 @@
 				<g:HTMLPanel styleName="{style.s5}">
 					<g:Label styleName="{style.s6}">Thông tin sản phẩm</g:Label>
 					<g:HTMLPanel styleName="{style.s12}">
-						<g:TextArea ui:field="descriptionTxb"></g:TextArea>
+						<g:TextArea ui:field="descriptionTxb" visible="false"></g:TextArea>
 					</g:HTMLPanel>
 				</g:HTMLPanel>
 

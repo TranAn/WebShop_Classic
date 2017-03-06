@@ -272,7 +272,8 @@ public class CreateItem extends Composite {
 	public void setItem(final Item i) {
 		isUpdate = true;
 		CreateItem.item = new Item(i.getId(), i.getPhoto_ids(), i.getCatalog_ids(), i.getName(), 
-				i.getCost(), i.getPrice(), i.getSale(), i.getDescription(), i.getType(), i.getAvatar_url());
+				i.getCost(), i.getPrice(), i.getSale(), i.getSale_id(), i.getSale_price(), 
+				i.getDescription(), i.getType(), i.getAvatar_url());
 		
 		for(final Long photo_id: item.getPhoto_ids()) {
 			samplePhoto.getElement().setAttribute("style", "display: none");
@@ -327,7 +328,7 @@ public class CreateItem extends Composite {
 		Timer t = new Timer() {
 			@Override
 			public void run() {
-				setDataCustomEditor("descriptionTxb", item.getDescription());
+//				setDataCustomEditor("descriptionTxb", item.getDescription());
 				setFileQueued(5 - item.getPhoto_ids().size());
 			}
 		};
@@ -408,10 +409,15 @@ public class CreateItem extends Composite {
 		Timer t = new Timer() {
 			@Override
 			public void run() {
-				replaceCkEditor("descriptionTxb");
+				replaceCkEditor("descriptionTxb", thiz);
 			}
 		};
 		t.schedule(100);
+	}
+	
+	private void setDataEditor() {
+		if(item != null)
+			setDataCustomEditor("descriptionTxb", item.getDescription());
 	}
 	
 	public void replacePlupLoad() {
@@ -424,7 +430,7 @@ public class CreateItem extends Composite {
 		t.schedule(100);
 	}
 	
-	public static native void replaceCkEditor(String editorId) /*-{
+	public static native void replaceCkEditor(String editorId, CreateItem thiz) /*-{
 	 	var noteId = editorId;
 	  	var editor = $wnd.CKEDITOR.replace( noteId, {
 	  		height: '150px',
@@ -437,8 +443,7 @@ public class CreateItem extends Composite {
 	  	});
 	  	
 	  	editor.on("instanceReady",function() {
-	//		$wnd.document.getElementById(editor.id+'_top').style.display = "none";
-//			thiz.@com.born2go.lazzybee.client.subpage.BlogEditorTool::onCkEditorInstanceReady()();
+			thiz.@com.tranan.webstorage.client_admin.ui.CreateItem::setDataEditor()();
 		});
 	  	
 	  	editor.on('focus', function(){	 
@@ -759,6 +764,7 @@ public class CreateItem extends Composite {
 		}
 		item.setCatalog_ids(item_catalog_ids);
 		item.setDescription(getDataCustomEditor("descriptionTxb"));
+		item.setAvatar_url("");
 		
 		PrettyGal.dataService.createItem(item, new AsyncCallback<Item>() {
 			

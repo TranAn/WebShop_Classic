@@ -1,6 +1,8 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:g2="urn:import:com.google.gwt.user.datepicker.client">
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" 
+	xmlns:g2="urn:import:com.google.gwt.user.datepicker.client"
+	xmlns:g3="urn:import:com.tranan.webstorage.client_admin.sub_ui">
 	<ui:style>
 	@external .CreateSale_s1, .CreateSale_s2, .CreateSale_s3, .CreateSale_s4, .CreateSale_s4_left, .CreateSale_s5, .CreateSale_s6, .CreateSale_s7, .CreateSale_s8, .CreateSale_s9, .anchor, .CreateSale_deactive, .CreateSale_active;
 	.s1 {
@@ -92,6 +94,13 @@
 	.s7:focus {
 		outline: none;
 		border-bottom: 1px solid #42a5f5;
+	}
+	
+	.s7_datebox {
+		float: left;
+		margin-left: 20px;
+		margin-right: 20px;
+		/* margin-bottom: 15px; */
 	}
 	
 	.s8 {
@@ -219,6 +228,19 @@
 	
 	.s20 {
 		position: relative;
+	}
+	
+	.s21 {
+		position: relative;
+		overflow: hidden;
+		float: left;
+		width: 60%;
+		margin-top: 15px;
+		margin-left: 20px;
+		margin-right: 20px;
+		margin-bottom: 15px;
+		font-size: 15px;
+		color: #333333;
 	}
 	
 	.CreateSale_s1 {
@@ -390,14 +412,14 @@
 					<g:HTMLPanel styleName="{style.s6}">
 						<g:Label>Từ Ngày</g:Label>
 					</g:HTMLPanel>
-					<g2:DateBox ui:field="saleFrom" width="30%" styleName="{style.s7}"></g2:DateBox>
+					<g3:DateBox ui:field="saleFrom" styleName="{style.s7_datebox}"></g3:DateBox>
 				</g:HTMLPanel>
 
 				<g:HTMLPanel styleName="{style.s5}">
 					<g:HTMLPanel styleName="{style.s6}">
 						<g:Label>Đến Ngày</g:Label>
 					</g:HTMLPanel>
-					<g2:DateBox ui:field="saleTo" width="30%" styleName="{style.s7}"></g2:DateBox>
+					<g3:DateBox ui:field="saleTo" styleName="{style.s7_datebox}"></g3:DateBox>
 				</g:HTMLPanel>
 
 				<div
@@ -457,8 +479,15 @@
 					
 					<g:HTMLPanel styleName="CreateSale_s6"/>												
 				</g:HTMLPanel>
-
+				
 				<g:HTMLPanel styleName="{style.s5}">
+					<g:Label styleName="{style.s6}">Nội Dung Chương Trình</g:Label>
+					<g:HTMLPanel styleName="{style.s21}">
+						<g:TextArea ui:field="descriptionTxb" visible="false"></g:TextArea>
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+
+				<g:HTMLPanel styleName="{style.s5}" visible="false">
 					<g:HTMLPanel styleName="{style.s6}">
 						<g:Label>Tình Trạng</g:Label>
 					</g:HTMLPanel>
@@ -476,7 +505,7 @@
 						</g:HorizontalPanel>
 					</g:HTMLPanel>
 				</g:HTMLPanel>
-
+						
 				<g:HTMLPanel styleName="{style.s16}">
 					<g:Label styleName="{style.s6}"></g:Label>
 					<g:HTMLPanel styleName="{style.s8}">

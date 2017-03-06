@@ -36,7 +36,6 @@ import com.tranan.webstorage.client_admin.sub_ui.Pager.PagerListener;
 import com.tranan.webstorage.shared.Catalog;
 import com.tranan.webstorage.shared.Item;
 import com.tranan.webstorage.shared.ListItem;
-import com.tranan.webstorage.shared.Order;
 
 public class ItemTable extends Composite {
 
@@ -339,13 +338,27 @@ public class ItemTable extends Composite {
 					displayItem = listItem.getListItem().subList(0, listItem.getListItem().size());
 			}
 			else {
-				int index = listItem.getListItem().indexOf(newItem);
-				listItem.getListItem().remove(index);
-				listItem.getListItem().add(index, newItem);
+//				int index = listItem.getListItem().indexOf(newItem);
+//				listItem.getListItem().remove(index);
+//				listItem.getListItem().add(index, newItem);
+				for(Item item: listItem.getListItem()) {
+					if(item.getId().equals(newItem.getId())) {
+						int index = listItem.getListItem().indexOf(item);
+						listItem.getListItem().remove(index);
+						listItem.getListItem().add(index, newItem);
+					}
+				}
 				
-				index = this.displayItem.indexOf(newItem);
-				displayItem.remove(index);
-				displayItem.add(index, newItem);
+//				index = this.displayItem.indexOf(newItem);
+//				displayItem.remove(index);
+//				displayItem.add(index, newItem);
+				for(Item item: displayItem) {
+					if(item.getId().equals(newItem.getId())) {
+						int index = displayItem.indexOf(item);
+						displayItem.remove(index);
+						displayItem.add(index, newItem);
+					}
+				}
 			}
 				
 			setItemTableView(displayItem);

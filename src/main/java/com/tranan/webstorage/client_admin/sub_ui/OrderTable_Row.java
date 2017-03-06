@@ -17,7 +17,6 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
-import com.tranan.webstorage.client_admin.sub_ui.ItemTable_Row.ItemTableRowListener;
 import com.tranan.webstorage.client_admin.ui.ItemTable;
 import com.tranan.webstorage.client_admin.ui.OrderTable;
 import com.tranan.webstorage.shared.Item;

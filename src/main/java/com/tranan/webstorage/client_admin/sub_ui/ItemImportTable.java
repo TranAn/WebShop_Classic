@@ -62,7 +62,8 @@ public class ItemImportTable extends Composite {
 		for(int i=0; i<selectedItems.size(); i++) {
 			
 			Item item = new Item(selectedItems.get(i).getId(), selectedItems.get(i).getPhoto_ids(), selectedItems.get(i).getCatalog_ids(),
-					selectedItems.get(i).getName(), selectedItems.get(i).getCost(), selectedItems.get(i).getPrice(), selectedItems.get(i).getSale(), 
+					selectedItems.get(i).getName(), selectedItems.get(i).getCost(), selectedItems.get(i).getPrice(), selectedItems.get(i).getSale(),
+					selectedItems.get(i).getSale_id(), selectedItems.get(i).getSale_price(),
 					selectedItems.get(i).getDescription(), new ArrayList<Type>(), selectedItems.get(i).getAvatar_url());
 			orderIn_items.add(item);
 			
@@ -76,6 +77,8 @@ public class ItemImportTable extends Composite {
 					orderIn_items.get(i).getType().add(j, new Type(itemType.getName(), 0));
 				}
 			}
+			
+			selectedItems.get(i).setAvatar_url("");
 		}
 		
 		PrettyGal.dataService.importItems(selectedItems, orderIn_items, new AsyncCallback<Void>() {

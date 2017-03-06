@@ -25,12 +25,13 @@ public class Sale implements Serializable, IsSerializable {
 	@Id
 	Long id;
 
-	List<Long> item_ids = new ArrayList<Long>();
+	List<Item> sale_items = new ArrayList<Item>();
 
 	String name;
 	Date from;
 	Date to;
 	int status;
+	String description;
 
 	public Sale() {
 		super();
@@ -45,12 +46,12 @@ public class Sale implements Serializable, IsSerializable {
 		this.id = id;
 	}
 
-	public List<Long> getItem_ids() {
-		return item_ids;
+	public List<Item> getSale_items() {
+		return sale_items;
 	}
 
-	public void setItem_ids(List<Long> item_ids) {
-		this.item_ids = item_ids;
+	public void setSale_items(List<Item> sale_items) {
+		this.sale_items = sale_items;
 	}
 
 	public String getName() {
@@ -85,6 +86,14 @@ public class Sale implements Serializable, IsSerializable {
 		this.status = status;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -112,8 +121,9 @@ public class Sale implements Serializable, IsSerializable {
 
 	@Override
 	public String toString() {
-		return "Sale [id=" + id + ", item_ids=" + item_ids + ", name=" + name
-				+ ", from=" + from + ", to=" + to + ", status=" + status + "]";
+		return "Sale [id=" + id + ", sale_items=" + sale_items + ", name="
+				+ name + ", from=" + from + ", to=" + to + ", status=" + status
+				+ ", description=" + description + "]";
 	}
 
 }

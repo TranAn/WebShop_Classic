@@ -191,8 +191,9 @@ public class CreateOrder extends Composite {
 			emailCustomer.setText(order.getCustomer().getEmail());
 		}
 		
-		orderItems.clear();
-		orderItems.addAll(order.getOrder_items());
+		for(Item i: order.getOrder_items()) {
+			orderItems.add(new Item(i));
+		}
 		addSelectedItemToView(orderItems);
 		
 		createDateBox.setValue(order.getCreate_date());
@@ -256,16 +257,13 @@ public class CreateOrder extends Composite {
 			else
 				lb1.setText(item.getName()+ " ("+ item.getType().get(0).getName()+ ")");
 			if(item.getSale() != 0)
-				lb1.setText(lb1.getText()+ " - sale off "+ item.getSale()+ "%");
+				lb1.setText(lb1.getText()+ " - khuyến mại "+ item.getSale()+ "%");
 			
 			HTMLPanel panel3 = new HTMLPanel("");
 			panel3.setStyleName("CreateOrder_s4");
 			final LongBox lbx1 = new LongBox();
 			PrettyGal.setPriceLongBox(lbx1);
-			if(item.getSale() == 0)
-				lbx1.setText(PrettyGal.integerToPriceString(item.getPrice()));
-			else
-				lbx1.setText(PrettyGal.integerToPriceString( item.getPrice() - item.getPrice() * item.getSale() / 100 ));
+			lbx1.setText(PrettyGal.integerToPriceString(item.getPrice()));
 			Anchor anchor1 = new Anchor();
 			anchor1.setStyleName("anchor");
 			panel3.add(anchor1);
@@ -381,11 +379,13 @@ public class CreateOrder extends Composite {
 			public void onSelectedItem(List<Item> selectedItems) {
 				for(Item item: selectedItems) {
 					item.getType().get(0).setQuantity(0);
+					if(item.getSale() != 0)
+						item.setPrice(item.getSale_price());
 					orderItems.add(item);
 				}
 				addSelectedItemToView(selectedItems);
 			}
-		});
+		}, true);
 		Timer t = new Timer() {
 
 			@Override

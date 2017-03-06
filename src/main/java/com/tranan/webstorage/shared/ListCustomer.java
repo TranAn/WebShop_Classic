@@ -15,7 +15,7 @@ public class ListCustomer implements Serializable {
 	private String cursorStr;
 	private int total;
 
-	public static final int pageSize = 6;
+	public static final int pageSize = 10;
 
 	public ListCustomer() {
 		super();

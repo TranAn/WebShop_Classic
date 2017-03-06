@@ -8,7 +8,6 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
 
 @Entity(name = "Item")
@@ -36,6 +35,7 @@ public class Item implements Serializable, IsSerializable {
 	Long price;
 	Long sale_id;
 	int sale;
+	Long sale_price;
 	String description;
 
 	List<Type> type = new ArrayList<Type>();
@@ -55,6 +55,12 @@ public class Item implements Serializable, IsSerializable {
 			super();
 			this.name = name;
 			this.quantity = quantity;
+		}
+		
+		public Type(Type t) {
+			super();
+			this.name = t.getName();
+			this.quantity = t.getQuantity();
 		}
 
 		public String getName() {
@@ -105,8 +111,8 @@ public class Item implements Serializable, IsSerializable {
 	}
 
 	public Item(Long id, List<Long> photo_ids, List<Long> catalog_ids,
-			String name, Long cost, Long price, int sale, String description,
-			List<Type> type, String avatar_url) {
+			String name, Long cost, Long price, int sale, Long sale_id, Long sale_price, 
+			String description, List<Type> type, String avatar_url) {
 		super();
 		this.id = id;
 		this.photo_ids.addAll(photo_ids);
@@ -115,15 +121,29 @@ public class Item implements Serializable, IsSerializable {
 		this.cost = cost;
 		this.price = price;
 		this.sale = sale;
+		this.sale_id = sale_id;
+		this.sale_price = sale_price;
 		this.description = description;
 		this.type.addAll(type);
-		/*for(Type t: type) {
-			Type new_type = new Type();
-			new_type.setName(t.getName());
-			new_type.setQuantity(t.getQuantity());
-			this.type.add(new_type);
-		}*/
 		this.avatar_url = avatar_url;
+	}
+	
+	//Deep copy an item
+	public Item(Item i) {
+		super();
+		this.id = i.getId();
+		this.photo_ids.addAll(i.getPhoto_ids());
+		this.catalog_ids.addAll(i.getCatalog_ids());
+		this.name = i.getName();
+		this.cost = i.getCost();
+		this.price = i.getPrice();
+		this.sale = i.getSale();
+		this.sale_id = i.getSale_id();
+		this.sale_price = i.getSale_price();
+		this.description = i.getDescription();
+		for(Type t: i.getType())
+			this.type.add(new Type(t));
+		this.avatar_url = i.getAvatar_url();
 	}
 
 	public Long getId() {
@@ -190,6 +210,14 @@ public class Item implements Serializable, IsSerializable {
 		this.sale = sale;
 	}
 
+	public Long getSale_price() {
+		return sale_price;
+	}
+
+	public void setSale_price(Long sale_price) {
+		this.sale_price = sale_price;
+	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -218,7 +246,8 @@ public class Item implements Serializable, IsSerializable {
 	public String toString() {
 		return "Item [id=" + id + ", photo_ids=" + photo_ids + ", catalog_ids="
 				+ catalog_ids + ", name=" + name + ", cost=" + cost
-				+ ", price=" + price + ", sale=" + sale + ", description="
+				+ ", price=" + price + ", sale_id=" + sale_id + ", sale="
+				+ sale + ", sale_price=" + sale_price + ", description="
 				+ description + ", type=" + type + ", avatar_url=" + avatar_url
 				+ "]";
 	}

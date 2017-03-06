@@ -50,4 +50,10 @@ public interface DataService extends RemoteService {
 	
 	public ListCustomer searchCustomer(String search_string);
 	
+	public Sale createSale(Sale sale);
+	
+	public List<Sale> getSales();
+	
+	public void deleteSale(Long id);
+	
 }

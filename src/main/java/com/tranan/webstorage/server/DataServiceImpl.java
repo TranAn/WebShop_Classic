@@ -26,8 +26,8 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
 import com.tranan.webstorage.shared.Catalog;
 import com.tranan.webstorage.shared.Customer;
-import com.tranan.webstorage.shared.EntitiesSize;
 import com.tranan.webstorage.shared.DataService;
+import com.tranan.webstorage.shared.EntitiesSize;
 import com.tranan.webstorage.shared.Item;
 import com.tranan.webstorage.shared.Item.Type;
 import com.tranan.webstorage.shared.ListCustomer;
@@ -37,6 +37,7 @@ import com.tranan.webstorage.shared.Order;
 import com.tranan.webstorage.shared.OrderChannel;
 import com.tranan.webstorage.shared.OrderIn;
 import com.tranan.webstorage.shared.Photo;
+import com.tranan.webstorage.shared.Sale;
 
 @SuppressWarnings("serial")
 public class DataServiceImpl extends RemoteServiceServlet implements
@@ -45,7 +46,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	private BlobstoreService blobStoreService = BlobstoreServiceFactory
 			.getBlobstoreService();
 	
-	public static String removeAccent(String s) {		
+	private String removeAccent(String s) {		
 		String temp = Normalizer.normalize(s, Normalizer.Form.NFD);
 		Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
 		return pattern.matcher(temp).replaceAll("");
@@ -133,10 +134,118 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		}
 	}
 	
+	//Current deploy asian-northeast1 UTC/GMT+9
 	private Date getCurrentDate() {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.HOUR_OF_DAY, -2);
 		return cal.getTime();
+	}
+
+	private void addCustomerOrder(Customer customer, Long order_id) {
+		if(!customer.getPhone().equals("1")) {
+			Customer cus = ofy().load().type(Customer.class).id(customer.getPhone()).now();
+			
+			if(cus == null && order_id != null) {
+				customer.getOrder_ids().add(order_id);
+				
+				ofy().save().entity(customer);
+				createCustomerDocument(customer);
+				
+				List<EntitiesSize> entitiesSizes = ofy().load()
+						.type(EntitiesSize.class).list();
+				EntitiesSize es = entitiesSizes.get(0);
+				es.setCustomer_size(es.getCustomer_size() + 1);
+				ofy().save().entity(es);
+			} 
+			else {
+				if(order_id != null && !cus.getOrder_ids().contains(order_id))
+					cus.getOrder_ids().add(order_id);
+			
+				ofy().save().entity(cus);
+			}
+		}
+	}
+
+	private void deleteCustomerOrder(String customer_id, Long order_id) {
+		Customer customer = ofy().load().type(Customer.class).id(customer_id).now();
+		
+		if(customer != null) {
+			customer.getOrder_ids().remove(order_id);
+			ofy().save().entity(customer);
+		}
+	}
+	
+	private void activeSaleItems(Sale sale) {
+		for(Item item: sale.getSale_items()) {
+			Item db_item = ofy().load().type(Item.class).id(item.getId()).now();
+			if(db_item != null) {
+				db_item.setSale_id(sale.getId());
+				db_item.setSale(item.getSale());
+				db_item.setSale_price(item.getSale_price());
+				
+				ofy().save().entity(db_item);
+			}
+		}
+	}
+	
+	private void deactiveSaleItems(Sale sale) {
+		for(Item item: sale.getSale_items()) {
+			Item db_item = ofy().load().type(Item.class).id(item.getId()).now();
+			if(db_item != null && db_item.getSale_id().equals(sale.getId())) {
+				db_item.setSale_id(null);
+				db_item.setSale(0);
+				db_item.setSale_price(db_item.getPrice());
+				
+				ofy().save().entity(db_item);
+			}
+		}
+	}
+	
+	private void removeSaleItem(Item item) {
+		Sale sale = ofy().load().type(Sale.class).id(item.getSale_id()).now();
+		if(sale != null) {
+			for(Item i: sale.getSale_items()) {
+				if(i.getId().equals(item.getId())) {
+					sale.getSale_items().remove(i);
+					break;
+				}
+			}
+			
+			ofy().save().entity(sale);
+		}
+	}
+	
+	protected void checkSalePlan() {
+		List<Sale> list_sales = ofy().load().type(Sale.class).list();
+		for(Sale sale: list_sales) {
+			if(sale.getTo() != null) {
+				Calendar c = Calendar.getInstance(); 
+				c.setTime(sale.getTo()); 
+				c.set(Calendar.HOUR, 0);
+				c.set(Calendar.MINUTE, 0);
+				c.add(Calendar.DATE, 1);
+				Date expire_date = c.getTime();
+				if(getCurrentDate().after(expire_date) && sale.getStatus() == Sale.ACTIVE) {
+					sale.setStatus(Sale.DEACTIVE);
+					ofy().save().entity(sale);
+					deactiveSaleItems(sale);
+					continue;
+				}
+			}
+			
+			if(sale.getFrom() != null) {
+				Calendar c = Calendar.getInstance(); 
+				c.setTime(sale.getFrom()); 
+				c.set(Calendar.HOUR, 12);
+				Date start_date = c.getTime();
+				if(getCurrentDate().after(sale.getFrom()) && getCurrentDate().before(start_date) && 
+						sale.getStatus() == Sale.DEACTIVE) {
+					sale.setStatus(Sale.ACTIVE);
+					ofy().save().entity(sale);
+					activeSaleItems(sale);
+				}
+			}
+		}
 	}
 
 	@Override
@@ -148,28 +257,17 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public Item createItem(Item item) {
 		Item rtn = null;
+		Item old_item = null;
+		if(item.getId() != null)
+			old_item = ofy().load().type(Item.class).id(item.getId()).now();
+		
 		List<Long> attach_catalog_ids = new ArrayList<Long>();
 		List<Long> detach_catalog_ids = new ArrayList<Long>();
 
-		if (item.getId() != null) {
-			Item i = ofy().load().type(Item.class).id(item.getId()).now();
-			if (i == null) {
-				List<EntitiesSize> entitiesSizes = ofy().load()
-						.type(EntitiesSize.class).list();
-				EntitiesSize es = entitiesSizes.get(0);
-				es.setItem_size(es.getItem_size() + 1);
-				ofy().save().entity(es);
-
-				attach_catalog_ids.addAll(item.getCatalog_ids());
-			} else {
-				for (Long id : item.getCatalog_ids())
-					if (!i.getCatalog_ids().contains(id))
-						attach_catalog_ids.add(id);
-				for (Long id : i.getCatalog_ids())
-					if (!item.getCatalog_ids().contains(id))
-						detach_catalog_ids.add(id);
-			}
-		} else {
+		Key<Item> key = ofy().save().entity(item).now();
+		rtn = ofy().load().key(key).now();
+		
+		if (old_item == null) {
 			List<EntitiesSize> entitiesSizes = ofy().load()
 					.type(EntitiesSize.class).list();
 			EntitiesSize es = entitiesSizes.get(0);
@@ -177,10 +275,15 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			ofy().save().entity(es);
 
 			attach_catalog_ids.addAll(item.getCatalog_ids());
+		} 
+		else {
+			for (Long id : item.getCatalog_ids())
+				if (!old_item.getCatalog_ids().contains(id))
+					attach_catalog_ids.add(id);
+			for (Long id : old_item.getCatalog_ids())
+				if (!item.getCatalog_ids().contains(id))
+					detach_catalog_ids.add(id);
 		}
-
-		Key<Item> key = ofy().save().entity(item).now();
-		rtn = ofy().load().key(key).now();
 
 		for (Long catalog_id : attach_catalog_ids) {
 			Catalog catalog = ofy().load().type(Catalog.class).id(catalog_id)
@@ -362,36 +465,23 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public Order createOrder(Order order) {
 		Order rtn = null;
+		Order old_order = null;
+		if(order.getId() != null)
+			old_order = ofy().load().type(Order.class).id(order.getId()).now();
+	
+		//Add empty customer default id
+		if(order.getCustomer().getPhone() == null || order.getCustomer().getPhone().isEmpty())
+			order.getCustomer().setPhone("1");
+
+		//Save order
+		Key<Order> key = ofy().save().entity(order).now();
+		rtn = ofy().load().key(key).now();
 		
-		if (order.getId() != null) {
-			Order o = ofy().load().type(Order.class).id(order.getId()).now();
-			if (o == null) {
-				List<EntitiesSize> entitiesSizes = ofy().load()
-						.type(EntitiesSize.class).list();
-				EntitiesSize es = entitiesSizes.get(0);
-				es.setOrder_size(es.getOrder_size() + 1);
-				addOrderStatusSize(es, order);
-				ofy().save().entity(es);
-				
-				if(order.getStatus() == Order.DELIVERY || order.getStatus() == Order.FINISH)
-					deliveryItem(order);
-			} 
-			else {
-				if(order.getStatus() != o.getStatus()) {
-					List<EntitiesSize> entitiesSizes = ofy().load()
-							.type(EntitiesSize.class).list();
-					EntitiesSize es = entitiesSizes.get(0);
-					removeOrderStatusSize(es, o);
-					addOrderStatusSize(es, order);
-					ofy().save().entity(es);
-					
-					if(o.getStatus() == Order.PENDING && (order.getStatus() == Order.DELIVERY || order.getStatus() == Order.FINISH))
-						deliveryItem(order);
-					else if((o.getStatus() == Order.DELIVERY || o.getStatus() == Order.FINISH) && order.getStatus() == Order.PENDING)
-						returnItem(order);
-				}
-			}
-		} else {
+		//Save new customer
+		if(rtn.getCustomer() != null)
+			addCustomerOrder(rtn.getCustomer(), rtn.getId());
+		
+		if (old_order == null) {
 			List<EntitiesSize> entitiesSizes = ofy().load()
 					.type(EntitiesSize.class).list();
 			EntitiesSize es = entitiesSizes.get(0);
@@ -401,16 +491,22 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			
 			if(order.getStatus() == Order.DELIVERY || order.getStatus() == Order.FINISH)
 				deliveryItem(order);
+		} 
+		else {
+			if(order.getStatus() != old_order.getStatus()) {
+				List<EntitiesSize> entitiesSizes = ofy().load()
+						.type(EntitiesSize.class).list();
+				EntitiesSize es = entitiesSizes.get(0);
+				removeOrderStatusSize(es, old_order);
+				addOrderStatusSize(es, order);
+				ofy().save().entity(es);
+				
+				if(old_order.getStatus() == Order.PENDING && (order.getStatus() == Order.DELIVERY || order.getStatus() == Order.FINISH))
+					deliveryItem(order);
+				else if((old_order.getStatus() == Order.DELIVERY || old_order.getStatus() == Order.FINISH) && order.getStatus() == Order.PENDING)
+					returnItem(order);
+			}
 		}
-		
-		if(order.getCustomer().getPhone() == null)
-			order.getCustomer().setPhone("1");
-
-		Key<Order> key = ofy().save().entity(order).now();
-		rtn = ofy().load().key(key).now();
-		
-		if(rtn.getCustomer() != null)
-			addCustomerOrder(rtn.getCustomer(), rtn.getId());
 		
 		OrderChannel channel = new OrderChannel();
 		if(order.getSale_channel() == null || order.getSale_channel().isEmpty())
@@ -566,40 +662,6 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		return rtn;
 	}
 	
-	private void addCustomerOrder(Customer customer, Long order_id) {
-		if(!customer.getPhone().equals("1")) {
-			Customer cus = ofy().load().type(Customer.class).id(customer.getPhone()).now();
-			
-			if(cus == null && order_id != null) {
-				customer.getOrder_ids().add(order_id);
-				
-				ofy().save().entity(customer);
-				createCustomerDocument(customer);
-				
-				List<EntitiesSize> entitiesSizes = ofy().load()
-						.type(EntitiesSize.class).list();
-				EntitiesSize es = entitiesSizes.get(0);
-				es.setCustomer_size(es.getCustomer_size() + 1);
-				ofy().save().entity(es);
-			} 
-			else {
-				if(order_id != null && !cus.getOrder_ids().contains(order_id))
-					cus.getOrder_ids().add(order_id);
-			
-				ofy().save().entity(cus);
-			}
-		}
-	}
-	
-	private void deleteCustomerOrder(String customer_id, Long order_id) {
-		Customer customer = ofy().load().type(Customer.class).id(customer_id).now();
-		
-		if(customer != null) {
-			customer.getOrder_ids().remove(order_id);
-			ofy().save().entity(customer);
-		}
-	}
-
 	@Override
 	public ListCustomer getCustomers(String cursor) {
 		List<Customer> result = new ArrayList<Customer>();
@@ -652,6 +714,59 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		
 		ListCustomer listCustomer = new ListCustomer(result, "", result.size());
 		return listCustomer;
+	}
+
+	@Override
+	public Sale createSale(Sale sale) {
+		Sale rtn = null;
+		Sale old_sale = null;
+		if(sale.getId() != null)
+			old_sale = ofy().load().type(Sale.class).id(sale.getId()).now();
+		
+		if(old_sale == null) {
+			Calendar c = Calendar.getInstance(); 
+			c.setTime(sale.getTo()); 
+			c.set(Calendar.HOUR, 0);
+			c.set(Calendar.MINUTE, 0);
+			c.add(Calendar.DATE, 1);
+			Date expire_date = c.getTime();
+			if(getCurrentDate().after(sale.getFrom()) && getCurrentDate().before(expire_date))
+				sale.setStatus(Sale.ACTIVE);
+			else
+				sale.setStatus(Sale.DEACTIVE);
+		}
+
+		Key<Sale> key = ofy().save().entity(sale).now();
+		rtn = ofy().load().key(key).now();
+
+		if(old_sale == null && sale.getStatus() == Sale.ACTIVE) {
+			activeSaleItems(rtn);
+		}
+		else if(old_sale != null && old_sale.getStatus() != sale.getStatus()) {
+			if(sale.getStatus() == Sale.ACTIVE)
+				activeSaleItems(rtn);
+			else
+				deactiveSaleItems(rtn);
+		}
+
+		return rtn;
+	}
+
+	@Override
+	public List<Sale> getSales() {
+		List<Sale> rtn = new ArrayList<Sale>();
+		List<Sale> sales = ofy().load().type(Sale.class).list();
+		rtn.addAll(sales);
+		return rtn;
+	}
+
+	@Override
+	public void deleteSale(Long id) {
+		Sale sale = ofy().load().type(Sale.class).id(id).now();
+		if(sale != null) {
+			ofy().delete().entity(sale);
+			deactiveSaleItems(sale);
+		}
 	}
 
 }

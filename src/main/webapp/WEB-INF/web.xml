@@ -58,5 +58,25 @@
 		<!-- <servlet-name>LoginServlet</servlet-name> -->
 		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
+	
+	<!-- Cron service -->
+	<servlet>
+		<servlet-name>cron_service</servlet-name>
+		<servlet-class>com.tranan.webstorage.server.CronService</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>cron_service</servlet-name>
+		<url-pattern>/prettygal_admin/cron</url-pattern>
+	</servlet-mapping>
+	
+	<security-constraint>
+	    <web-resource-collection>
+	        <web-resource-name>cron</web-resource-name>
+	        <url-pattern>/prettygal_admin/cron</url-pattern>
+	    </web-resource-collection>
+	    <auth-constraint>
+	        <role-name>admin</role-name>
+	    </auth-constraint>
+	</security-constraint>
 
 </web-app>

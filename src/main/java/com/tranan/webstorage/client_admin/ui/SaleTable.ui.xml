@@ -75,6 +75,13 @@
 		transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 	
+	.s7 {
+		position: relative;
+		overflow: hidden;
+		box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.17);
+    	margin: 0 2px 15px 2px;
+	}
+	
 	.anchor {
 		position: absolute;
 		top: 0;
@@ -82,6 +89,71 @@
 		width: 100%;
 		height: 100%;
 		cursor: pointer;
+	}
+	
+	.saleTable {
+		display: table;
+		width: 100%;
+		border: 1px #e2e9e6 solid;
+		border-top: none;
+		overflow: hidden;
+		background: #42a5f5;
+		color: white;
+		box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.17);	
+	}
+	
+	.saleTable_col1 {
+		position: relative;
+		display: table-cell;
+		padding: 15px 20px;
+		width: 60%;
+		vertical-align: middle;
+		table-layout: fixed;
+	}
+	
+	.saleTable_col2 {
+		display: table-cell;
+		vertical-align: middle;
+		border-left: 1px #e2e9e6 solid;
+		padding: 0px 15px;
+		width: 100px;
+		min-width: 100px;
+		table-layout: fixed;
+		text-align: center;
+	}
+	
+	.saleTable_col3 {
+		display: table-cell;
+		vertical-align: middle;
+		border-left: 1px #e2e9e6 solid;
+		padding: 0px 15px;
+		width: 100px;
+		min-width: 100px;
+		table-layout: fixed;
+		text-align: center;
+	}
+	
+	.saleTable_col4 {
+		display: table-cell;
+		vertical-align: middle;
+		border-left: 1px #e2e9e6 solid;
+		text-align: center;
+		width: 150px;
+		min-width: 150px;
+		table-layout: fixed;
+	}
+
+	.saleTable_col5 {
+		position: relative;
+		display: table-cell;
+		border-left: 1px #e2e9e6 solid;
+		border-right: 2px #e2e9e6 solid;
+		padding: 10px;
+		width: 30px;
+		min-width: 30px;
+		vertical-align: middle;
+		table-layout: fixed;
+		text-align: center;
 	}
 	</ui:style>
 	<g:ScrollPanel ui:field="scrollTable" styleName="{style.s1}">
@@ -101,23 +173,17 @@
 					</g:HTMLPanel>
 				</g:HTMLPanel>
 				
-				
-
-				<!-- <g:HTMLPanel styleName="{style.orderTable}">
-					<g:HTMLPanel styleName="{style.orderTable_col1}"></g:HTMLPanel>
-					<g:HTMLPanel styleName="{style.orderTable_col2}">
-						<g:HTMLPanel styleName="{style.customerTable}">Khách hàng</g:HTMLPanel>
-						<g:HTMLPanel styleName="{style.itemTable}">Sản phẩm</g:HTMLPanel>
-					</g:HTMLPanel>
-					<g:Label styleName="{style.orderTable_col3}">Tổng tiền</g:Label>
-					<g:Label styleName="{style.orderTable_col3}">Ngày tạo đơn</g:Label>
-					<g:HTMLPanel styleName="{style.orderTable_col4}">Tình trạng</g:HTMLPanel>
-					<g:HTMLPanel styleName="{style.orderTable_col5}"></g:HTMLPanel>
+				<g:HTMLPanel styleName="{style.saleTable}">
+					<g:Label styleName="{style.saleTable_col1}">Tên chương trình</g:Label>
+					<g:Label styleName="{style.saleTable_col2}">Từ ngày</g:Label>
+					<g:Label styleName="{style.saleTable_col3}">Đến ngày</g:Label>
+					<g:Label styleName="{style.saleTable_col4}">Trạng thái</g:Label>
+					<g:Label styleName="{style.saleTable_col5}"></g:Label>
 				</g:HTMLPanel>
 
-				<g:HTMLPanel ui:field="orderTable" styleName="{style.s8}"></g:HTMLPanel>
+				<g:HTMLPanel ui:field="saleTable" styleName="{style.s7}"></g:HTMLPanel>
 
-				<m:Pager styleName="{style.s7}" ui:field="pager"></m:Pager> -->
+				<!-- <m:Pager styleName="{style.s7}" ui:field="pager"></m:Pager> -->
 			</g:HTMLPanel>
 		</g:HTMLPanel>
 	</g:ScrollPanel>

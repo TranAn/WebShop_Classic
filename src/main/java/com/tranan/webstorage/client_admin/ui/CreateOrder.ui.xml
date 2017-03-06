@@ -1,6 +1,8 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:g2="urn:import:com.google.gwt.user.datepicker.client">
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" 
+	xmlns:g2="urn:import:com.google.gwt.user.datepicker.client"
+	xmlns:g3="urn:import:com.tranan.webstorage.client_admin.sub_ui">
 	<ui:style>
 	@external .CreateOrder_s1, .CreateOrder_s2, .CreateOrder_s3, .CreateOrder_s4, .CreateOrder_s4_left, .CreateOrder_s5, .CreateOrder_s6, .CreateOrder_s7, .CreateOrder_s8, ..CreateOrder_s9, .anchor, .CreateOrder_pending, .CreateOrder_delivery, .CreateOrder_finish;
 	.s1 {

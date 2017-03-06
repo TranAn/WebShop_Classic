@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+  <cron>
+    <url>/prettygal_admin/cron</url>
+    <description>check sale plan</description>
+    <schedule>every day 00:05</schedule>
+    <timezone>Asia/Ho_Chi_Minh</timezone>
+  </cron>
+</cronentries>

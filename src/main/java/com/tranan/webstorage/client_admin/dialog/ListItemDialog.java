@@ -30,17 +30,13 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
-import com.tranan.webstorage.client_admin.place.CreateItemPlace;
-import com.tranan.webstorage.client_admin.sub_ui.ItemTable_Row;
-import com.tranan.webstorage.client_admin.sub_ui.NoticePanel;
 import com.tranan.webstorage.client_admin.sub_ui.Pager;
-import com.tranan.webstorage.client_admin.sub_ui.ItemTable_Row.ItemTableRowListener;
 import com.tranan.webstorage.client_admin.sub_ui.Pager.PagerListener;
 import com.tranan.webstorage.client_admin.ui.ItemTable;
 import com.tranan.webstorage.shared.Item;
-import com.tranan.webstorage.shared.Photo;
 import com.tranan.webstorage.shared.Item.Type;
 import com.tranan.webstorage.shared.ListItem;
+import com.tranan.webstorage.shared.Photo;
 
 public class ListItemDialog extends DialogBox {
 
@@ -82,6 +78,8 @@ public class ListItemDialog extends DialogBox {
 	
 	private ListItem listItemSearch;
 	private String search_string;
+	
+	private boolean showItemType = true;
 
 	void getListItem(String cursor) {
 		onLoading();
@@ -220,9 +218,7 @@ public class ListItemDialog extends DialogBox {
 			for(final Type t: item.getType()) {
 				final CheckBox cb = new CheckBox();
 				panel2.add(cb);
-				Item i = new Item(item.getId(), item.getPhoto_ids(), item.getCatalog_ids(),
-						item.getName(), item.getCost(), item.getPrice(), item.getSale(), 
-						item.getDescription(), item.getType(), item.getAvatar_url());
+				Item i = new Item(item);
 				i.getType().clear();
 				Type new_type = new Type(t.getName(), t.getQuantity());
 				i.getType().add(new_type);
@@ -230,16 +226,24 @@ public class ListItemDialog extends DialogBox {
 					cb.setValue(true);
 				
 				Label lbName = new Label();
-				if(!t.getName().equals(Item.DEFAULT_TYPE)) 
+				if(!t.getName().equals(Item.DEFAULT_TYPE) && showItemType) 
 					lbName.setText(item.getName()+ " ("+ t.getName()+ ")");
 				else
 					lbName.setText(item.getName());
 				panel4.add(lbName);
 								
-				Label lbQuantity = new Label(String.valueOf(t.getQuantity()));
+				Label lbQuantity = new Label();
+				if(showItemType)
+					lbQuantity.setText(String.valueOf(t.getQuantity()));
+				else {
+					int quantity = 0;
+					for(Type tt: item.getType())
+						quantity = quantity + tt.getQuantity();
+					lbQuantity.setText(String.valueOf(quantity));
+				}
 				panel5.add(lbQuantity);
 				
-				if(item.getType().indexOf(t) != item.getType().size() - 1) {
+				if(item.getType().indexOf(t) != item.getType().size() - 1 && showItemType) {
 					HTMLPanel div1 = new HTMLPanel("<div style='margin-bottom: 20px;'></div>");
 					HTMLPanel div2 = new HTMLPanel("<div style='margin-bottom: 20px;'></div>");
 					HTMLPanel div3 = new HTMLPanel("<div style='margin-bottom: 20px;'></div>");
@@ -252,9 +256,7 @@ public class ListItemDialog extends DialogBox {
 					
 					@Override
 					public void onClick(ClickEvent event) {
-						Item i = new Item(item.getId(), item.getPhoto_ids(), item.getCatalog_ids(),
-								item.getName(), item.getCost(), item.getPrice(), item.getSale(), 
-								item.getDescription(), item.getType(), item.getAvatar_url());
+						Item i = new Item(item);
 						if(cb.getValue()) {
 							i.getType().clear();
 							Type new_type = new Type(t.getName(), t.getQuantity());
@@ -269,6 +271,9 @@ public class ListItemDialog extends DialogBox {
 						}
 					}
 				});
+				
+				if(!showItemType)
+					break;
 			}
 			
 			panel1.add(panel2);
@@ -327,7 +332,7 @@ public class ListItemDialog extends DialogBox {
 		setItemTableView(ItemTable.listItem.getListItem().subList(fromIndex, toIndex));
 	}
 
-	public ListItemDialog(ListItemDialog_Listener listener) {
+	public ListItemDialog(ListItemDialog_Listener listener, boolean showItemType) {
 		setWidget(uiBinder.createAndBindUi(this));
 
 		setGlassEnabled(true);
@@ -336,6 +341,7 @@ public class ListItemDialog extends DialogBox {
 		setAnimationEnabled(false);
 		
 		this.listener = listener;
+		this.showItemType = showItemType;
 
 		this.addAttachHandler(new Handler() {
 

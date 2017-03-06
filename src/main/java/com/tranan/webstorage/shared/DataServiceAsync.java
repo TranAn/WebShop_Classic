@@ -47,5 +47,11 @@ public interface DataServiceAsync {
 	void getCustomers(String cursor, AsyncCallback<ListCustomer> callback);
 	
 	void searchCustomer(String search_string, AsyncCallback<ListCustomer> callback);
+	
+	void createSale(Sale sale, AsyncCallback<Sale> callback);
+	
+	void getSales(AsyncCallback<List<Sale>> callback);
+	
+	void deleteSale(Long id, AsyncCallback<Void> callback);
 
 }
