@@ -41,6 +41,8 @@ public class ItemImportTable extends Composite {
 	
 	private ItemImportTable_Listener listener;
 	
+	String row_width;
+	
 	public interface ItemImportTable_Listener {
 		void onImportSuccess(List<Item> result);
 		void onImportFail();
@@ -61,10 +63,7 @@ public class ItemImportTable extends Composite {
 		List<Item> orderIn_items = new ArrayList<Item>();
 		for(int i=0; i<selectedItems.size(); i++) {
 			
-			Item item = new Item(selectedItems.get(i).getId(), selectedItems.get(i).getPhoto_ids(), selectedItems.get(i).getCatalog_ids(),
-					selectedItems.get(i).getName(), selectedItems.get(i).getCost(), selectedItems.get(i).getPrice(), selectedItems.get(i).getSale(),
-					selectedItems.get(i).getSale_id(), selectedItems.get(i).getSale_price(),
-					selectedItems.get(i).getDescription(), new ArrayList<Type>(), selectedItems.get(i).getAvatar_url());
+			Item item = new Item(selectedItems.get(i));
 			orderIn_items.add(item);
 			
 			for(int j=0; j<itemsCountBox.get(i).size(); j++) {
@@ -97,13 +96,32 @@ public class ItemImportTable extends Composite {
 		});
 	}
 	
-	public void setDisplayItem(List<Item> itemsDisplay) {
+	public void setDisplayItem(final List<Item> itemsDisplay) {
 		itemTable.clear();
-		for(Item item: itemsDisplay) {
-			if( (itemsDisplay.indexOf(item)+1) % 3 == 0 )
-				addItemView(item, true);
-			else
-				addItemView(item, false);
+		
+		if(row_width == null) {
+			Timer t = new Timer() {
+				@Override
+				public void run() {	
+					row_width = Ruler.ItemImportTable_item_W + "px";
+					for(Item item: itemsDisplay) {
+						if( (itemsDisplay.indexOf(item)+1) % 3 == 0 )
+							addItemView(item, true);
+						else
+							addItemView(item, false);
+					}
+				}
+				
+			};
+			t.schedule(100);
+		}
+		else {
+			for(Item item: itemsDisplay) {
+				if( (itemsDisplay.indexOf(item)+1) % 3 == 0 )
+					addItemView(item, true);
+				else
+					addItemView(item, false);
+			}
 		}
 	}
 	
@@ -189,13 +207,14 @@ public class ItemImportTable extends Composite {
 		itemTable.add(itemPanel);
 	}
 	
-	void addItemView(final Item item, boolean isRightItem) {
+	void addItemView(final Item item, final boolean isRightItem) {
 		final HTMLPanel itemPanel = new HTMLPanel("");
-		itemPanel.setWidth(Ruler.ItemImportTable_item_W + "px");
+		itemPanel.setWidth(row_width);
 		if(isRightItem)
 			itemPanel.setStyleName("ItemImportTable_s1");
 		else
 			itemPanel.setStyleName("ItemImportTable_s1");
+		
 		HTMLPanel imgPanel = new HTMLPanel("");
 		imgPanel.setStyleName("ItemImportTable_s3");
 		final Image img = new Image();
@@ -259,7 +278,7 @@ public class ItemImportTable extends Composite {
 		itemPanel.add(cb);
 		itemPanel.add(a);
 		
-		itemTable.add(itemPanel);
+		itemTable.add(itemPanel);									
 	}
 
 }

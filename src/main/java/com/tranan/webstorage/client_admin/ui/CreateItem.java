@@ -903,12 +903,21 @@ public class CreateItem extends Composite {
 			txb1.setStyleName("CreateItem_s14");
 			txb1.setText(catalog.getName());
 			HTMLPanel panel2 = new HTMLPanel("");
-			panel2.setStyleName("CreateItem_s15");
-			panel2.getElement().setInnerHTML("<div style='margin-top:2px; margin-left: 19px;'>"
+			panel2.setStyleName("CreateItem_s15b");
+			panel2.getElement().setInnerHTML("<div style='margin-top:2px; margin-left: 15px; margin-right: -10px;'>"
 												+ "<i class='material-icons'>&#xE872;</i>"
 												+ "</div>");
 			Anchor deleteBtn = new Anchor();
 			deleteBtn.setStyleName("CreateItem_s11");
+			
+			HTMLPanel panel3 = new HTMLPanel("");
+			panel3.setStyleName("CreateItem_s15");
+			panel3.getElement().setInnerHTML("<div style='margin-top:2px; margin-left: 15px;'>"
+												+ "<i class='material-icons'>&#xE254;</i>"
+												+ "</div>");
+			Anchor editBtn = new Anchor();
+			editBtn.setStyleName("CreateItem_s11");
+			panel3.add(editBtn);
 			
 			txb1.addBlurHandler(new BlurHandler() {
 				
@@ -972,10 +981,18 @@ public class CreateItem extends Composite {
 					}
 				}
 			});
+			editBtn.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					txb1.setFocus(true);
+				}
+			});
 			
 			panel2.add(deleteBtn);
 			panel1.add(txb1);
 			panel1.add(panel2);
+			panel1.add(panel3);
 			catalogTable.add(panel1);
 		}
 	}

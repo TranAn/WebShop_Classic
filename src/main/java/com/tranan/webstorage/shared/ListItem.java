@@ -15,7 +15,7 @@ public class ListItem implements Serializable {
 	private String cursorStr;
 	private int total;
 
-	public static final int pageSize = 15;
+	public static final int pageSize = 10;
 
 	public ListItem() {
 		super();

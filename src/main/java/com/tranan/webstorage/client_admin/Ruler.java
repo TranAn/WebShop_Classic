@@ -13,5 +13,5 @@ public class Ruler {
 
 	public static int ItemTableRow_itemname_W = Window.getClientWidth() - 250 - 40  - 690;
 	
-	public static int ItemImportTable_item_W = (RightPage_W - 40) / 3 - 7;
+	public static int ItemImportTable_item_W = (RightPage_W - 40) / 2 - 4;
 }

@@ -2,7 +2,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-	@external .CreateItem_s1, .CreateItem_s2, .CreateItem_s3, .CreateItem_s4, .CreateItem_s5, .CreateItem_s6, .CreateItem_s7, .CreateItem_s8, .CreateItem_s9, .CreateItem_s10, .CreateItem_s11, .CreateItem_s12, .CreateItem_s12_deactive, .CreateItem_s13, .CreateItem_s14, .CreateItem_s15, .CreateItem_s16, .CreateItem_s16_active, .CreateItem_s17, .CreateItem_s18, .CreateItem_s19;
+	@external .CreateItem_s1, .CreateItem_s2, .CreateItem_s3, .CreateItem_s4, .CreateItem_s5, .CreateItem_s6, .CreateItem_s7, .CreateItem_s8, .CreateItem_s9, .CreateItem_s10, .CreateItem_s11, .CreateItem_s12, .CreateItem_s12_deactive, .CreateItem_s13, .CreateItem_s14, .CreateItem_s15, .CreateItem_s15b, .CreateItem_s16, .CreateItem_s16_active, .CreateItem_s17, .CreateItem_s18, .CreateItem_s19;
 	.s1 {
 		position: relative;
 		width: 100%;
@@ -357,7 +357,7 @@
 	.CreateItem_s12 {
 		position: relative;
 		float: left;
-		width: 170px;
+		width: 172px;
 		height: 40px;
 		background: #fff;
 		color: #42a5f5;
@@ -398,7 +398,7 @@
 		border: none;
 		color: #333333;
 		margin-top: 6px;
-		width: 85%;
+		width: 80%;
 	}
 	
 	.CreateItem_s14:focus {
@@ -416,6 +416,20 @@
 	}
 	
 	.CreateItem_s15:hover {
+		color: red;
+	}
+	
+	.CreateItem_s15b {
+		position: relative;
+		float: right;
+		border-left: 1px #e2e9e6 solid;
+		width: 50px;
+		height: 100%;
+		cursor: pointer;
+		margin-right: -10px;
+	}
+	
+	.CreateItem_s15b:hover {
 		color: red;
 	}
 	
@@ -494,7 +508,7 @@
 			<g:HTMLPanel styleName="{style.s3}">
 				<g:HTMLPanel ui:field="itemTabHeader" styleName="{style.s4}">
 					<div style="float: left; margin: 2px 5px 0px 24px;">
-						<i class="material-icons CreateItem_s1">&#xE150;</i>
+						<i class="material-icons CreateItem_s1">&#xE892;</i>
 					</div>
 					<g:Label>Thêm Sản Phẩm</g:Label>
 					<g:Anchor ui:field="itemTabBtn" styleName="{style.s14}"></g:Anchor>
