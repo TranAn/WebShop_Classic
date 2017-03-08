@@ -300,6 +300,8 @@ public class ItemTable extends Composite {
 			public void pageIndex(int index) {
 				if (index < listItem.getListItem().size()) {
 					List<Item> displayItem;
+					
+					if(listItem.getListItem().size() != 0) {
 					if ((index + ListItem.pageSize) <= listItem.getListItem()
 							.size())
 						displayItem = listItem.getListItem().subList(index,
@@ -307,6 +309,9 @@ public class ItemTable extends Composite {
 					else
 						displayItem = listItem.getListItem().subList(index,
 								listItem.getListItem().size());
+					}
+					else
+						displayItem = new ArrayList<Item>();
 
 					setItemTableView(displayItem);
 				} else {
@@ -502,7 +507,10 @@ public class ItemTable extends Composite {
 				@Override
 				public void onDeleteItem(Item item) {
 					listItem.getListItem().remove(item);
-					listItem.setTotal(listItem.getTotal() - 1);
+					if(listItem.getListItem().isEmpty())
+						listItem.setTotal(0);
+					else
+						listItem.setTotal(listItem.getTotal() - 1);
 					itemsPager.updatePage(listItem.getTotal(), ListItem.pageSize);
 				}
 				

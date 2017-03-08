@@ -1,5 +1,6 @@
 package com.tranan.webstorage.client_admin.ui;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
@@ -10,6 +11,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
@@ -196,17 +198,21 @@ public class OrderTable extends Composite {
 			public void pageIndex(int index) {
 				if (index < listOrder.getListOrder().size()) {
 					List<Order> displayItem;
-					if ((index + ListOrder.pageSize) <= listOrder.getListOrder()
-							.size())
-						displayItem = listOrder.getListOrder().subList(index,
-								index + ListOrder.pageSize);
+					if(listOrder.getListOrder().size() != 0) {
+						if ((index + ListOrder.pageSize) <= listOrder.getListOrder()
+								.size())
+							displayItem = listOrder.getListOrder().subList(index,
+									index + ListOrder.pageSize);
+						else
+							displayItem = listOrder.getListOrder().subList(index,
+									listOrder.getListOrder().size());
+					}
 					else
-						displayItem = listOrder.getListOrder().subList(index,
-								listOrder.getListOrder().size());
+						displayItem = new ArrayList<Order>();
 
 					setTableView(displayItem);
 				} else {
-					getListOrder(listOrder.getCursorStr());			
+					getListOrder(listOrder.getCursorStr());					
 				}
 				scrollTable.scrollToTop();
 			}
@@ -221,7 +227,10 @@ public class OrderTable extends Composite {
 				@Override
 				public void onDeleteItem(Order order) {
 					listOrder.getListOrder().remove(order);
-					listOrder.setTotal(listOrder.getTotal() - 1);
+					if(listOrder.getListOrder().isEmpty())
+						listOrder.setTotal(0);
+					else
+						listOrder.setTotal(listOrder.getTotal() - 1);
 					pager.updatePage(listOrder.getTotal(), ListOrder.pageSize);
 				}
 				

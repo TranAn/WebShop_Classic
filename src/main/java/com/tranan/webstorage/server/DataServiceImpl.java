@@ -723,7 +723,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		if(sale.getId() != null)
 			old_sale = ofy().load().type(Sale.class).id(sale.getId()).now();
 		
-		if(old_sale == null) {
+		if(old_sale == null && sale.getTo() != null && sale.getFrom() != null) {
 			Calendar c = Calendar.getInstance(); 
 			c.setTime(sale.getTo()); 
 			c.set(Calendar.HOUR, 0);

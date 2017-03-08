@@ -30,7 +30,7 @@ public class Sale implements Serializable, IsSerializable {
 	String name;
 	Date from;
 	Date to;
-	int status;
+	int status = DEACTIVE;
 	String description;
 
 	public Sale() {
