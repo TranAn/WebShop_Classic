@@ -503,8 +503,26 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 				
 				if(old_order.getStatus() == Order.PENDING && (order.getStatus() == Order.DELIVERY || order.getStatus() == Order.FINISH))
 					deliveryItem(order);
+				
 				else if((old_order.getStatus() == Order.DELIVERY || old_order.getStatus() == Order.FINISH) && order.getStatus() == Order.PENDING)
-					returnItem(order);
+					returnItem(old_order);
+			}
+			else {
+				if(order.getStatus() == Order.DELIVERY || order.getStatus() == Order.FINISH) {
+					boolean isReDelivery = false;
+					for(int i = 0; i < order.getOrder_items().size(); i++) {
+						if( old_order.getOrder_items().get(i).getType().get(0).getQuantity() !=
+								order.getOrder_items().get(i).getType().get(0).getQuantity() ) {
+							isReDelivery = true;
+							break;
+						}
+					}
+					
+					if(isReDelivery) {
+						returnItem(old_order);
+						deliveryItem(order);
+					}
+				}			
 			}
 		}
 		

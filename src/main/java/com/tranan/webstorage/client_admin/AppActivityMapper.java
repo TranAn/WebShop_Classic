@@ -15,7 +15,6 @@ import com.tranan.webstorage.client_admin.place.SalePlace;
 import com.tranan.webstorage.client_admin.ui.CreateItem;
 import com.tranan.webstorage.client_admin.ui.CreateOrder;
 import com.tranan.webstorage.client_admin.ui.CreateSale;
-import com.tranan.webstorage.client_admin.ui.ItemTable;
 
 public class AppActivityMapper implements ActivityMapper {
 
@@ -46,8 +45,6 @@ public class AppActivityMapper implements ActivityMapper {
 					PrettyGal.controlPage.HideAllToolbar();
 
 					PrettyGal.controlPage.addPage(PrettyGal.UIC.getItemTable());
-
-					PrettyGal.UIC.getItemTable().getListItem("");
 				}
 
 				@Override

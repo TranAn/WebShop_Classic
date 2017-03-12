@@ -314,7 +314,7 @@
 
 		<g:ScrollPanel ui:field="scroll">
 			<g:HTMLPanel ui:field="itemTable" styleName="{style.s8}">
-				<g:HTMLPanel styleName="ListItemDialog_table">
+				<!-- <g:HTMLPanel styleName="ListItemDialog_table">
 					<g:HTMLPanel styleName="ListItemDialog_table_col1">
 						<g:CheckBox></g:CheckBox>
 						<div style="margin-bottom: 20px;"></div>
@@ -335,7 +335,7 @@
 						<div style="margin-bottom: 20px;"></div>
 						<g:Label>10</g:Label>
 					</g:HTMLPanel>
-				</g:HTMLPanel>
+				</g:HTMLPanel> -->
 			</g:HTMLPanel>
 		</g:ScrollPanel>
 

@@ -80,7 +80,7 @@
 	
 	.s7 {
 		float: left;
-		width: 60%;
+		width: 55%;
 		border: none;
 		border-bottom: 1px solid #e2e9e6;
 		margin-left: 20px;
@@ -94,6 +94,12 @@
 	.s7:focus {
 		outline: none;
 		border-bottom: 1px solid #42a5f5;
+	}
+	
+	.s7_datebox {
+		float: left;
+		margin-left: 20px;
+		margin-right: 20px;
 	}
 	
 	.s8 {
@@ -519,15 +525,15 @@
 					<g:HTMLPanel styleName="{style.s6}">
 						<g:Label>Ngày Tạo Đơn</g:Label>
 					</g:HTMLPanel>
-					<g2:DateBox ui:field="createDateBox" width="30%"
-						styleName="{style.s7}"></g2:DateBox>
+					<g3:DateBox ui:field="createDateBox"
+						styleName="{style.s7_datebox}"></g3:DateBox>
 				</g:HTMLPanel>
 
 				<g:HTMLPanel styleName="{style.s5}">
 					<g:HTMLPanel styleName="{style.s6}">
 						<g:Label>Kênh Bán</g:Label>
 					</g:HTMLPanel>
-					<g:SuggestBox ui:field="saleChannelBox" width="30%" styleName="{style.s7}"></g:SuggestBox>
+					<g:SuggestBox ui:field="saleChannelBox" width="310px" styleName="{style.s7}"></g:SuggestBox>
 				</g:HTMLPanel>
 
 				<g:HTMLPanel styleName="{style.s5}">
@@ -559,8 +565,8 @@
 					<g:HTMLPanel styleName="{style.s6}">
 						<g:Label>Ngày Hoàn Thành</g:Label>
 					</g:HTMLPanel>
-					<g2:DateBox ui:field="finishDateBox" width="30%"
-						styleName="{style.s7}"></g2:DateBox>
+					<g3:DateBox ui:field="finishDateBox"
+						styleName="{style.s7_datebox}"></g3:DateBox>
 				</g:HTMLPanel>
 
 				<g:HTMLPanel styleName="{style.s16}">

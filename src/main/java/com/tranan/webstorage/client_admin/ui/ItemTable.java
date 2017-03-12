@@ -11,6 +11,8 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.logical.shared.AttachEvent;
+import com.google.gwt.event.logical.shared.AttachEvent.Handler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -55,10 +57,6 @@ public class ItemTable extends Composite {
 	HTMLPanel tableHeader;
 	@UiField
 	HTMLPanel importTableControlBox;
-//	@UiField
-//	HTMLPanel categorieTable;
-//	@UiField
-//	HTMLPanel table;
 	@UiField
 	HTMLPanel nameColumn;
 	@UiField
@@ -97,7 +95,6 @@ public class ItemTable extends Composite {
 	public static ListItem listItem;
 	public static List<Catalog> listCatalog;
 	
-//	private String next_cursor;
 	private ListItem listItemFilterBuffer;
 	private ListItem listItemSearchBuffer;
 	private String search_string;
@@ -198,15 +195,13 @@ public class ItemTable extends Composite {
 						listItem.getListItem().addAll(result.getListItem());
 					}
 					
-	//				next_cursor = result.getCursorStr();
 					setItemTableView(result.getListItem());
 					NoticePanel.endLoading();
 				}
 	
 				@Override
 				public void onFailure(Throwable caught) {
-					NoticePanel
-							.failNotice("Kết nối đến server thất bại, vui lòng kiểm tra lại đường truyền");
+					NoticePanel.failNotice(PrettyGal.ERROR_MSG);
 				}
 			});
 		}
@@ -244,17 +239,14 @@ public class ItemTable extends Composite {
 					listItem.setCursorStr(result.getCursorStr());
 					listItem.getListItem().addAll(result.getListItem());
 				}
-//				next_cursor = result.getCursorStr();
 
 				setItemTableView(result.getListItem());
-
 				NoticePanel.endLoading();
 			}
 
 			@Override
 			public void onFailure(Throwable caught) {
-				NoticePanel
-						.failNotice("Kết nối đến server thất bại, vui lòng kiểm tra lại đường truyền");
+				NoticePanel.failNotice(PrettyGal.ERROR_MSG);
 			}
 		});
 	}
@@ -279,10 +271,8 @@ public class ItemTable extends Composite {
 				} else {
 					listItem.getListItem().addAll(result.getListItem());
 				}
-//				next_cursor = result.getCursorStr();
-
+				
 				setItemTableView(result.getListItem());
-
 				NoticePanel.endLoading();
 			}
 
@@ -374,24 +364,7 @@ public class ItemTable extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 
 		scrollTable.setHeight(Ruler.ItemTable_H + "px");
-//		categorieTable.setWidth(Ruler.ItemTable_Categories_W);
 		nameColumn.setWidth(Ruler.ItemTableRow_itemname_W + "px");
-
-//		searchTxb.getElement().setAttribute("placeholder", "Search ...");
-
-//		CategorieTable_Row categorie1 = new CategorieTable_Row("General");
-//		CategorieTable_Row categorie2 = new CategorieTable_Row("Categorie 1");
-//		CategorieTable_Row categorie3 = new CategorieTable_Row("Categorie 2");
-//		categorie1.setActive();
-
-//		table.add(categorie1);
-//		table.add(categorie2);
-//		table.add(categorie3);
-
-//		getListItem("");
-//		itemTable.setVisible(false);
-//		itemImportTable.setVisible(true);
-//		itemImportTable.add(new ItemImportTable());
 		
 		searchTxb.addBlurHandler(new BlurHandler() {
 			
@@ -426,6 +399,17 @@ public class ItemTable extends Composite {
                 }
             }
         });
+		
+		getListItem("");
+		
+		addAttachHandler(new Handler() {
+			
+			@Override
+			public void onAttachOrDetach(AttachEvent event) {
+				if(listItem == null)
+					getListItem("");
+			}
+		});
 	}
 	
 	public void cancelImportItem() {

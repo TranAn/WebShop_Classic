@@ -16,7 +16,6 @@ import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -35,7 +34,6 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.user.datepicker.client.DateBox;
 import com.tranan.webstorage.client_admin.PrettyGal;
 import com.tranan.webstorage.client_admin.Ruler;
 import com.tranan.webstorage.client_admin.dialog.ListCustomerDialog;
@@ -43,6 +41,7 @@ import com.tranan.webstorage.client_admin.dialog.ListCustomerDialog.ListCustomer
 import com.tranan.webstorage.client_admin.dialog.ListItemDialog;
 import com.tranan.webstorage.client_admin.dialog.ListItemDialog.ListItemDialog_Listener;
 import com.tranan.webstorage.client_admin.place.OrderPlace;
+import com.tranan.webstorage.client_admin.sub_ui.DateBox;
 import com.tranan.webstorage.client_admin.sub_ui.NoticePanel;
 import com.tranan.webstorage.shared.Customer;
 import com.tranan.webstorage.shared.Item;
@@ -81,6 +80,8 @@ public class CreateOrder extends Composite {
 	private Customer customer;
 	private List<Item> orderItems = new ArrayList<Item>();
 	private int order_status;
+	
+	private boolean isItemChange = false;
 	
 	void getChannels() {
 		if(OrderTable.channels == null) {
@@ -139,10 +140,10 @@ public class CreateOrder extends Composite {
 		
 		scroll.setHeight(Ruler.ItemTable_H + "px");
 		
-		createDateBox.setFormat(new DateBox.DefaultFormat 
-				 (DateTimeFormat.getFormat("dd - MM - yyyy"))); 
-		finishDateBox.setFormat(new DateBox.DefaultFormat 
-				 (DateTimeFormat.getFormat("dd - MM - yyyy"))); 
+//		createDateBox.setFormat(new DateBox.DefaultFormat 
+//				 (DateTimeFormat.getFormat("dd - MM - yyyy"))); 
+//		finishDateBox.setFormat(new DateBox.DefaultFormat 
+//				 (DateTimeFormat.getFormat("dd - MM - yyyy"))); 
 		
 		pendingBox.setValue(true);
 		pendingBoxText.addStyleName("CreateOrder_pending");
@@ -196,7 +197,7 @@ public class CreateOrder extends Composite {
 		}
 		addSelectedItemToView(orderItems);
 		
-		createDateBox.setValue(order.getCreate_date());
+		createDateBox.setDate(order.getCreate_date());
 		saleChannelBox.setText(order.getSale_channel());
 		
 		if(order.getStatus() == Order.PENDING) {
@@ -219,7 +220,7 @@ public class CreateOrder extends Composite {
 			finishBoxText.addStyleName("CreateOrder_finish");
 			order_status = 2;
 			finishDatePanel.setVisible(true);
-			finishDateBox.setValue(order.getFinish_date());
+			finishDateBox.setDate(order.getFinish_date());
 		}
 	}
 	
@@ -339,6 +340,8 @@ public class CreateOrder extends Composite {
 					
 					item.getType().get(0).setQuantity(intbx1.getValue());
 					CheckSum();
+					
+					isItemChange = true;
 				}
 			});
 			
@@ -417,12 +420,12 @@ public class CreateOrder extends Composite {
 		customer.setEmail(emailCustomer.getText());
 		//Create order detail
 		order.setCustomer(customer);
-		order.setCreate_date(createDateBox.getValue());
+		order.setCreate_date(createDateBox.getDate());
 		order.setSale_channel(saleChannelBox.getText());
 		order.setStatus(order_status);
 		order.setOrder_items(orderItems);
 		if(order.getStatus() == Order.FINISH)
-			order.setFinish_date(finishDateBox.getValue());
+			order.setFinish_date(finishDateBox.getDate());
 		
 		NoticePanel.onLoading();
 		PrettyGal.dataService.createOrder(order, new AsyncCallback<Order>() {
@@ -432,7 +435,7 @@ public class CreateOrder extends Composite {
 				if(order.getId() == null) {
 					NoticePanel.successNotice("Tạo đơn hàng thành công");
 					
-					if(order.getStatus() == Order.DELIVERY || order.getStatus() == Order.FINISH)
+					if((order.getStatus() == Order.DELIVERY || order.getStatus() == Order.FINISH) && isItemChange)
 						ItemTable.ClearListItem();
 				}
 				else {
@@ -444,6 +447,8 @@ public class CreateOrder extends Composite {
 						else if((old_order_status == Order.DELIVERY || old_order_status == Order.FINISH) && order.getStatus() == Order.PENDING)
 							ItemTable.ClearListItem();
 					}
+					else if(isItemChange && (order.getStatus() == Order.DELIVERY || order.getStatus() == Order.FINISH))
+						ItemTable.ClearListItem();
 				}
 				
 				OrderChannel channel = new OrderChannel(result.getSale_channel());
@@ -486,7 +491,7 @@ public class CreateOrder extends Composite {
 		finishBoxText.addStyleName("CreateOrder_finish");
 		order_status = 2;
 		finishDatePanel.setVisible(true);
-		finishDateBox.setValue(new Date(System.currentTimeMillis()));
+		finishDateBox.setDate(new Date(System.currentTimeMillis()));
 	}
 	
 	@UiHandler("exitButton")

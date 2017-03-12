@@ -209,7 +209,11 @@ public class ListItemDialog extends DialogBox {
 			
 			Label lb2 = new Label(PrettyGal.integerToPriceString(item.getPrice()));
 			lb2.setStyleName("ListItemDialog_table_col4");
-			Label lb3 = new Label(item.getSale()+"%");
+			Label lb3 = new Label();
+			if(item.getSale() != 0)
+				lb3.setText(PrettyGal.integerToPriceString(item.getSale_price()) + " (-" + item.getSale()+ "%)");
+			else
+				lb3.setText(0 + "%");
 			lb3.setStyleName("ListItemDialog_table_col4");
 			
 			HTMLPanel panel5 = new HTMLPanel("");
