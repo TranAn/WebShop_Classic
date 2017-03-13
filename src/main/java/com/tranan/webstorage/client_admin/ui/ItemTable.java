@@ -317,8 +317,9 @@ public class ItemTable extends Composite {
 		});
 	}
 	
-	public static void ClearListItem() {
+	public void ClearListItem() {
 		listItem = null;
+		getListItem("");
 	}
 
 	public void AddItem(Item newItem, boolean isUpdate) {
@@ -402,14 +403,14 @@ public class ItemTable extends Composite {
 		
 		getListItem("");
 		
-		addAttachHandler(new Handler() {
-			
-			@Override
-			public void onAttachOrDetach(AttachEvent event) {
-				if(listItem == null)
-					getListItem("");
-			}
-		});
+//		addAttachHandler(new Handler() {
+//			
+//			@Override
+//			public void onAttachOrDetach(AttachEvent event) {
+//				if(listItem == null)
+//					getListItem("");
+//			}
+//		});
 	}
 	
 	public void cancelImportItem() {

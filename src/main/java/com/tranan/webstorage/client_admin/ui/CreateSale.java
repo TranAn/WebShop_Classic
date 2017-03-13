@@ -383,7 +383,7 @@ public class CreateSale extends Composite {
 				if(sale.getId() == null) {
 					NoticePanel.successNotice("Tạo chương trình khuyến mại thành công");
 					if(result.getStatus() == Sale.ACTIVE)
-						ItemTable.ClearListItem();
+						PrettyGal.UIC.getItemTable().ClearListItem();
 				}
 				else {
 					NoticePanel.successNotice("Thay đổi chương trình khuyến mại thành công");

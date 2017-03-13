@@ -71,7 +71,7 @@ public class SaleTable_Row extends Composite {
 					@Override
 					public void onSuccess(Sale result) {
 						NoticePanel.endLoading();
-						ItemTable.ClearListItem();
+						PrettyGal.UIC.getItemTable().ClearListItem();
 					}
 					
 					@Override
@@ -105,7 +105,7 @@ public class SaleTable_Row extends Composite {
 				
 				@Override
 				public void onSuccess(Void result) {
-					ItemTable.ClearListItem();
+					PrettyGal.UIC.getItemTable().ClearListItem();
 					listener.onDeleteSale(sale);	
 					NoticePanel.successNotice("Chương trình khuyến mại đã bị hủy");					
 				}

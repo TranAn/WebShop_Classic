@@ -436,19 +436,19 @@ public class CreateOrder extends Composite {
 					NoticePanel.successNotice("Tạo đơn hàng thành công");
 					
 					if((order.getStatus() == Order.DELIVERY || order.getStatus() == Order.FINISH) && isItemChange)
-						ItemTable.ClearListItem();
+						PrettyGal.UIC.getItemTable().ClearListItem();
 				}
 				else {
 					NoticePanel.successNotice("Thay đổi đơn hàng thành công");
 					
 					if(old_order_status != -1 && order.getStatus() != old_order_status) {
 						if(old_order_status == Order.PENDING && (order.getStatus() == Order.DELIVERY || order.getStatus() == Order.FINISH))
-							ItemTable.ClearListItem();
+							PrettyGal.UIC.getItemTable().ClearListItem();
 						else if((old_order_status == Order.DELIVERY || old_order_status == Order.FINISH) && order.getStatus() == Order.PENDING)
-							ItemTable.ClearListItem();
+							PrettyGal.UIC.getItemTable().ClearListItem();
 					}
 					else if(isItemChange && (order.getStatus() == Order.DELIVERY || order.getStatus() == Order.FINISH))
-						ItemTable.ClearListItem();
+						PrettyGal.UIC.getItemTable().ClearListItem();
 				}
 				
 				OrderChannel channel = new OrderChannel(result.getSale_channel());

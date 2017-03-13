@@ -67,9 +67,9 @@ public class OrderTable_Row extends Composite {
 						NoticePanel.endLoading();
 						
 						if(order.getStatus() == Order.PENDING && (orderStatus.getSelectedIndex() == Order.DELIVERY || orderStatus.getSelectedIndex() == Order.FINISH))
-							ItemTable.ClearListItem();
+							PrettyGal.UIC.getItemTable().ClearListItem();
 						else if((order.getStatus() == Order.DELIVERY || order.getStatus() == Order.FINISH) && orderStatus.getSelectedIndex() == Order.PENDING)
-							ItemTable.ClearListItem();
+							PrettyGal.UIC.getItemTable().ClearListItem();
 						
 						order.setStatus(orderStatus.getSelectedIndex());
 						int index = OrderTable.listOrder.getListOrder().indexOf(order);
@@ -173,7 +173,7 @@ public class OrderTable_Row extends Composite {
 				public void onSuccess(Boolean result) {
 					if(result) {
 						if(order.getStatus() == Order.DELIVERY)
-							ItemTable.ClearListItem();
+							PrettyGal.UIC.getItemTable().ClearListItem();
 						
 						listener.onDeleteItem(order);	
 						NoticePanel.successNotice("Đơn hàng đã bị hủy");	

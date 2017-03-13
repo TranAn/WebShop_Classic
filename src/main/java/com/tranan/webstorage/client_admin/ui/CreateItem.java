@@ -70,7 +70,11 @@ public class CreateItem extends Composite {
 	@UiField HTMLPanel catalogTableTitle;
 	@UiField HTMLPanel catalogRow;
 	@UiField HTMLPanel itemCatalogsTable;
-	@UiField HTMLPanel avatarTitle;
+	@UiField HTMLPanel avatarTitle1;
+	@UiField HTMLPanel avatarTitle2;
+	@UiField HTMLPanel avatarTitle3;
+	@UiField HTMLPanel avatarTitle4;
+	@UiField HTMLPanel avatarTitle5;
 	
 	CreateItem thiz = this;
 
@@ -82,6 +86,7 @@ public class CreateItem extends Composite {
 	/*static Long itemId;*/
 	
 	private List<TypeBox> listTypeBox = new ArrayList<TypeBox>();
+	private String avatarIndex;
 	
 	class TypeBox {
 		public TextBox type;
@@ -174,7 +179,6 @@ public class CreateItem extends Composite {
 		container.getElement().setAttribute("id", "container");
 		imgPanel.getElement().setAttribute("id", "imgPanel");
 		samplePhoto.getElement().setAttribute("id", "samplePhoto");
-		avatarTitle.getElement().setAttribute("id", "avatarTitle");
 		
 		nameText.getElement().setAttribute("placeholder", "Tên sản phẩm");
 		priceText.getElement().setAttribute("placeholder", "0");
@@ -185,7 +189,6 @@ public class CreateItem extends Composite {
 		priceText.getElement().setAttribute("maxlength", "13");
 		costText.getElement().setAttribute("maxlength", "13");
 		saleText.getElement().setAttribute("maxlength", "2");
-		avatarTitle.getElement().setAttribute("style", "display:none");
 		
 		scroll.setHeight(Ruler.ItemTable_H + "px");
 		
@@ -271,12 +274,11 @@ public class CreateItem extends Composite {
 	
 	public void setItem(final Item i) {
 		isUpdate = true;
-		CreateItem.item = new Item(i.getId(), i.getPhoto_ids(), i.getCatalog_ids(), i.getName(), 
-				i.getCost(), i.getPrice(), i.getSale(), i.getSale_id(), i.getSale_price(), 
-				i.getDescription(), i.getType(), i.getAvatar_url());
+		CreateItem.item = new Item(i);
 		
 		for(final Long photo_id: item.getPhoto_ids()) {
 			samplePhoto.getElement().setAttribute("style", "display: none");
+			
 			final HTMLPanel span = new HTMLPanel("");
 			span.setStyleName("CreateItem_s3");
 			final Image img = new Image();
@@ -292,11 +294,48 @@ public class CreateItem extends Composite {
 					imgPanel.remove(span);
 					item.getPhoto_ids().remove(photo_id);
 					setFileQueued(5 - item.getPhoto_ids().size());
+					
+					if(item.getPhoto_ids().isEmpty()) {
+						avatarIndex = null;
+						String file_queued = String.valueOf(getFileQueued());
+						if(file_queued.equals("0")) {
+							setAvatarTitle("-1");
+							samplePhoto.getElement().setAttribute("style", "display: ");
+						}
+						else
+							setAvatarTitle("0");
+					}
+					else {
+						int remove_index = item.getPhoto_ids().indexOf(photo_id);
+						if(avatarIndex != null) {
+							if(remove_index == Integer.valueOf(avatarIndex)) {
+								avatarIndex = "0";
+								setAvatarTitle(avatarIndex);
+							}
+							else if(remove_index < Integer.valueOf(avatarIndex)) {
+								avatarIndex = String.valueOf(Integer.valueOf(avatarIndex) - 1);
+								setAvatarTitle(avatarIndex);
+							}
+						}
+					}
+				}
+			});
+            
+            Anchor avatarButton = new Anchor();
+            avatarButton.setStyleName("CreateItem_s20");
+            avatarButton.getElement().setInnerHTML("Ảnh Đại Diện");
+            avatarButton.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					avatarIndex = String.valueOf(item.getPhoto_ids().indexOf(photo_id));
+					setAvatarTitle(avatarIndex);
 				}
 			});
             
             span.add(img);
             span.add(removeButton);
+            span.add(avatarButton);
             imgPanel.add(span);
             
 			PrettyGal.dataService.getPhoto(photo_id, new AsyncCallback<Photo>() {
@@ -304,7 +343,7 @@ public class CreateItem extends Composite {
 				@Override
 				public void onSuccess(Photo result) {
 					img.setUrl(result.getServeUrl());
-					avatarTitle.getElement().setAttribute("style", "display:");
+					avatarTitle1.getElement().setAttribute("style", "display:");
 				}
 				
 				@Override
@@ -420,6 +459,35 @@ public class CreateItem extends Composite {
 			setDataCustomEditor("descriptionTxb", item.getDescription());
 	}
 	
+	private void setAvatarTitle(String index) {
+		avatarTitle1.setVisible(false);
+		avatarTitle2.setVisible(false);
+		avatarTitle3.setVisible(false);
+		avatarTitle4.setVisible(false);
+		avatarTitle5.setVisible(false);
+		
+		int img_index = Integer.valueOf(index);
+		switch (img_index) {
+		case 0:
+			avatarTitle1.setVisible(true);
+			break;
+		case 1:
+			avatarTitle2.setVisible(true);
+			break;
+		case 2:
+			avatarTitle3.setVisible(true);
+			break;
+		case 3:
+			avatarTitle4.setVisible(true);
+			break;
+		case 4:
+			avatarTitle5.setVisible(true);
+			break;
+		default:
+			break;
+		}
+	}
+
 	public void replacePlupLoad() {
 		Timer t = new Timer() {
 			@Override
@@ -538,6 +606,10 @@ public class CreateItem extends Composite {
 		$wnd.max_file = 5;
 		var files_remaining;          
 		var isUploadPhoto = "F";
+		var avatarIndex = -1;
+		var uploadIndex = 0;
+		var currentIndex = 0;
+		
 	  	$wnd.uploader = new $wnd.plupload.Uploader({
 		    runtimes : 'html5,html4,flash',
 		    container: $wnd.document.getElementById('container'),
@@ -557,7 +629,8 @@ public class CreateItem extends Composite {
 		    
 		    //Enable params
 		    multipart_params : {
-				itemId: ''
+				itemId: '',
+				isAvatar: 'F'
 			},
 		     
 		    //Enable filter files
@@ -579,6 +652,11 @@ public class CreateItem extends Composite {
 	            UploadFile: function(up, file) {
 	            	if(files_remaining > 1)
 			    		@com.tranan.webstorage.client_admin.ui.CreateItem::updateUploaderUrl()();
+			    		
+			    	if(uploadIndex == avatarIndex)
+			    		$wnd.uploader.settings.multipart_params.isAvatar = 'T';
+			    	else
+			    		$wnd.uploader.settings.multipart_params.isAvatar = 'F';
 	            }
 	        },
 		 
@@ -594,12 +672,11 @@ public class CreateItem extends Composite {
 	 					var el = $wnd.document.getElementById( 'samplePhoto' );
  						el.style.display = "";
  						
- 						var e2 = $wnd.document.getElementById( 'avatarTitle' );
- 						e2.style.display = "none";
+						thiz.@com.tranan.webstorage.client_admin.ui.CreateItem::setAvatarTitle(Ljava/lang/String;)(-1);
 	 				}
 	 				if($wnd.uploader.files.length != 0 || $wnd.max_file < 5) {
-	 					var e2 = $wnd.document.getElementById( 'avatarTitle' );
- 						e2.style.display = "";
+//	 					var e2 = $wnd.document.getElementById( 'avatarTitle' );
+// 						e2.style.display = "";
 	 				}
 	        	},
 		 
@@ -619,7 +696,7 @@ public class CreateItem extends Composite {
 		        			        	
 				   	$wnd.plupload.each(files, function(file) {
 						var img = new $wnd.o.Image();
-						          
+					          
 	                    img.onload = function() {
 	                        // create a thumb placeholder
 	                        var span = document.createElement('div');
@@ -639,26 +716,50 @@ public class CreateItem extends Composite {
 	                    };
 	                    	                
 		                img.onembedded = function() {
+		                	var index = $wnd.uploader.files.indexOf(file);
+							$wnd.uploader.files.splice(index, 1);
+		                	$wnd.uploader.files.splice(currentIndex, 0, file);
+		                	
 		                	// drop thumbnails at different angles
 //                        	$wnd.plupload.each(['', '-ms-', '-webkit-', '-o-', '-moz-'], function(prefix) {
 //                          $wnd.document.getElementById(img.uid).style[prefix + 'transform'] = 'rotate('+ (Math.floor(Math.random() * 6) - 3) + 'deg)';
 //                        	});
+
 							// add remove image button
 	                        var removeButton = document.createElement("a");
 	                        var span = 	$wnd.document.getElementById(this.uid);
 	                        span.appendChild(removeButton);
 	                        removeButton.className = "CreateItem_s4";
 	                        removeButton.innerHTML = "<i class='material-icons'>&#xE872;</i>";
-	                        removeButton.onclick = function(index) {
+	                        removeButton.onclick = function(index) {	                        		                        	
+	                        	var img_index = $wnd.uploader.files.indexOf(file);
+	                        	if(avatarIndex == img_index) {
+	                        		avatarIndex = -1;
+	                        		thiz.@com.tranan.webstorage.client_admin.ui.CreateItem::setAvatarTitle(Ljava/lang/String;)(avatarIndex);
+	                        	}
+	                        	if(avatarIndex > img_index) {
+	                        		avatarIndex--;
+	                        		thiz.@com.tranan.webstorage.client_admin.ui.CreateItem::setAvatarTitle(Ljava/lang/String;)(avatarIndex + 5 - $wnd.max_file);
+	                        	}
+	                        	
 	                        	span.parentNode.removeChild(span);
 	                        	$wnd.uploader.removeFile(file);
+	                        	currentIndex--;
 	                        };
 	                        
-//		                    var avatarTitle = document.createElement("span");
-//		                    var span = 	$wnd.document.getElementById(this.uid);
-//		                    span.appendChild(avatarTitle);
-//		                    avatarTitle.className = "CreateItem_s19";
-//		                    avatarTitle.innerHTML = "Ảnh Đại Diện";                      	                       
+	                        // add avatar button
+		                    var avatarButton = document.createElement("span");
+		                    var span = 	$wnd.document.getElementById(this.uid);
+		                    span.appendChild(avatarButton);
+		                    avatarButton.className = "CreateItem_s20";
+		                    avatarButton.innerHTML = "Ảnh Đại Diện";       
+		                    avatarButton.onclick = function(index) {
+		                    	var img_index = $wnd.uploader.files.indexOf(file);
+		                    	avatarIndex = img_index;
+	                        	thiz.@com.tranan.webstorage.client_admin.ui.CreateItem::setAvatarTitle(Ljava/lang/String;)(img_index + 5 - $wnd.max_file);
+	                        };    
+	                        
+	                        currentIndex++;
 	                    };
 		                              
 	                	img.load(file.getSource());
@@ -674,6 +775,7 @@ public class CreateItem extends Composite {
 		        
 		        FileUploaded: function(up, file, info) {
 	                files_remaining--;
+	                uploadIndex++;
 	                isUploadPhoto = "T";
 	            },
 	            
@@ -721,6 +823,9 @@ public class CreateItem extends Composite {
 		$wnd.max_file = max_file;
 	}-*/;
 	
+	public static native String getFileQueued() /*-{
+		return $wnd.uploader.files.length;
+	}-*/;
 	
 	@UiHandler("saveButton")
 	void onSaveButtonClick(ClickEvent e) {
@@ -728,6 +833,14 @@ public class CreateItem extends Composite {
 		
 		if(item == null)
 			item = new Item();
+		
+		if(avatarIndex != null) {
+			int index = Integer.valueOf(avatarIndex);
+			Long photo_id = item.getPhoto_ids().get(index);
+			item.getPhoto_ids().remove(index);
+			item.getPhoto_ids().add(0, photo_id);
+		}
+		
 		item.setName(nameText.getText());
 		if(!costText.getText().isEmpty())
 			item.setCost(Long.valueOf(costText.getText().replaceAll("[.]", "")));
@@ -770,9 +883,21 @@ public class CreateItem extends Composite {
 			
 			@Override
 			public void onSuccess(Item result) {
-				uploadPhoto(result.getId());
 				item = result;
 				skipCheckItemChange = true;
+				
+				String file_queued = String.valueOf(getFileQueued());
+				if(file_queued.equals("0")) {
+					if(!isUpdate)
+						NoticePanel.successNotice("Thêm sản phẩm thành công");
+					else
+						NoticePanel.successNotice("Thay đổi sản phẩm thành công");
+					PrettyGal.UIC.getItemTable().AddItem(result, isUpdate);
+					PrettyGal.placeController.goTo(new ItemPlace());
+				}
+				else {
+					uploadPhoto(result.getId());
+				}
 			}
 			
 			@Override

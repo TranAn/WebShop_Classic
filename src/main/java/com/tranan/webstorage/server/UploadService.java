@@ -40,6 +40,10 @@ public class UploadService extends HttpServlet implements Servlet {
 
 		Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
 		List<BlobKey> blobKeys = blobs.get("file");
+		
+		String isAvatar = String.valueOf(req.getParameter("isAvatar").replaceAll(",", ""));
+		if(isAvatar == null)
+			isAvatar = "F";
 
 		if (blobKeys != null) {
 			for (BlobKey key : blobKeys) {
@@ -72,7 +76,10 @@ public class UploadService extends HttpServlet implements Servlet {
 							.replaceAll(",", ""));
 					Item item = ofy().load().type(Item.class).id(itemId).now();
 					if (item != null) {
-						item.getPhoto_ids().add(rtn.getId());
+						if(isAvatar.equals("T") )
+							item.getPhoto_ids().add(0, rtn.getId());
+						else
+							item.getPhoto_ids().add(rtn.getId());
 						ofy().save().entity(item);
 					}
 				} else {

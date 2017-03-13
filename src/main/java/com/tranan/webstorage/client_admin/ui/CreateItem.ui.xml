@@ -2,7 +2,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-	@external .CreateItem_s1, .CreateItem_s2, .CreateItem_s3, .CreateItem_s4, .CreateItem_s5, .CreateItem_s6, .CreateItem_s7, .CreateItem_s8, .CreateItem_s9, .CreateItem_s10, .CreateItem_s11, .CreateItem_s12, .CreateItem_s12_deactive, .CreateItem_s13, .CreateItem_s14, .CreateItem_s15, .CreateItem_s15b, .CreateItem_s16, .CreateItem_s16_active, .CreateItem_s17, .CreateItem_s18, .CreateItem_s19;
+	@external .CreateItem_s1, .CreateItem_s2, .CreateItem_s3, .CreateItem_s4, .CreateItem_s5, .CreateItem_s6, .CreateItem_s7, .CreateItem_s8, .CreateItem_s9, .CreateItem_s10, .CreateItem_s11, .CreateItem_s12, .CreateItem_s12_deactive, .CreateItem_s13, .CreateItem_s14, .CreateItem_s15, .CreateItem_s15b, .CreateItem_s16, .CreateItem_s16_active, .CreateItem_s17, .CreateItem_s18, .CreateItem_s19, ..CreateItem_s20;
 	.s1 {
 		position: relative;
 		width: 100%;
@@ -214,6 +214,11 @@
 	
 	.CreateItem_s3:hover .CreateItem_s4 {
 		height: 30px;
+	}
+	
+	.CreateItem_s3:hover .CreateItem_s20 {
+		height: 30px;
+		color: #212121;
 	}
 	
 	.CreateItem_s4 {
@@ -501,6 +506,109 @@
 		z-index: 1;
 		cursor: default;
 	}
+	
+	.CreateItem_s20 {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 0px;
+		background: rgba(255, 255, 255, .75);
+		text-align: center;
+		line-height: 2.3;
+		color: transparent;
+		font-weight: 600;
+		font-family: sans-serif;
+		transition-property: all;
+		transition-duration: .5s;
+		transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+		z-index: 2;
+		cursor: pointer;
+	}
+	
+	.CreateItem_s20:hover {
+		text-decoration: none;
+	}
+	
+	.s22 {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 120px;
+		height: 30px;
+		background: rgba(255, 255, 255, .75);
+		text-align: center;
+		line-height: 2.3;
+		color: #212121;
+		font-weight: 600;
+		font-family: sans-serif;
+		z-index: 1;
+		cursor: default;
+	}
+	
+	.s23 {
+		position: absolute;
+		top: 0;
+		left: 130px;
+		width: 120px;
+		height: 30px;
+		background: rgba(255, 255, 255, .75);
+		text-align: center;
+		line-height: 2.3;
+		color: #212121;
+		font-weight: 600;
+		font-family: sans-serif;
+		z-index: 1;
+		cursor: default;
+	}
+	
+	.s24 {
+		position: absolute;
+		top: 0;
+		left: 260px;
+		width: 120px;
+		height: 30px;
+		background: rgba(255, 255, 255, .75);
+		text-align: center;
+		line-height: 2.3;
+		color: #212121;
+		font-weight: 600;
+		font-family: sans-serif;
+		z-index: 1;
+		cursor: default;
+	}
+	
+	.s25 {
+		position: absolute;
+		top: 0;
+		left: 390px;
+		width: 120px;
+		height: 30px;
+		background: rgba(255, 255, 255, .75);
+		text-align: center;
+		line-height: 2.3;
+		color: #212121;
+		font-weight: 600;
+		font-family: sans-serif;
+		z-index: 1;
+		cursor: default;
+	}
+	
+	.s26 {
+		position: absolute;
+		top: 0;
+		left: 520px;
+		width: 120px;
+		height: 30px;
+		background: rgba(255, 255, 255, .75);
+		text-align: center;
+		line-height: 2.3;
+		color: #212121;
+		font-weight: 600;
+		font-family: sans-serif;
+		z-index: 1;
+		cursor: default;
+	}
 	</ui:style>
 
 	<g:ScrollPanel ui:field="scroll" styleName="{style.s1}">
@@ -538,7 +646,11 @@
 								<i class="material-icons CreateItem_s2">&#xE3B0;</i>
 							</g:HTMLPanel>
 							
-							<g:HTMLPanel ui:field="avatarTitle" styleName="CreateItem_s19">Ảnh Đại Diện</g:HTMLPanel>
+							<g:HTMLPanel ui:field="avatarTitle1" styleName="{style.s22}" visible="false">Ảnh Đại Diện</g:HTMLPanel>
+							<g:HTMLPanel ui:field="avatarTitle2" styleName="{style.s23}" visible="false">Ảnh Đại Diện</g:HTMLPanel>
+							<g:HTMLPanel ui:field="avatarTitle3" styleName="{style.s24}" visible="false">Ảnh Đại Diện</g:HTMLPanel>
+							<g:HTMLPanel ui:field="avatarTitle4" styleName="{style.s25}" visible="false">Ảnh Đại Diện</g:HTMLPanel>
+							<g:HTMLPanel ui:field="avatarTitle5" styleName="{style.s26}" visible="false">Ảnh Đại Diện</g:HTMLPanel>
 						</g:HTMLPanel>
 
 						<g:HTMLPanel ui:field="container" styleName="{style.s10}">
