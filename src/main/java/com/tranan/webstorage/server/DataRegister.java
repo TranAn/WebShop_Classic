@@ -21,6 +21,7 @@ public class DataRegister extends RemoteServiceServlet {
 		ObjectifyService.register(OrderChannel.class);
 		ObjectifyService.register(Photo.class);
 		ObjectifyService.register(Sale.class);
+		ObjectifyService.register(OrderTrack.class);
 //		ObjectifyService.register(Shop.class);
 //		ObjectifyService.register(User.class);
 

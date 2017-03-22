@@ -17,7 +17,6 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
-import com.tranan.webstorage.client_admin.ui.ItemTable;
 import com.tranan.webstorage.client_admin.ui.OrderTable;
 import com.tranan.webstorage.shared.Item;
 import com.tranan.webstorage.shared.Order;
@@ -46,10 +45,12 @@ public class OrderTable_Row extends Composite {
 	public interface OrderTableRowListener {
 		void onClickItem(Order order);
 		void onDeleteItem(Order order);
+		void onChangeStatus(Order order);
 	}
 
-	public OrderTable_Row(OrderTableRowListener listener) {
+	public OrderTable_Row(final OrderTableRowListener listener) {
 		initWidget(uiBinder.createAndBindUi(this));
+		this.listener = listener;
 		
 		orderStatus.addItem("Đợi giao hàng");
 		orderStatus.addItem("Đang giao hàng");
@@ -60,10 +61,10 @@ public class OrderTable_Row extends Composite {
 			@Override
 			public void onChange(ChangeEvent event) {
 				NoticePanel.onLoading();
-				PrettyGal.dataService.updateOrderStatus(order.getId(), orderStatus.getSelectedIndex(), new AsyncCallback<Void>() {
+				PrettyGal.dataService.updateOrderStatus(order.getId(), orderStatus.getSelectedIndex(), new AsyncCallback<Order>() {
 					
 					@Override
-					public void onSuccess(Void result) {
+					public void onSuccess(Order result) {
 						NoticePanel.endLoading();
 						
 						if(order.getStatus() == Order.PENDING && (orderStatus.getSelectedIndex() == Order.DELIVERY || orderStatus.getSelectedIndex() == Order.FINISH))
@@ -85,6 +86,9 @@ public class OrderTable_Row extends Composite {
 							col1.addStyleName("orderTable_delivery");
 						else if (order.getStatus() == Order.FINISH)
 							col1.addStyleName("orderTable_finish");
+						
+						order = result;
+						listener.onChangeStatus(result);
 					}
 					
 					@Override
@@ -94,8 +98,6 @@ public class OrderTable_Row extends Composite {
 				});
 			}
 		});
-		
-		this.listener = listener;
 	}
 	
 	public void setOrder(Order order) {

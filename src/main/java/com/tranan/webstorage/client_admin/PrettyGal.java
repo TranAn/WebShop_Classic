@@ -94,8 +94,14 @@ public class PrettyGal implements EntryPoint {
 	}
 
 	public static String integerToPriceString(Long number) {
+		boolean isZeroLess = false;
+		
 		if(number == 0)
 			return "0";
+		if(number < 0) {
+			number = -number;
+			isZeroLess = true;
+		}
 		
 		String rtn = "";
 		List<String> p = new ArrayList<String>();
@@ -113,7 +119,11 @@ public class PrettyGal implements EntryPoint {
 			else
 				rtn = p.get(i) + "." + rtn;
 		}
-		return rtn;
+		
+		if(isZeroLess)
+			return "- " + rtn;
+		else
+			return rtn;
 	}
 	
 	public static String phoneFormat(String phone) {

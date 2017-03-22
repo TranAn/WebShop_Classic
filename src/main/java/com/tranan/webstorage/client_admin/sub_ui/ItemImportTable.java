@@ -22,6 +22,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
 import com.tranan.webstorage.client_admin.Ruler;
 import com.tranan.webstorage.client_admin.ui.ItemTable;
+import com.tranan.webstorage.client_admin.ui.OrderTable;
 import com.tranan.webstorage.shared.Item;
 import com.tranan.webstorage.shared.Item.Type;
 import com.tranan.webstorage.shared.Photo;
@@ -64,6 +65,7 @@ public class ItemImportTable extends Composite {
 		for(int i=0; i<selectedItems.size(); i++) {
 			
 			Item item = new Item(selectedItems.get(i));
+			item.getType().clear();
 			orderIn_items.add(item);
 			
 			for(int j=0; j<itemsCountBox.get(i).size(); j++) {
@@ -85,6 +87,7 @@ public class ItemImportTable extends Composite {
 			@Override
 			public void onSuccess(Void result) {
 				listener.onImportSuccess(selectedItems);
+				OrderTable.listOrderIn = null;
 				NoticePanel.successNotice("Sản phẩm đã được thêm vào kho hàng");
 			}
 			

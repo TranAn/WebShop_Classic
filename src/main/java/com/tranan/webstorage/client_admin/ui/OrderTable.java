@@ -11,7 +11,6 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
@@ -26,14 +25,17 @@ import com.tranan.webstorage.client_admin.dialog.ListCustomerDialog;
 import com.tranan.webstorage.client_admin.dialog.ListCustomerDialog.ListCustomerDialog_Listener;
 import com.tranan.webstorage.client_admin.place.CreateOrderPlace;
 import com.tranan.webstorage.client_admin.sub_ui.NoticePanel;
+import com.tranan.webstorage.client_admin.sub_ui.OrderInTable_Row;
 import com.tranan.webstorage.client_admin.sub_ui.OrderTable_Row;
 import com.tranan.webstorage.client_admin.sub_ui.OrderTable_Row.OrderTableRowListener;
 import com.tranan.webstorage.client_admin.sub_ui.Pager;
 import com.tranan.webstorage.client_admin.sub_ui.Pager.PagerListener;
 import com.tranan.webstorage.shared.Customer;
 import com.tranan.webstorage.shared.ListOrder;
+import com.tranan.webstorage.shared.ListOrderIn;
 import com.tranan.webstorage.shared.Order;
 import com.tranan.webstorage.shared.OrderChannel;
+import com.tranan.webstorage.shared.OrderIn;
 
 public class OrderTable extends Composite {
 
@@ -51,6 +53,8 @@ public class OrderTable extends Composite {
 	Label orderTableTitle;
 	@UiField
 	Pager pager;
+	@UiField
+	Pager orderin_pager;
 	@UiField
 	HTMLPanel filterTable;
 	@UiField
@@ -73,13 +77,63 @@ public class OrderTable extends Composite {
 	HTMLPanel statusFilter;
 	@UiField
 	HTMLPanel customerFilter;
+	@UiField
+	HTMLPanel orderInTable;
+	@UiField
+	HTMLPanel orderInTab;
+	@UiField
+	HTMLPanel orderTab;
 	
+	public static ListOrderIn listOrderIn;
 	public static ListOrder listOrder;
 	public static List<OrderChannel> channels;
 	
 	private List<Order> displayItem;
 	
 	private int filter_status;
+	
+	private void getListOrderIn(String cursor) {
+		if(OrderTable.listOrderIn == null || !cursor.equals("")) {
+			NoticePanel.onLoading();
+			PrettyGal.dataService.getOrderIns(cursor, new AsyncCallback<ListOrderIn>() {
+	
+				@Override
+				public void onSuccess(ListOrderIn result) {
+					if (listOrderIn == null) {
+						if(result != null)
+							listOrderIn = result;
+						else {
+							listOrderIn = new ListOrderIn();
+							listOrderIn.setTotal(0);
+						}
+						initOrderInPager(result);
+					} else {
+						listOrderIn.setCursorStr(result.getCursorStr());
+						listOrderIn.getListOrderIn().addAll(result.getListOrderIn());
+					}
+					
+					setOrderInTableView(result.getListOrderIn());
+					NoticePanel.endLoading();
+				}
+	
+				@Override
+				public void onFailure(Throwable caught) {
+					NoticePanel.failNotice(PrettyGal.ERROR_MSG);
+				}
+			});
+		}
+		else {
+			initOrderInPager(listOrderIn);
+			
+			List<OrderIn> displayItem;
+			if (ListOrderIn.pageSize >= listOrderIn.getListOrderIn().size())
+				displayItem = listOrderIn.getListOrderIn().subList(0, listOrderIn.getListOrderIn().size());
+			else
+				displayItem = listOrderIn.getListOrderIn().subList(0, ListOrderIn.pageSize);
+
+			setOrderInTableView(displayItem);
+		}
+	}
 	
 	private void getListOrder(String cursor) {
 		if(OrderTable.listOrder == null || !cursor.equals("")) {
@@ -107,8 +161,7 @@ public class OrderTable extends Composite {
 	
 				@Override
 				public void onFailure(Throwable caught) {
-					NoticePanel
-							.failNotice("Kết nối đến server thất bại, vui lòng kiểm tra lại đường truyền");
+					NoticePanel.failNotice(PrettyGal.ERROR_MSG);
 				}
 			});
 		}
@@ -191,6 +244,34 @@ public class OrderTable extends Composite {
 		});
 	}
 	
+	private void initOrderInPager(ListOrderIn orders) {
+		orderin_pager.setPage(orders.getTotal(), ListOrderIn.pageSize, new PagerListener() {
+
+			@Override
+			public void pageIndex(int index) {
+				if (index < listOrderIn.getListOrderIn().size()) {
+					List<OrderIn> displayItem;
+					if(listOrderIn.getListOrderIn().size() != 0) {
+						if ((index + ListOrderIn.pageSize) <= listOrderIn.getListOrderIn()
+								.size())
+							displayItem = listOrderIn.getListOrderIn().subList(index,
+									index + ListOrderIn.pageSize);
+						else
+							displayItem = listOrderIn.getListOrderIn().subList(index,
+									listOrderIn.getListOrderIn().size());
+					}
+					else
+						displayItem = new ArrayList<OrderIn>();
+
+					setOrderInTableView(displayItem);
+				} else {
+					getListOrderIn(listOrderIn.getCursorStr());					
+				}
+				scrollTable.scrollToTop();
+			}
+		});
+	}
+	
 	private void initPager(ListOrder orders) {
 		pager.setPage(orders.getTotal(), ListOrder.pageSize, new PagerListener() {
 
@@ -218,6 +299,17 @@ public class OrderTable extends Composite {
 			}
 		});
 	}
+	
+	private void setOrderInTableView(List<OrderIn> orders) {
+		orderInTable.clear();
+		for (OrderIn order: orders) {
+			OrderInTable_Row row = new OrderInTable_Row();
+			row.setOrder(order);
+			orderInTable.add(row);
+		}
+		
+//		displayOrderInItem = orders;
+	}
 
 	private void setTableView(List<Order> orders) {
 		orderTable.clear();
@@ -237,6 +329,11 @@ public class OrderTable extends Composite {
 				@Override
 				public void onClickItem(Order order) {
 					PrettyGal.placeController.goTo(new CreateOrderPlace(String.valueOf(order.getId()), order));
+				}
+
+				@Override
+				public void onChangeStatus(Order order) {
+					// TODO Auto-generated method stub				
 				}
 			});
 			row.setOrder(order);
@@ -304,6 +401,18 @@ public class OrderTable extends Composite {
 		pendingBox.setValue(true);
 		pendingBoxText.addStyleName("OrderTable_pending");
 		filter_status = Order.PENDING;
+	}
+	
+	public void changeToOrderInTab() {
+		orderInTab.setVisible(true);
+		orderTab.setVisible(false);
+		
+		getListOrderIn("");
+	}
+	
+	public void changeToOrderTab() {
+		orderInTab.setVisible(false);
+		orderTab.setVisible(true);
 	}
 	
 	public void AddItem(Order order) {

@@ -40,7 +40,7 @@ public interface DataServiceAsync {
 	
 	void deleteOrder(Long id, AsyncCallback<Boolean> callback);
 	
-	void updateOrderStatus(Long order_id, int status, AsyncCallback<Void> callback);
+	void updateOrderStatus(Long order_id, int status, AsyncCallback<Order> callback);
 	
 	void getChannels(AsyncCallback<List<OrderChannel>> callback);
 	
@@ -53,5 +53,9 @@ public interface DataServiceAsync {
 	void getSales(AsyncCallback<List<Sale>> callback);
 	
 	void deleteSale(Long id, AsyncCallback<Void> callback);
+	
+	void getOrderIns(String cursor, AsyncCallback<ListOrderIn> callback);
+	
+	void getStatisticData(String data_id, AsyncCallback<StatisticData> callback);
 
 }

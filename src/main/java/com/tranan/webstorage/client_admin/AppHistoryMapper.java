@@ -38,6 +38,9 @@ public class AppHistoryMapper implements PlaceHistoryMapper {
 		
 		if (tokens[0].equals("sale"))
 			return new SalePlace();
+		
+		if (tokens[0].equals("statistic"))
+			return new StatisticPlace();
 
 		else if (tokens[0].equals("create_item"))
 			return new CreateItemPlace(tokens[1], null);
@@ -68,6 +71,9 @@ public class AppHistoryMapper implements PlaceHistoryMapper {
 		
 		if (place instanceof SalePlace)
 			return "sale";
+		
+		if (place instanceof StatisticPlace)
+			return "statistic";
 
 		if (place instanceof CreateItemPlace)
 			return "create_item" + delimiter

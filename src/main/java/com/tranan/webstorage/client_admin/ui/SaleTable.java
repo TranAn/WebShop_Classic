@@ -99,7 +99,8 @@ public class SaleTable extends Composite {
 			
 			@Override
 			public void onAttachOrDetach(AttachEvent event) {
-				setTableView(list_sales);
+				if(list_sales != null)
+					setTableView(list_sales);
 			}
 		});
 	}

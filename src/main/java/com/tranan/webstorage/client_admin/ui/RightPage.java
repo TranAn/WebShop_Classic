@@ -86,4 +86,14 @@ public class RightPage extends Composite {
 		PrettyGal.placeController.goTo(new SalePlace());
 	}
 	
+	@UiHandler("orderInBtn")
+	void onOrderInBtnClick(ClickEvent e) {
+		PrettyGal.UIC.getOrderTable().changeToOrderInTab();
+	}
+	
+	@UiHandler("orderOutBtn")
+	void onOrderOutBtnClick(ClickEvent e) {
+		PrettyGal.UIC.getOrderTable().changeToOrderTab();
+	}
+	
 }

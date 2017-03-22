@@ -1,0 +1,194 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	@external .orderInItem_row, .orderInItem_col1, .orderInItem_col2, .orderInItem_col3, .orderInItem_col4, .orderInItem_col3_s1;
+	.orderInTable {
+		display: table;
+		width: 100%;
+		border: 1px #e2e9e6 solid;
+		border-top: none;
+		overflow: hidden;
+		background: white;
+	}
+	
+	.orderInTable_col1 {
+		position: relative;
+		display: table-cell;
+		padding: 10px;
+		width: 30px;
+		vertical-align: middle;
+		color: white;
+		cursor: pointer;
+		table-layout: fixed;
+		-webkit-transition: color .10s linear, background-color .10s ease-in-out;
+		-moz-transition: color .10s linear, background-color .10s ease-in-out;
+		-o-transition: color .10s linear, background-color .10s ease-in-out;
+		transition: color .10s linear, background-color .10s ease-in-out;
+		background: #42a5f5;
+	}
+	
+	.orderInTable_col1 i{
+		margin-left: 4px;
+	}
+	
+	.orderInTable_col1:hover {
+		background: #efefef;
+		color: #42a5f5;
+		-webkit-transition: color .10s linear, background-color .10s ease-in-out;
+		-moz-transition: color .10s linear, background-color .10s ease-in-out;
+		-o-transition: color .10s linear, background-color .10s ease-in-out;
+		transition: color .10s linear, background-color .10s ease-in-out;
+	}
+	
+	.orderInTable_pending {
+		background: #fb8c00;
+	}
+	
+	.orderInTable_delivery {
+		background: #8bc34a;
+	}
+	
+	.orderInTable_finish {
+		background: #42a5f5;
+	}
+	
+	.orderInTable_col2 {
+		display: table-cell;
+		vertical-align: middle;
+		border-left: 1px #e2e9e6 solid;
+		padding: 0px 15px;
+		width: 70%;
+	}
+	
+	.orderInTable_col2_table {
+		display: table;
+		width: 100%;
+	}
+	
+	.orderInTable_col3 {
+		display: table-cell;
+		vertical-align: middle;
+		border-left: 1px #e2e9e6 solid;
+		/* padding-left: 15px; */
+		text-align: center;
+		min-width: 100px;
+	}
+	
+	.orderInTable_col4 {
+		position: relative;
+		display: table-cell;
+		border-left: 1px #e2e9e6 solid;
+		border-right: 2px #e2e9e6 solid;
+		padding: 10px;
+		width: 30px;
+		min-width: 30px;
+		vertical-align: middle;
+		cursor: pointer;
+		table-layout: fixed;
+		text-align: center;
+	}
+	
+	.orderInTable_col4:hover {
+		color: red;
+	}
+	
+	.orderInItem {
+		display: table-cell;
+		vertical-align: middle;
+		width: 50%;
+		/* border-left: 1px #e2e9e6 solid; */
+		-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+		-moz-box-sizing: border-box; /* Firefox, other Gecko */
+		box-sizing: border-box; /* Opera/IE 8+ */
+		padding-left: 5px;
+		padding-top: 5px;
+	}
+	
+	.orderInItem_row {
+		display: table;
+		width: 100%;
+	}
+	
+	.orderInItem_col1 {
+		display: table-cell;
+		padding: 10px;
+		width: 40px;
+		vertical-align: middle;
+	}
+	
+	.orderInItem_col1 img {
+		border: 1px #BDBDBD solid;
+	}
+	
+	.orderInItem_col2 {
+		display: table-cell;
+		padding: 10px;
+		width: 80%;
+		vertical-align: middle;
+	}
+	
+	.orderInItem_col3 {
+		display: table-cell;
+		padding: 10px;
+		width: 120px;
+		min-width: 120px;
+		vertical-align: middle;
+		table-layout: fixed;
+		white-space: nowrap;
+	}
+	
+	.orderInItem_col3_s1 {
+		text-align: right;
+		margin-bottom: 8px;
+	}
+	
+	.orderInItem_col4 {
+		display: table-cell;
+		padding: 10px;
+		width: 100px;
+		min-width: 100px;
+		vertical-align: middle;
+		white-space: nowrap;
+	}
+	
+	.anchor {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+	</ui:style>
+	<g:HTMLPanel ui:field="orderInTableRow" styleName="{style.orderInTable}">
+		<g:HTMLPanel styleName="{style.orderInTable_col1}">
+			<i class="material-icons">&#xE24D;</i>
+			<g:Anchor ui:field="orderDetail" styleName="{style.anchor}"></g:Anchor>
+		</g:HTMLPanel>
+
+		<g:HTMLPanel styleName="{style.orderInTable_col2}">
+			<g:HTMLPanel ui:field="itemsCol" styleName="{style.orderInItem}">
+				<g:HTMLPanel styleName="{style.orderInItem_row}">
+					<g:HTMLPanel styleName="{style.orderInItem_col1}">
+						<g:Image width="30px" height="30px" url="../Resources/1.png"></g:Image>
+					</g:HTMLPanel>
+					<g:Label styleName="{style.orderInItem_col2}">Sản phẩm 1</g:Label>
+					<g:Label styleName="{style.orderInItem_col4}">190.000</g:Label>
+					<g:HTMLPanel styleName="{style.orderInItem_col3}">						
+						<g:Label styleName="{style.orderInItem_col3_s1}">Vang: 10</g:Label>														
+						<g:Label styleName="{style.orderInItem_col3_s1}">Do: 10</g:Label>									
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+			</g:HTMLPanel>
+		</g:HTMLPanel>
+
+		<g:Label ui:field="orderSum" styleName="{style.orderInTable_col3}">1.000.000</g:Label>
+
+		<g:Label ui:field="orderCreateDate" styleName="{style.orderInTable_col3}">20 / 03 / 2017</g:Label>
+		
+		<g:HTMLPanel styleName="{style.orderInTable_col4}">
+			<i class="material-icons">&#xE872;</i>
+			<g:Anchor ui:field="deleteButton" styleName="{style.anchor}"></g:Anchor>
+		</g:HTMLPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

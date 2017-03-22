@@ -9,10 +9,10 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
-import com.tranan.webstorage.client_admin.place.CreateOrderPlace;
 import com.tranan.webstorage.client_admin.place.ItemPlace;
 import com.tranan.webstorage.client_admin.place.OrderPlace;
 import com.tranan.webstorage.client_admin.place.SalePlace;
+import com.tranan.webstorage.client_admin.place.StatisticPlace;
 
 public class LeftMenu extends Composite {
 
@@ -59,6 +59,11 @@ public class LeftMenu extends Composite {
 		saleMenuPanel.setStyleName("LeftMenu_s1_active");
 	}
 	
+	public void onStatisticPlace() {
+		clearMenuStyle();
+		chartMenuPanel.setStyleName("LeftMenu_s1_active");
+	}
+	
 	@UiHandler("storeMenu")
 	void onStoreMenuClick(ClickEvent e) {
 		PrettyGal.placeController.goTo(new ItemPlace());
@@ -75,6 +80,12 @@ public class LeftMenu extends Composite {
 	void onSaleMenuClick(ClickEvent e) {
 		PrettyGal.placeController.goTo(new SalePlace());
 		onSalePlace();
+	}
+	
+	@UiHandler("chartMenu")
+	void onChartMenuClick(ClickEvent e) {
+		PrettyGal.placeController.goTo(new StatisticPlace());
+		onStatisticPlace();
 	}
 
 }

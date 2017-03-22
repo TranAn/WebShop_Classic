@@ -347,10 +347,68 @@
 		-o-transition: color .5s linear, background-color .5s ease-in-out;
 		transition: color .5s linear, background-color .5s ease-in-out;
 	}
+	
+	.orderInTable_col1 {
+		display: table-cell;
+		padding: 10px;
+		width: 40px;
+		min-width: 30px;
+		vertical-align: middle;
+	}
+	
+	.orderInTable_col2 {
+		display: table-cell;
+		padding: 0px 15px;
+		width: 70%;
+		vertical-align: middle;
+		border-left: 1px #e2e9e6 solid;
+	}
+	
+	.orderInTable_col3 {
+		display: table-cell;
+		padding: 10px;
+		min-width: 90px;
+		vertical-align: middle;
+		table-layout: fixed;
+		white-space: nowrap;
+		border-left: 1px #e2e9e6 solid;
+		text-align: center;
+	}
+	
+	.orderInTable_col4 {
+		display: table-cell;
+		padding: 10px;
+		padding-left: 11px;
+		width: 30px;
+		min-width: 30px;
+		vertical-align: middle;
+		white-space: nowrap;
+		border-left: 1px #e2e9e6 solid;
+	}
 	</ui:style>
 	<g:ScrollPanel ui:field="scrollTable" styleName="{style.s1}">
 		<g:HTMLPanel styleName="{style.s2}">
-			<g:HTMLPanel styleName="{style.s3}">
+			<!-- OrderIn Tab  -->
+			<g:HTMLPanel ui:field="orderInTab" styleName="{style.s3}" visible="false">
+				<g:HTMLPanel styleName="{style.s4}">
+					<g:Label styleName="{style.s5}">Đơn Nhập Hàng</g:Label>
+				</g:HTMLPanel>
+				
+				<g:HTMLPanel styleName="{style.orderTable}">
+					<g:HTMLPanel styleName="{style.orderInTable_col1}"></g:HTMLPanel>
+					<g:Label styleName="{style.orderInTable_col2}">Sản phẩm</g:Label>
+					<g:Label styleName="{style.orderInTable_col3}">Tổng tiền</g:Label>
+					<g:Label styleName="{style.orderInTable_col3}">Ngày tạo đơn</g:Label>
+					<g:HTMLPanel styleName="{style.orderInTable_col4}"></g:HTMLPanel>
+				</g:HTMLPanel>
+				
+				<g:HTMLPanel ui:field="orderInTable" styleName="{style.s8}"></g:HTMLPanel>
+				
+				<m:Pager styleName="{style.s7}" ui:field="orderin_pager"></m:Pager>
+			</g:HTMLPanel>
+		
+			<!-- Order Tab -->
+			<g:HTMLPanel ui:field="orderTab" styleName="{style.s3}" visible="true">
 				<g:HTMLPanel styleName="{style.s4}">
 					<g:Label ui:field="orderTableTitle" styleName="{style.s5}">Đơn Bán Hàng</g:Label>
 

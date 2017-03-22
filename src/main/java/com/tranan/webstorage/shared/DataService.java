@@ -42,7 +42,7 @@ public interface DataService extends RemoteService {
 	
 	public boolean deleteOrder(Long id);
 	
-	public void updateOrderStatus(Long order_id, int status);
+	public Order updateOrderStatus(Long order_id, int status);
 	
 	public List<OrderChannel> getChannels();
 	
@@ -55,5 +55,9 @@ public interface DataService extends RemoteService {
 	public List<Sale> getSales();
 	
 	public void deleteSale(Long id);
+	
+	public ListOrderIn getOrderIns(String cursor);
+	
+	public StatisticData getStatisticData(String data_id);
 	
 }

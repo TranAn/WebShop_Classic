@@ -3,6 +3,7 @@ package com.tranan.webstorage.server;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.text.Normalizer;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -33,11 +34,14 @@ import com.tranan.webstorage.shared.Item.Type;
 import com.tranan.webstorage.shared.ListCustomer;
 import com.tranan.webstorage.shared.ListItem;
 import com.tranan.webstorage.shared.ListOrder;
+import com.tranan.webstorage.shared.ListOrderIn;
 import com.tranan.webstorage.shared.Order;
 import com.tranan.webstorage.shared.OrderChannel;
 import com.tranan.webstorage.shared.OrderIn;
+import com.tranan.webstorage.shared.OrderTrack;
 import com.tranan.webstorage.shared.Photo;
 import com.tranan.webstorage.shared.Sale;
+import com.tranan.webstorage.shared.StatisticData;
 
 @SuppressWarnings("serial")
 public class DataServiceImpl extends RemoteServiceServlet implements
@@ -215,6 +219,45 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		}
 	}
 	
+	private String changeDateToTrackId(Date date) {
+		SimpleDateFormat formatter = new SimpleDateFormat("MMyyyy");
+		String format = formatter.format(date);
+		return format;
+	}
+	
+	private void trackOrder(Order order) {
+		if(order.getFinish_date() != null) {
+			String track_id = changeDateToTrackId(order.getFinish_date());
+			OrderTrack order_track = ofy().load().type(OrderTrack.class).id(track_id).now();
+			if(order_track == null) {
+				order_track = new OrderTrack();
+				order_track.setId(track_id);
+			}
+			
+			if(!order_track.getOrder_ids().contains(order.getId()))
+				order_track.getOrder_ids().add(order.getId());
+			
+			ofy().save().entity(order_track);
+		}
+	}
+	
+	private void trackOrderIn(OrderIn order_in) {
+		String track_id = changeDateToTrackId(order_in.getCreate_date());
+		OrderTrack order_track = ofy().load().type(OrderTrack.class).id(track_id).now();
+		if(order_track == null) {
+			order_track = new OrderTrack();
+			order_track.setId(track_id);
+		}
+		
+		if(!order_track.getOrder_in_ids().contains(order_in.getId()))
+			order_track.getOrder_in_ids().add(order_in.getId());
+		
+		ofy().save().entity(order_track);
+	}
+	
+	/**
+	 * Cron task check everyday in 00:05
+	 */
 	protected void checkSalePlan() {
 		List<Sale> list_sales = ofy().load().type(Sale.class).list();
 		for(Sale sale: list_sales) {
@@ -425,7 +468,11 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		OrderIn orderIn = new OrderIn();
 		orderIn.setOrder_items(orderIn_items); 
 		orderIn.setCreate_date(getCurrentDate());
-		ofy().save().entity(orderIn);
+		
+		Key<OrderIn> key = ofy().save().entity(orderIn).now();
+		OrderIn rtn = ofy().load().key(key).now();
+		//Track orderIn
+		trackOrderIn(rtn);
 		
 		List<EntitiesSize> entitiesSizes = ofy().load()
 				.type(EntitiesSize.class).list();
@@ -476,6 +523,8 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		//Save order
 		Key<Order> key = ofy().save().entity(order).now();
 		rtn = ofy().load().key(key).now();
+		//Track order
+		trackOrder(rtn);
 		
 		//Save new customer
 		if(rtn.getCustomer() != null)
@@ -646,7 +695,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public void updateOrderStatus(Long order_id, int status) {
+	public Order updateOrderStatus(Long order_id, int status) {
 		Order order = ofy().load().type(Order.class).id(order_id).now();
 		if (order != null) {
 			int old_status = order.getStatus();
@@ -655,6 +704,8 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			if(status == Order.FINISH && order.getFinish_date() == null)
 				order.setFinish_date(getCurrentDate());
 			ofy().save().entity(order);
+			//Track order
+			trackOrder(order);
 			
 			List<EntitiesSize> entitiesSizes = ofy().load()
 					.type(EntitiesSize.class).list();
@@ -668,8 +719,12 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			if(old_status == Order.PENDING && (status == Order.DELIVERY || status == Order.FINISH))
 				deliveryItem(order);
 			else if((old_status == Order.DELIVERY || old_status == Order.FINISH) && status == Order.PENDING)
-				returnItem(order);			
+				returnItem(order);	
+			
+			return order;
 		}
+		
+		return order;
 	}
 
 	@Override
@@ -785,6 +840,59 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			ofy().delete().entity(sale);
 			deactiveSaleItems(sale);
 		}
+	}
+
+	@Override
+	public ListOrderIn getOrderIns(String cursor) {
+		List<OrderIn> result = new ArrayList<OrderIn>();
+
+		Query<OrderIn> query = ofy().load().type(OrderIn.class).order("-create_date")
+				.limit(ListOrderIn.pageSize);
+		if (cursor != null)
+			query = query.startAt(Cursor.fromWebSafeString(cursor));
+
+		boolean continu = false;
+		QueryResultIterator<OrderIn> iterator = query.iterator();
+		while (iterator.hasNext()) {
+			OrderIn orderIn = iterator.next();
+			result.add(orderIn);
+			continu = true;
+		}
+
+		List<EntitiesSize> entitiesSizes = ofy().load()
+				.type(EntitiesSize.class).list();
+
+		if (continu) {
+			Cursor cur = iterator.getCursor();
+			String nextCur = cur.toWebSafeString();
+			ListOrderIn listOrderIn = new ListOrderIn(result, nextCur, entitiesSizes
+					.get(0).getOrderin_size());
+			return listOrderIn;
+		} else {
+			ListOrderIn listOrderIn = new ListOrderIn(result, "\\0", entitiesSizes
+					.get(0).getOrderin_size());
+			return listOrderIn;
+		}
+	}
+
+	@Override
+	public StatisticData getStatisticData(String data_id) {
+		OrderTrack track = ofy().load().type(OrderTrack.class).id(data_id).now();
+		if(track != null) {
+			Collection<Order> orders = ofy().load().type(Order.class)
+					.ids(track.getOrder_ids()).values();
+			Collection<OrderIn> orders_in = ofy().load().type(OrderIn.class)
+					.ids(track.getOrder_in_ids()).values();
+			
+			StatisticData data = new StatisticData();
+			if(orders != null)
+				data.getListOrder().addAll(orders);
+			if(orders_in != null)
+				data.getListOrderIn().addAll(orders_in);
+			
+			return data;
+		}
+		return null;
 	}
 
 }

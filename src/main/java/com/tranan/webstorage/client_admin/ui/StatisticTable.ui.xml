@@ -1,0 +1,171 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:m="urn:import:com.tranan.webstorage.client_admin.sub_ui">
+	<ui:style>
+	.s1 {
+		position: relative;
+		width: 100%;
+		overflow-x: hidden;
+		/* background: black; */
+	}
+	
+	.s2 {
+		position: relative;
+		padding: 40px 20px;
+		overflow: hidden;
+	}
+	
+	.s3 {
+		position: relative;
+		float: left;
+		width: 100%;
+		/* margin-right: 20px; */
+		overflow: hidden;
+	}
+	
+	.s4 {
+		position: relative;
+		overflow: hidden;
+		margin-bottom: 30px;
+	}
+	
+	.s5 {
+		font-size: 22px;
+		font-weight: 400;
+		float: left;
+		margin-left: 2px;
+	}
+	
+	.s6 {
+		position: relative;
+		float: right;
+		margin-left: 10px;
+		margin-right: 2px;
+		margin-bottom: 2px;
+	}
+	
+	.s7 {
+		position: relative;
+		float: left;
+		margin-right: 15px;
+	}
+	
+	.s8 {
+		margin-right: 10px;
+		margin-top: 5px;
+		font-size: 15px;
+	}
+	
+	.s9 {
+		width: 60px;
+		height: 30px;
+		padding-left: 2px;
+		padding-right: 2px;
+	}
+	
+	.s10 {
+		float: left;
+		margin-left: 5px;
+		margin-right: 15px;
+		margin-top: 3px;
+		font-size: 15px;
+		color: #757575;
+	}
+	
+	.s11 {
+		overflow: hidden;
+		padding: 20px 35px;
+		margin-top: 20px;
+		margin-bottom: 20px;
+		background: rgb(255, 255, 255);
+	}
+	
+	.s12 {
+		float: left;
+		font-size: 14px;
+		margin-left: 20px;
+	}
+	
+	.s12_bold {
+		float: left;
+		font-size: 14px;
+		margin-left: 20px;
+		font-weight: bold;
+	}
+	
+	.s13 {
+		float: right;
+		font-size: 14px;
+	}
+	
+	.s13_bold {
+		float: right;
+		font-size: 14px;
+		font-weight: bold;
+	}
+	
+	.s14 {
+		font-size: 15px;
+		font-weight: bold;
+	}
+	
+	.s15 {
+		position: relative;
+		overflow: hidden;
+		margin-top: 20px;
+	}
+	
+	.anchor {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		cursor: pointer;
+	}
+	</ui:style>
+	<g:ScrollPanel ui:field="scrollTable" styleName="{style.s1}">
+		<g:HTMLPanel styleName="{style.s2}">
+			<g:HTMLPanel styleName="{style.s3}">
+
+				<g:HTMLPanel styleName="{style.s4}">
+					<g:Label ui:field="title" styleName="{style.s5}">Thống Kê Doanh Thu</g:Label>
+
+					<g:HTMLPanel styleName="{style.s6}">
+						<g:HorizontalPanel styleName="{style.s7}">
+							<g:Label styleName="{style.s8}">Năm </g:Label>
+							<g:ListBox ui:field="yearListBox" styleName="{style.s9}"></g:ListBox>
+						</g:HorizontalPanel>
+						<g:Label styleName="{style.s10}">/</g:Label>
+						<g:HorizontalPanel styleName="{style.s7}">
+							<g:Label styleName="{style.s8}">Tháng </g:Label>
+							<g:ListBox ui:field="monthListBox" styleName="{style.s9}"></g:ListBox>
+						</g:HorizontalPanel>
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+				
+				<g:HTMLPanel ui:field="chartTable" height="350px"></g:HTMLPanel>
+				
+				<g:HTMLPanel styleName="{style.s11}">
+					<g:Label ui:field="summaryTitle" styleName="{style.s14}">Tháng 3 Năm 2017</g:Label>
+					<g:HTMLPanel styleName="{style.s15}">
+						<g:Label styleName="{style.s12}">Doanh Thu Bán Hàng</g:Label>
+						<g:Label ui:field="incomeTotal" styleName="{style.s13}">10.000.000</g:Label>
+					</g:HTMLPanel>
+					<g:HTMLPanel styleName="{style.s15}">
+						<g:Label styleName="{style.s12}">Chi Phí Nhập Hàng</g:Label>
+						<g:Label ui:field="expensesTotal" styleName="{style.s13}">2.000.000</g:Label>
+					</g:HTMLPanel>
+					
+					<div style="border-top: 1px solid black; margin-top: 20px; margin-left: 20px;"></div>
+					
+					<g:HTMLPanel styleName="{style.s15}">
+						<g:Label styleName="{style.s12_bold}">Tiền Lãi</g:Label>
+						<g:Label ui:field="interestTotal" styleName="{style.s13_bold}">8.000.000</g:Label>
+					</g:HTMLPanel>
+				</g:HTMLPanel>
+
+			</g:HTMLPanel>
+		</g:HTMLPanel>
+	</g:ScrollPanel>
+</ui:UiBinder> 

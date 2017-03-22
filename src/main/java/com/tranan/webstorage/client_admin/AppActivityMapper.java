@@ -12,6 +12,7 @@ import com.tranan.webstorage.client_admin.place.CreateSalePlace;
 import com.tranan.webstorage.client_admin.place.ItemPlace;
 import com.tranan.webstorage.client_admin.place.OrderPlace;
 import com.tranan.webstorage.client_admin.place.SalePlace;
+import com.tranan.webstorage.client_admin.place.StatisticPlace;
 import com.tranan.webstorage.client_admin.ui.CreateItem;
 import com.tranan.webstorage.client_admin.ui.CreateOrder;
 import com.tranan.webstorage.client_admin.ui.CreateSale;
@@ -79,9 +80,24 @@ public class AppActivityMapper implements ActivityMapper {
 				public void start(AcceptsOneWidget panel, EventBus eventBus) {
 					PrettyGal.slideMenu.onSalePlace();
 					PrettyGal.controlPage.HideAllToolbar();
-					
-					PrettyGal.controlPage
-							.addPage(PrettyGal.UIC.getSaleTable());
+
+					PrettyGal.controlPage.addPage(PrettyGal.UIC.getSaleTable());
+				}
+
+				@Override
+				public String mayStop() {
+					return null;
+				}
+			};
+
+		if (place instanceof StatisticPlace)
+			return new AbstractActivity() {
+				@Override
+				public void start(AcceptsOneWidget panel, EventBus eventBus) {
+					PrettyGal.slideMenu.onStatisticPlace();
+					PrettyGal.controlPage.HideAllToolbar();
+
+					PrettyGal.controlPage.addPage(PrettyGal.UIC.getStatisticTable());
 				}
 
 				@Override
@@ -133,7 +149,7 @@ public class AppActivityMapper implements ActivityMapper {
 						return null;
 				}
 			};
-		
+
 		if (place instanceof CreateSalePlace)
 			return new AbstractActivity() {
 				@Override
