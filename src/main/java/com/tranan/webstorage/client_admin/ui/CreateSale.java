@@ -376,7 +376,7 @@ public class CreateSale extends Composite {
 		sale.setSale_items(saleItems);
 		
 		NoticePanel.onLoading();
-		PrettyGal.dataService.createSale(sale, new AsyncCallback<Sale>() {
+		PrettyGal.dataService.createSale(sale, LoginPage.id_token, new AsyncCallback<Sale>() {
 			
 			@Override
 			public void onSuccess(Sale result) {
@@ -395,7 +395,7 @@ public class CreateSale extends Composite {
 			
 			@Override
 			public void onFailure(Throwable caught) {
-				NoticePanel.failNotice(PrettyGal.ERROR_MSG);
+				NoticePanel.failNotice(caught.getMessage());
 			}
 		});
 	}

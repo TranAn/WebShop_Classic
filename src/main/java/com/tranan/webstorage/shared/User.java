@@ -17,23 +17,23 @@ public class User implements Serializable, IsSerializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	String id;
+	String email;
 
 	public User() {
 		super();
 	}
 
-	public String getId() {
-		return id;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + "]";
+		return "User [email=" + email + "]";
 	}
 
 }

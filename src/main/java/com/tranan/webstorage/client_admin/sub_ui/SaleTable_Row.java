@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
 import com.tranan.webstorage.client_admin.place.CreateSalePlace;
 import com.tranan.webstorage.client_admin.ui.ItemTable;
+import com.tranan.webstorage.client_admin.ui.LoginPage;
 import com.tranan.webstorage.shared.Sale;
 
 public class SaleTable_Row extends Composite {
@@ -66,7 +67,7 @@ public class SaleTable_Row extends Composite {
 					sale.setStatus(Sale.DEACTIVE);
 				
 				NoticePanel.onLoading();
-				PrettyGal.dataService.createSale(sale, new AsyncCallback<Sale>() {
+				PrettyGal.dataService.createSale(sale, LoginPage.id_token, new AsyncCallback<Sale>() {
 					
 					@Override
 					public void onSuccess(Sale result) {
@@ -76,7 +77,7 @@ public class SaleTable_Row extends Composite {
 					
 					@Override
 					public void onFailure(Throwable caught) {
-						NoticePanel.failNotice(PrettyGal.ERROR_MSG);
+						NoticePanel.failNotice(caught.getMessage());
 					}
 				});
 			}
@@ -101,7 +102,7 @@ public class SaleTable_Row extends Composite {
 	void onDeleteButtonClick(ClickEvent e) {
 		if(Window.confirm("Bạn muốn hủy chương trình khuyến mại này?")) {
 			NoticePanel.onLoading();
-			PrettyGal.dataService.deleteSale(sale.getId(), new AsyncCallback<Void>() {
+			PrettyGal.dataService.deleteSale(sale.getId(), LoginPage.id_token, new AsyncCallback<Void>() {
 				
 				@Override
 				public void onSuccess(Void result) {
@@ -112,7 +113,7 @@ public class SaleTable_Row extends Composite {
 				
 				@Override
 				public void onFailure(Throwable caught) {
-					NoticePanel.failNotice(PrettyGal.ERROR_MSG);
+					NoticePanel.failNotice(caught.getMessage());
 				}
 			});
 		}

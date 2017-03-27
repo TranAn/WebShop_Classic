@@ -10,7 +10,7 @@ public interface DataService extends RemoteService {
 	
 	public Item getItemById(Long id);
 
-	public Item createItem(Item item);
+	public Item createItem(Item item, String token) throws Exception;
 	
 	public ListItem getItems(String cursor);
 	
@@ -18,21 +18,21 @@ public interface DataService extends RemoteService {
 	
 	public ListItem searchItems(String search_string);
 	
-	public boolean deleteItem(Long id);
+	public boolean deleteItem(Long id, String token) throws Exception;
 	
-	public void importItems(List<Item> items, List<Item> orderIn_items);
+	public void importItems(List<Item> items, List<Item> orderIn_items, String token) throws Exception;
 	
 	public String getUploadUrl(Long itemId);
 	
 	public Photo getPhoto(Long photoId);
 	
-	public Catalog createCatalog(Catalog catalog);
+	public Catalog createCatalog(Catalog catalog, String token) throws Exception;
 	
 	public List<Catalog> getCatalogs();
 	
-	public void deleteCatalog(Catalog catalog);
+	public void deleteCatalog(Catalog catalog, String token) throws Exception;
 	
-	public Order createOrder(Order order);
+	public Order createOrder(Order order, String token) throws Exception;
 	
 	public ListOrder getOrders(String cursor);
 	
@@ -40,9 +40,9 @@ public interface DataService extends RemoteService {
 	
 	public ListOrder getOrdersByCustomer(Customer customer);
 	
-	public boolean deleteOrder(Long id);
+	public boolean deleteOrder(Long id, String token) throws Exception;
 	
-	public Order updateOrderStatus(Long order_id, int status);
+	public Order updateOrderStatus(Long order_id, int status, String token) throws Exception;
 	
 	public List<OrderChannel> getChannels();
 	
@@ -50,14 +50,16 @@ public interface DataService extends RemoteService {
 	
 	public ListCustomer searchCustomer(String search_string);
 	
-	public Sale createSale(Sale sale);
+	public Sale createSale(Sale sale, String token) throws Exception;
 	
 	public List<Sale> getSales();
 	
-	public void deleteSale(Long id);
+	public void deleteSale(Long id, String token) throws Exception;
 	
 	public ListOrderIn getOrderIns(String cursor);
 	
 	public StatisticData getStatisticData(String data_id);
+	
+	public boolean checkAuth(String idToken);
 	
 }

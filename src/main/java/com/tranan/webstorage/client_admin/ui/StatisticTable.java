@@ -5,6 +5,8 @@ import java.util.Date;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.logical.shared.AttachEvent;
+import com.google.gwt.event.logical.shared.AttachEvent.Handler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -49,6 +51,9 @@ public class StatisticTable extends Composite {
 	@UiField
 	Label interestTotal;
 	
+	private String[] cur_orderSum;
+	private String[] cur_orderInSum;
+	
 	private void getStatisticData(final String data_id) {
 		NoticePanel.onLoading();
 		PrettyGal.dataService.getStatisticData(data_id, new AsyncCallback<StatisticData>() {
@@ -91,13 +96,13 @@ public class StatisticTable extends Composite {
 						
 						if(orderIn_month.equals(statistic_month)) {						
 							Long orderInValues = 0L;
-							for(Item item: orderIn.getOrder_items()) {
+							for(Item item: orderIn.getOrder_items()) {								
 								for(Type t: item.getType())
-									orderInValues = orderInValues + (t.getQuantity() * item.getCost());
+									orderInValues = orderInValues + (t.getQuantity() * item.getCost());															
 							}
 					
 							orderInSum[Integer.valueOf(orderIn_date)] = String.valueOf( 
-									Long.valueOf(orderSum[Integer.valueOf(orderIn_date)]) + orderInValues );
+									Long.valueOf(orderInSum[Integer.valueOf(orderIn_date)]) + orderInValues );														
 						}
 					}
 				}
@@ -113,11 +118,14 @@ public class StatisticTable extends Composite {
 					interestTotal.setText(PrettyGal.integerToPriceString(income - expenses));
 				}
 				NoticePanel.endLoading();
+				
+				cur_orderSum = orderSum;
+				cur_orderInSum = orderInSum;
 			}
 			
 			@Override
 			public void onFailure(Throwable caught) {
-				NoticePanel.failNotice(PrettyGal.ERROR_MSG);
+				NoticePanel.failNotice(caught.getMessage());
 			}
 		});
 	}
@@ -215,6 +223,22 @@ public class StatisticTable extends Composite {
 				
 				getStatisticData(selected_month + selected_year);
 				summaryTitle.setText("Tháng " + selected_month + " Năm " + selected_year);
+			}
+		});
+		
+		cur_orderSum = new String[32];
+		cur_orderInSum = new String[32];
+		
+		for(int i=0; i<=31; i++) {
+			cur_orderSum[i] = "0";
+			cur_orderInSum[i] = "0";
+		}
+		
+		addAttachHandler(new Handler() {
+			
+			@Override
+			public void onAttachOrDetach(AttachEvent event) {
+				drawChartByMonth(cur_orderSum, cur_orderInSum);
 			}
 		});
 	}

@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
+import com.tranan.webstorage.client_admin.PrettyGal;
 
 public class NoticePanel extends Composite {
 
@@ -83,18 +84,34 @@ public class NoticePanel extends Composite {
 	}
 	
 	public static void failNotice(String notice) {
-		clearState();
-		failImg.setVisible(true);
-		noticeLabel.setText(notice);
-		noticeLabel.setStyleName("NoticePanel_failNotice");
-		t = new Timer() {
-
-			@Override
-			public void run() {
-				clearState();
-			}
-		};
-		t.schedule(4000);
+		if(notice.contains("401")) {
+			clearState();
+			failImg.setVisible(true);
+			noticeLabel.setText(PrettyGal.AUTHORIZE_ERROR_MSG);
+			noticeLabel.setStyleName("NoticePanel_failNotice");
+			t = new Timer() {
+	
+				@Override
+				public void run() {
+					PrettyGal.onAuthFail();
+				}
+			};
+			t.schedule(1000);
+		}
+		else {
+			clearState();
+			failImg.setVisible(true);
+			noticeLabel.setText(PrettyGal.ERROR_MSG);
+			noticeLabel.setStyleName("NoticePanel_failNotice");
+			t = new Timer() {
+	
+				@Override
+				public void run() {
+					clearState();
+				}
+			};
+			t.schedule(4000);
+		}
 	}
 
 }

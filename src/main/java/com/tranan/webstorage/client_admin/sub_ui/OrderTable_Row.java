@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
+import com.tranan.webstorage.client_admin.ui.LoginPage;
 import com.tranan.webstorage.client_admin.ui.OrderTable;
 import com.tranan.webstorage.shared.Item;
 import com.tranan.webstorage.shared.Order;
@@ -61,7 +62,7 @@ public class OrderTable_Row extends Composite {
 			@Override
 			public void onChange(ChangeEvent event) {
 				NoticePanel.onLoading();
-				PrettyGal.dataService.updateOrderStatus(order.getId(), orderStatus.getSelectedIndex(), new AsyncCallback<Order>() {
+				PrettyGal.dataService.updateOrderStatus(order.getId(), orderStatus.getSelectedIndex(), LoginPage.id_token, new AsyncCallback<Order>() {
 					
 					@Override
 					public void onSuccess(Order result) {
@@ -93,7 +94,7 @@ public class OrderTable_Row extends Composite {
 					
 					@Override
 					public void onFailure(Throwable caught) {
-						NoticePanel.failNotice(PrettyGal.ERROR_MSG);
+						NoticePanel.failNotice(caught.getMessage());
 					}
 				});
 			}
@@ -169,7 +170,7 @@ public class OrderTable_Row extends Composite {
 	void onDeleteButtonClick(ClickEvent e) {
 		if(Window.confirm("Bạn muốn hủy đơn hàng này?")) {
 			NoticePanel.onLoading();
-			PrettyGal.dataService.deleteOrder(order.getId(), new AsyncCallback<Boolean>() {
+			PrettyGal.dataService.deleteOrder(order.getId(), LoginPage.id_token, new AsyncCallback<Boolean>() {
 				
 				@Override
 				public void onSuccess(Boolean result) {
@@ -180,12 +181,12 @@ public class OrderTable_Row extends Composite {
 						listener.onDeleteItem(order);	
 						NoticePanel.successNotice("Đơn hàng đã bị hủy");	
 					} else
-						NoticePanel.failNotice(PrettyGal.ERROR_MSG);
+						NoticePanel.failNotice("");
 				}
 				
 				@Override
 				public void onFailure(Throwable caught) {
-					NoticePanel.failNotice(PrettyGal.ERROR_MSG);
+					NoticePanel.failNotice(caught.getMessage());
 				}
 			});
 		}

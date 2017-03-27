@@ -23,6 +23,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.tranan.webstorage.client_admin.place.*;
 import com.tranan.webstorage.client_admin.ui.LeftMenu;
+import com.tranan.webstorage.client_admin.ui.LoginPage;
 import com.tranan.webstorage.client_admin.ui.RightPage;
 import com.tranan.webstorage.shared.DataService;
 import com.tranan.webstorage.shared.DataServiceAsync;
@@ -31,23 +32,17 @@ public class PrettyGal implements EntryPoint {
 
 	public static final DataServiceAsync dataService = GWT
 			.create(DataService.class);
+	
 	public static PlaceController placeController;
+	public static LoginPage loginPage = new LoginPage();
 	public static LeftMenu slideMenu = new LeftMenu();
 	public static RightPage controlPage = new RightPage();
 	public static UIController UIC = new UIController();
 	
 	public static final String ERROR_MSG = "Kết nối đến server thất bại, vui lòng kiểm tra lại đường truyền";
+	public static final String AUTHORIZE_ERROR_MSG = "Tài khoản hết hạn";
 
-	@Override
-	public void onModuleLoad() {
-		RootPanel.get().setHeight(Window.getClientHeight() + "px");
-		RootPanel.get().add(slideMenu);
-		RootPanel.get().add(controlPage);
-		
-		handlerHistory();
-	}
-	
-	void handlerHistory() {
+	private void handlerHistory() {
 		EventBus eventBus = new SimpleEventBus();
 		placeController = new PlaceController(eventBus);
 	
@@ -61,6 +56,30 @@ public class PrettyGal implements EntryPoint {
 		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
 		historyHandler.register(placeController, eventBus, new ItemPlace());
 		historyHandler.handleCurrentHistory();
+	}
+
+	@Override
+	public void onModuleLoad() {
+		RootPanel.get().setHeight(Window.getClientHeight() + "px");
+		
+		RootPanel.get().add(loginPage);
+//		RootPanel.get().add(slideMenu);
+//		RootPanel.get().add(controlPage);
+		
+		handlerHistory();
+	}
+	
+	public static void onAuthSuccess() {
+		RootPanel.get().clear();
+		RootPanel.get().add(slideMenu);
+		RootPanel.get().add(controlPage);
+	}
+	
+	public static void onAuthFail() {
+		RootPanel.get().clear();
+		LoginPage.clearUser();
+		RootPanel.get().add(loginPage);
+		LoginPage.openForm();
 	}
 	
 	public static void setPriceLongBox(final LongBox ltxb) {

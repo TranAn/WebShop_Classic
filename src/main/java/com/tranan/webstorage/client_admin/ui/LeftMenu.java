@@ -87,5 +87,11 @@ public class LeftMenu extends Composite {
 		PrettyGal.placeController.goTo(new StatisticPlace());
 		onStatisticPlace();
 	}
+	
+	@UiHandler("logout")
+	void onLogOutClick(ClickEvent e) {
+		LoginPage.handleSignoutClick();
+		PrettyGal.onAuthFail();
+	}
 
 }

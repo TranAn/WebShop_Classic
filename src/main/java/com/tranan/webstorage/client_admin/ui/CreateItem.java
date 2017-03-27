@@ -879,7 +879,7 @@ public class CreateItem extends Composite {
 		item.setDescription(getDataCustomEditor("descriptionTxb"));
 		item.setAvatar_url("");
 		
-		PrettyGal.dataService.createItem(item, new AsyncCallback<Item>() {
+		PrettyGal.dataService.createItem(item, LoginPage.id_token, new AsyncCallback<Item>() {
 			
 			@Override
 			public void onSuccess(Item result) {
@@ -902,7 +902,7 @@ public class CreateItem extends Composite {
 			
 			@Override
 			public void onFailure(Throwable caught) {
-				NoticePanel.failNotice(PrettyGal.ERROR_MSG);
+				NoticePanel.failNotice(caught.getMessage());
 			}
 		});
 	}
@@ -999,7 +999,7 @@ public class CreateItem extends Composite {
 		 
 		 Catalog catalog = new Catalog();
 		 catalog.setName(nameCatalog.getText());
-		 PrettyGal.dataService.createCatalog(catalog, new AsyncCallback<Catalog>() {
+		 PrettyGal.dataService.createCatalog(catalog, LoginPage.id_token, new AsyncCallback<Catalog>() {
 			
 			@Override
 			public void onSuccess(Catalog result) {
@@ -1011,7 +1011,7 @@ public class CreateItem extends Composite {
 			
 			@Override
 			public void onFailure(Throwable caught) {
-				NoticePanel.failNotice(PrettyGal.ERROR_MSG);
+				NoticePanel.failNotice(caught.getMessage());
 			}
 		});
 	}
@@ -1051,7 +1051,7 @@ public class CreateItem extends Composite {
 					if(!txb1.getText().equals(catalog.getName())) {
 						NoticePanel.onLoading();
 						catalog.setName(txb1.getText());
-						PrettyGal.dataService.createCatalog(catalog, new AsyncCallback<Catalog>() {
+						PrettyGal.dataService.createCatalog(catalog, LoginPage.id_token, new AsyncCallback<Catalog>() {
 							
 							@Override
 							public void onSuccess(Catalog result) {
@@ -1064,7 +1064,7 @@ public class CreateItem extends Composite {
 							
 							@Override
 							public void onFailure(Throwable caught) {
-								NoticePanel.failNotice(PrettyGal.ERROR_MSG);
+								NoticePanel.failNotice(caught.getMessage());
 							}
 						});
 					}
@@ -1089,7 +1089,7 @@ public class CreateItem extends Composite {
 				public void onClick(ClickEvent event) {
 					if(Window.confirm("Bạn muốn xóa catalog này?")) {
 						NoticePanel.onLoading();
-						PrettyGal.dataService.deleteCatalog(catalog, new AsyncCallback<Void>() {
+						PrettyGal.dataService.deleteCatalog(catalog, LoginPage.id_token, new AsyncCallback<Void>() {
 							
 							@Override
 							public void onSuccess(Void result) {
@@ -1100,7 +1100,7 @@ public class CreateItem extends Composite {
 							
 							@Override
 							public void onFailure(Throwable caught) {
-								NoticePanel.failNotice(PrettyGal.ERROR_MSG);
+								NoticePanel.failNotice(caught.getMessage());
 							}
 						});
 					}

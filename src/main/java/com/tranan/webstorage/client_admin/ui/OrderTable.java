@@ -118,7 +118,7 @@ public class OrderTable extends Composite {
 	
 				@Override
 				public void onFailure(Throwable caught) {
-					NoticePanel.failNotice(PrettyGal.ERROR_MSG);
+					NoticePanel.failNotice(caught.getMessage());
 				}
 			});
 		}
@@ -161,7 +161,7 @@ public class OrderTable extends Composite {
 	
 				@Override
 				public void onFailure(Throwable caught) {
-					NoticePanel.failNotice(PrettyGal.ERROR_MSG);
+					NoticePanel.failNotice(caught.getMessage());
 				}
 			});
 		}
@@ -206,7 +206,7 @@ public class OrderTable extends Composite {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				NoticePanel.failNotice(PrettyGal.ERROR_MSG);
+				NoticePanel.failNotice(caught.getMessage());
 			}
 		});
 	}
@@ -239,7 +239,7 @@ public class OrderTable extends Composite {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				NoticePanel.failNotice(PrettyGal.ERROR_MSG);
+				NoticePanel.failNotice(caught.getMessage());
 			}
 		});
 	}

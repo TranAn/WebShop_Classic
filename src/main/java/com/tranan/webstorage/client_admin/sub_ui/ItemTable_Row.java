@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
 import com.tranan.webstorage.client_admin.Ruler;
 import com.tranan.webstorage.client_admin.ui.ItemTable;
+import com.tranan.webstorage.client_admin.ui.LoginPage;
 import com.tranan.webstorage.shared.Item;
 import com.tranan.webstorage.shared.Item.Type;
 import com.tranan.webstorage.shared.Photo;
@@ -114,7 +115,7 @@ public class ItemTable_Row extends Composite {
 	void onDeleteButtonClick(ClickEvent event) {
 		if(Window.confirm("Bạn muốn xóa sản phẩm này?")) {
 			NoticePanel.onLoading();
-			PrettyGal.dataService.deleteItem(item.getId(), new AsyncCallback<Boolean>() {
+			PrettyGal.dataService.deleteItem(item.getId(), LoginPage.id_token, new AsyncCallback<Boolean>() {
 				
 				@Override
 				public void onSuccess(Boolean result) {
@@ -122,12 +123,12 @@ public class ItemTable_Row extends Composite {
 						listener.onDeleteItem(item);	
 						NoticePanel.successNotice("Sản phẩm đã bị xóa khỏi danh sách");
 					} else
-						NoticePanel.failNotice(PrettyGal.ERROR_MSG);
+						NoticePanel.failNotice("");
 				}
 				
 				@Override
 				public void onFailure(Throwable caught) {
-					NoticePanel.failNotice(PrettyGal.ERROR_MSG);
+					NoticePanel.failNotice(caught.getMessage());
 				}
 			});
 		}

@@ -428,7 +428,7 @@ public class CreateOrder extends Composite {
 			order.setFinish_date(finishDateBox.getDate());
 		
 		NoticePanel.onLoading();
-		PrettyGal.dataService.createOrder(order, new AsyncCallback<Order>() {
+		PrettyGal.dataService.createOrder(order, LoginPage.id_token, new AsyncCallback<Order>() {
 			
 			@Override
 			public void onSuccess(Order result) {
@@ -461,7 +461,7 @@ public class CreateOrder extends Composite {
 			
 			@Override
 			public void onFailure(Throwable caught) {
-				NoticePanel.failNotice(PrettyGal.ERROR_MSG);
+				NoticePanel.failNotice(caught.getMessage());
 			}
 		});
 	}

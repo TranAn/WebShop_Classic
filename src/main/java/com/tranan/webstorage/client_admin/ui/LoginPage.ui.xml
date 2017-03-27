@@ -1,0 +1,138 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	@external .loginPage_s1, .loginPage_s2;
+	.s1 {
+		background: #1976D2;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+	
+	.s2 {
+		float: left;
+		margin: 0px 20px 0px 20px;
+		width: 40px;
+		height: 40px;
+	}
+	
+	.s3 {
+		color: white;
+		font-size: 16px;
+		margin-top: 8px;
+		letter-spacing: 1px;
+		font-family: "Ubuntu", sans-serif;
+	}
+	
+	.s4 {
+		position: absolute;
+		width: 320px;
+		overflow: hidden;
+		top: 65%;
+		left: 50%;
+		margin-left: -165px;
+	}
+	
+	.s5 {
+		margin-left: -23px;
+		margin-top: 45px;	
+		cursor: pointer;
+	}
+	
+	.s6 {
+		float: left;
+		margin: 0px 20px 0px 20px;
+		width: 40px;
+		height: 40px;
+		border-radius: 100px;
+		background: #FF8A65;
+	}
+	
+	.s6 i {
+		font-size: 30px;
+		color: white;
+		margin: 5px 5px;
+	}
+	
+	.s7 {
+		position: absolute;
+		width: 400px;
+		overflow: hidden;
+		top: 65%;
+		left: 50%;
+		margin-left: -205px;
+	}
+	
+	.s8 {
+		position: absolute;
+		width: 415px;
+		overflow: hidden;
+		top: 65%;
+		left: 50%;
+		margin-left: -215px;
+	}
+	
+	.loginPage_s1 {
+		float: left;
+		font-family: "Ubuntu", sans-serif;
+		color: #42a5f5;
+		font-size: 16px;
+		margin-top: 8px;
+		letter-spacing: 1px;
+		-webkit-transition: color .6s linear, background-color .6s ease-in-out;
+		-moz-transition: color .6s linear, background-color .6s ease-in-out;
+		-o-transition: color .6s linear, background-color .6s ease-in-out;
+		transition: color .6s linear, background-color .6s ease-in-out;
+	}
+	
+	.loginPage_s2 {
+		color: white;
+		float: left;
+		font-family: "Ubuntu", sans-serif;
+		font-size: 16px;
+		margin-top: 8px;
+		letter-spacing: 1px;
+		-webkit-transition: color .6s linear, background-color .6s ease-in-out;
+		-moz-transition: color .6s linear, background-color .6s ease-in-out;
+		-o-transition: color .6s linear, background-color .6s ease-in-out;
+		transition: color .6s linear, background-color .6s ease-in-out;
+	}
+	</ui:style>
+	<g:HTMLPanel styleName="{style.s1}">
+		<div class="container">
+			<div class="profile">
+				<button class="profile__avatar" id="toggleProfile">
+					<img
+						src="../Resources/shop_default_ico.jpg"
+						alt="Avatar" class="profile__img"/>
+				</button>
+				<div class="profile__form">
+					<div class="profile__fields">
+						<g:Image ui:field="loginBtn" url="../Resources/login_google.png" styleName="{style.s5}"></g:Image>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<g:HTMLPanel ui:field="authLabelPanel" styleName="{style.s4}" visible="true">
+			<g:Image ui:field="loadImg" styleName="{style.s2}"
+				url="../Resources/load2.gif"></g:Image>
+			<g:Label ui:field="noticeLabel" styleName="{style.s3}">Đang Xác Thực Tài Khoản</g:Label>
+		</g:HTMLPanel>
+		
+		<g:HTMLPanel ui:field="errorLabelPanel" styleName="{style.s7}" visible="false">
+			<g:HTMLPanel styleName="{style.s6}">
+				<i class="material-icons">&#xE5CD;</i>
+			</g:HTMLPanel>
+			<g:Label styleName="{style.s3}">Lỗi Kết Nối, Vui Lòng Nhấn F5 Thử Lại</g:Label>
+		</g:HTMLPanel>
+		
+		<g:HTMLPanel ui:field="authErrorLabelPanel" styleName="{style.s8}" visible="false">
+			<g:HTMLPanel styleName="{style.s6}">
+				<i class="material-icons">&#xE5CD;</i>
+			</g:HTMLPanel>
+			<g:Label styleName="{style.s3}">Bạn Không Có Quyền Truy Cập Trang Này</g:Label>
+		</g:HTMLPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

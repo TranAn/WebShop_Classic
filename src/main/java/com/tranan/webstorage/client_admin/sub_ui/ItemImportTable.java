@@ -22,6 +22,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
 import com.tranan.webstorage.client_admin.Ruler;
 import com.tranan.webstorage.client_admin.ui.ItemTable;
+import com.tranan.webstorage.client_admin.ui.LoginPage;
 import com.tranan.webstorage.client_admin.ui.OrderTable;
 import com.tranan.webstorage.shared.Item;
 import com.tranan.webstorage.shared.Item.Type;
@@ -82,7 +83,7 @@ public class ItemImportTable extends Composite {
 			selectedItems.get(i).setAvatar_url("");
 		}
 		
-		PrettyGal.dataService.importItems(selectedItems, orderIn_items, new AsyncCallback<Void>() {
+		PrettyGal.dataService.importItems(selectedItems, orderIn_items, LoginPage.id_token, new AsyncCallback<Void>() {
 			
 			@Override
 			public void onSuccess(Void result) {
@@ -94,7 +95,7 @@ public class ItemImportTable extends Composite {
 			@Override
 			public void onFailure(Throwable caught) {
 				listener.onImportFail();
-				NoticePanel.failNotice(PrettyGal.ERROR_MSG);
+				NoticePanel.failNotice(caught.getMessage());
 			}
 		});
 	}

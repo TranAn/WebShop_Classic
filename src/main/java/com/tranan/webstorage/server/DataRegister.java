@@ -22,13 +22,17 @@ public class DataRegister extends RemoteServiceServlet {
 		ObjectifyService.register(Photo.class);
 		ObjectifyService.register(Sale.class);
 		ObjectifyService.register(OrderTrack.class);
+		ObjectifyService.register(User.class);
 //		ObjectifyService.register(Shop.class);
-//		ObjectifyService.register(User.class);
-
+		
 		if(ofy().load().type(EntitiesSize.class).list().isEmpty()) {	
 			EntitiesSize entitiesSize = new EntitiesSize();
 			ofy().save().entity(entitiesSize);
 		}
+		
+		User user = new User();
+		user.setEmail("antp17290@gmail.com");
+		ofy().save().entity(user);
 	}
 
 }
