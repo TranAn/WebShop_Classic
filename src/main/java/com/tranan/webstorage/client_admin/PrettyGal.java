@@ -17,6 +17,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.LongBox;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -79,7 +80,12 @@ public class PrettyGal implements EntryPoint {
 		RootPanel.get().clear();
 		LoginPage.clearUser();
 		RootPanel.get().add(loginPage);
-		LoginPage.openForm();
+		Timer t = new Timer(){
+			@Override
+			public void run() {
+				LoginPage.openForm();
+			}};
+		t.schedule(800);
 	}
 	
 	public static void setPriceLongBox(final LongBox ltxb) {

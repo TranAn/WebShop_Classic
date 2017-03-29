@@ -8,11 +8,15 @@ import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.event.logical.shared.CloseEvent;
+import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -27,12 +31,15 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.IntegerBox;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.LongBox;
+import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
 import com.tranan.webstorage.client_admin.Ruler;
+import com.tranan.webstorage.client_admin.dialog.ListCatalogDialog;
+import com.tranan.webstorage.client_admin.dialog.ListCatalogDialog.ListCatalogDialog_Listener;
 import com.tranan.webstorage.client_admin.place.ItemPlace;
 import com.tranan.webstorage.client_admin.sub_ui.NoticePanel;
 import com.tranan.webstorage.shared.Catalog;
@@ -75,11 +82,12 @@ public class CreateItem extends Composite {
 	@UiField HTMLPanel avatarTitle3;
 	@UiField HTMLPanel avatarTitle4;
 	@UiField HTMLPanel avatarTitle5;
+	@UiField Anchor addCatalogButton;
+	@UiField HTMLPanel avatarTitlePanel;
 	
 	CreateItem thiz = this;
 
 	private static Item item;
-	private List<Long> item_catalog_ids = new ArrayList<Long>();
 	
 	private boolean skipCheckItemChange = false;
 	private boolean isUpdate = false;
@@ -87,6 +95,7 @@ public class CreateItem extends Composite {
 	
 	private List<TypeBox> listTypeBox = new ArrayList<TypeBox>();
 	private String avatarIndex;
+	private List<Catalog> itemCatalog = new ArrayList<Catalog>();
 	
 	class TypeBox {
 		public TextBox type;
@@ -110,7 +119,15 @@ public class CreateItem extends Composite {
 				public void onSuccess(List<Catalog> result) {
 					ItemTable.listCatalog.addAll(result);
 					NoticePanel.endLoading();
-					addCatalogListBox(result);
+					
+					itemCatalog.clear();
+					for(Catalog catalog: ItemTable.listCatalog) {					
+						if(item != null && item.getCatalog_ids().contains(catalog.getId())) {
+							itemCatalog.add(catalog);
+						}
+					}
+					addCatalogListBox(itemCatalog);
+					addCatalogButton.setVisible(true);
 				}
 				
 				@Override
@@ -119,16 +136,23 @@ public class CreateItem extends Composite {
 				}
 			});
 		}
-		else
-			addCatalogListBox(ItemTable.listCatalog);
+		else {
+			itemCatalog.clear();
+			for(Catalog catalog: ItemTable.listCatalog) {
+				if(item != null && item.getCatalog_ids().contains(catalog.getId())) {
+					itemCatalog.add(catalog);
+				}
+			}
+			addCatalogListBox(itemCatalog);
+			addCatalogButton.setVisible(true);
+		}
 	}
 	
 	void addCatalogListBox(List<Catalog> catalogs) {
-		if(catalogs.isEmpty())
-			catalogRow.setVisible(false);
-		else {
-			catalogRow.setVisible(true);
+		if(!catalogs.isEmpty()) {
 			itemCatalogsTable.clear();
+			itemCatalogsTable.setVisible(true);
+			
 			for(final Catalog catalog: catalogs) {
 				final HTMLPanel panel1 = new HTMLPanel("");
 				panel1.setStyleName("CreateItem_s16");
@@ -142,31 +166,36 @@ public class CreateItem extends Composite {
 				
 				panel2.add(cb);
 				panel1.add(lb1);
-				panel1.add(panel2);
+//				panel1.add(panel2);
 				panel1.add(a);
 				itemCatalogsTable.add(panel1);
 				
-				if(item != null && item.getCatalog_ids().contains(catalog.getId())) {
-					panel1.addStyleName("CreateItem_s16_active");
-					cb.setValue(true);
-				}
+//				if(item != null && item.getCatalog_ids().contains(catalog.getId())) {
+//					panel1.addStyleName("CreateItem_s16_active");
+//					cb.setValue(true);
+//				}
+				panel1.addStyleName("CreateItem_s16_active");
 				
-				a.addClickHandler(new ClickHandler() {
-					
-					@Override
-					public void onClick(ClickEvent event) {
-						cb.setValue(!cb.getValue());
-						if(cb.getValue()) {	
-							panel1.addStyleName("CreateItem_s16_active");
-							item_catalog_ids.add(catalog.getId());
-						}
-						else {
-							panel1.removeStyleName("CreateItem_s16_active");
-							item_catalog_ids.remove(catalog.getId());
-						}
-					}
-				});
+//				a.addClickHandler(new ClickHandler() {
+//					
+//					@Override
+//					public void onClick(ClickEvent event) {
+//						cb.setValue(!cb.getValue());
+//						if(cb.getValue()) {	
+//							panel1.addStyleName("CreateItem_s16_active");
+//							item_catalog_ids.add(catalog.getId());
+//						}
+//						else {
+//							panel1.removeStyleName("CreateItem_s16_active");
+//							item_catalog_ids.remove(catalog.getId());
+//						}
+//					}
+//				});
 			}
+		}
+		else {
+			itemCatalogsTable.clear();
+			itemCatalogsTable.setVisible(false);
 		}
 	}
 
@@ -361,8 +390,6 @@ public class CreateItem extends Composite {
 			for(Type type: item.getType())
 				addTypeRow(type.getName(), type.getQuantity());
 		}
-		
-		item_catalog_ids = item.getCatalog_ids();
 		
 		Timer t = new Timer() {
 			@Override
@@ -875,7 +902,10 @@ public class CreateItem extends Composite {
 				item.getType().add(type);
 			}
 		}
-		item.setCatalog_ids(item_catalog_ids);
+		item.getCatalog_ids().clear();
+		for(Catalog catalog: itemCatalog) {
+			item.getCatalog_ids().add(catalog.getId());
+		}
 		item.setDescription(getDataCustomEditor("descriptionTxb"));
 		item.setAvatar_url("");
 		
@@ -956,6 +986,36 @@ public class CreateItem extends Composite {
 		addTypeRow("", 0);
 	}
 	
+	@UiHandler("addCatalogButton") 
+	void onAddCatalogButtonClick(ClickEvent e) {
+		final ListCatalogDialog dialog = new ListCatalogDialog(new ListCatalogDialog_Listener() {
+			
+			@Override
+			public void onSelectedCatalog(List<Catalog> selectedCatalogs) {
+				itemCatalog = selectedCatalogs;
+				addCatalogListBox(itemCatalog);
+			}
+		});
+		
+		dialog.setCatalogs(ItemTable.listCatalog, itemCatalog);
+		Timer t = new Timer() {
+
+			@Override
+			public void run() {
+				dialog.center();
+				avatarTitlePanel.setVisible(false);
+			}};
+		t.schedule(50);
+		
+		dialog.addCloseHandler(new CloseHandler<PopupPanel>() {
+			
+			@Override
+			public void onClose(CloseEvent<PopupPanel> event) {
+				avatarTitlePanel.setVisible(true);
+			}
+		});
+	}
+	
 	@UiHandler("exitButton") 
 	void onExitButtonClick(ClickEvent e) {
 		skipCheckItemChange = true;
@@ -975,7 +1035,13 @@ public class CreateItem extends Composite {
 		itemTabHeader.setStyleName("CreateItem_s12");
 		catalogTabHeader.setStyleName("CreateItem_s12_deactive");
 		
-		addCatalogListBox(ItemTable.listCatalog);
+		itemCatalog.clear();
+		for(Catalog catalog: ItemTable.listCatalog) {
+			if(item != null && item.getCatalog_ids().contains(catalog.getId())) {
+				itemCatalog.add(catalog);
+			}
+		}
+		addCatalogListBox(itemCatalog);
 	}
 	
 	@UiHandler("catalogTabBtn") 
@@ -995,25 +1061,30 @@ public class CreateItem extends Composite {
 	
 	@UiHandler("saveCatalogButton") 
 	void onSaveCatalogButtonClick(ClickEvent e) {
-		 NoticePanel.onLoading();
+		if(!nameCatalog.getText().isEmpty()) {
+			NoticePanel.onLoading();
 		 
-		 Catalog catalog = new Catalog();
-		 catalog.setName(nameCatalog.getText());
-		 PrettyGal.dataService.createCatalog(catalog, LoginPage.id_token, new AsyncCallback<Catalog>() {
-			
-			@Override
-			public void onSuccess(Catalog result) {
-				NoticePanel.successNotice("Thêm catalog thành công");
-				ItemTable.listCatalog.add(0, result);
-				showCatalogView(ItemTable.listCatalog);
-				nameCatalog.setText("");
-			}
-			
-			@Override
-			public void onFailure(Throwable caught) {
-				NoticePanel.failNotice(caught.getMessage());
-			}
-		});
+			nameCatalog.removeStyleName("ItemCatalog_validateNameFail");
+			Catalog catalog = new Catalog();
+		 
+			catalog.setName(nameCatalog.getText());
+			PrettyGal.dataService.createCatalog(catalog, LoginPage.id_token, new AsyncCallback<Catalog>() {			
+				@Override
+				public void onSuccess(Catalog result) {
+					NoticePanel.successNotice("Thêm catalog thành công");
+					ItemTable.listCatalog.add(0, result);
+					showCatalogView(ItemTable.listCatalog);
+					nameCatalog.setText("");
+				}
+				
+				@Override
+				public void onFailure(Throwable caught) {
+					NoticePanel.failNotice(caught.getMessage());
+				}
+			});
+		}
+		else
+			nameCatalog.addStyleName("ItemCatalog_validateNameFail");
 	}
 	
 	private void showCatalogView(List<Catalog> catalogs) {
@@ -1035,7 +1106,7 @@ public class CreateItem extends Composite {
 			Anchor deleteBtn = new Anchor();
 			deleteBtn.setStyleName("CreateItem_s11");
 			
-			HTMLPanel panel3 = new HTMLPanel("");
+			final HTMLPanel panel3 = new HTMLPanel("");
 			panel3.setStyleName("CreateItem_s15");
 			panel3.getElement().setInnerHTML("<div style='margin-top:2px; margin-left: 15px;'>"
 												+ "<i class='material-icons'>&#xE254;</i>"
@@ -1044,10 +1115,28 @@ public class CreateItem extends Composite {
 			editBtn.setStyleName("CreateItem_s11");
 			panel3.add(editBtn);
 			
-			txb1.addBlurHandler(new BlurHandler() {
-				
+			final HTMLPanel panel4 = new HTMLPanel("");
+			panel4.setStyleName("CreateItem_s15");
+			panel4.getElement().setInnerHTML("<div style='margin-top:2px; margin-left: 15px;'>"
+												+ "<i class='material-icons'>&#xE161;</i>"
+												+ "</div>");
+			Anchor saveBtn = new Anchor();
+			saveBtn.setStyleName("CreateItem_s11");
+			panel4.add(saveBtn);
+			panel4.setVisible(false);
+			
+			txb1.addFocusHandler(new FocusHandler() {				
+				@Override
+				public void onFocus(FocusEvent event) {
+					panel3.setVisible(false);
+					panel4.setVisible(true);
+				}
+			});
+			txb1.addBlurHandler(new BlurHandler() {		
 				@Override
 				public void onBlur(BlurEvent event) {
+					panel3.setVisible(true);
+					panel4.setVisible(false);
 					if(!txb1.getText().equals(catalog.getName())) {
 						NoticePanel.onLoading();
 						catalog.setName(txb1.getText());
@@ -1083,8 +1172,8 @@ public class CreateItem extends Composite {
                     }
                 }
             });
-			deleteBtn.addClickHandler(new ClickHandler() {
-				
+			
+			deleteBtn.addClickHandler(new ClickHandler() {			
 				@Override
 				public void onClick(ClickEvent event) {
 					if(Window.confirm("Bạn muốn xóa catalog này?")) {
@@ -1106,11 +1195,18 @@ public class CreateItem extends Composite {
 					}
 				}
 			});
-			editBtn.addClickHandler(new ClickHandler() {
-				
+			
+			editBtn.addClickHandler(new ClickHandler() {			
 				@Override
 				public void onClick(ClickEvent event) {
 					txb1.setFocus(true);
+				}
+			});
+			
+			saveBtn.addClickHandler(new ClickHandler() {			
+				@Override
+				public void onClick(ClickEvent event) {
+					txb1.setFocus(false);
 				}
 			});
 			
@@ -1118,6 +1214,7 @@ public class CreateItem extends Composite {
 			panel1.add(txb1);
 			panel1.add(panel2);
 			panel1.add(panel3);
+			panel1.add(panel4);
 			catalogTable.add(panel1);
 		}
 	}

@@ -388,14 +388,18 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			for (Long catalog_id : attach_catalog_ids) {
 				Catalog catalog = ofy().load().type(Catalog.class).id(catalog_id)
 						.now();
-				catalog.getItem_ids().add(rtn.getId());
-				ofy().save().entity(catalog);
+				if(catalog != null) {
+					catalog.getItem_ids().add(rtn.getId());
+					ofy().save().entity(catalog);
+				}
 			}
 			for (Long catalog_id : detach_catalog_ids) {
 				Catalog catalog = ofy().load().type(Catalog.class).id(catalog_id)
 						.now();
-				catalog.getItem_ids().remove(rtn.getId());
-				ofy().save().entity(catalog);
+				if(catalog != null) {
+					catalog.getItem_ids().remove(rtn.getId());
+					ofy().save().entity(catalog);
+				}
 			}
 			
 			createItemDocument(rtn);
@@ -562,10 +566,23 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	public Catalog createCatalog(Catalog catalog, String token) throws Exception {
 		if(checkAuth(token)) {
 			Catalog rtn = null;
-			Key<Catalog> key = ofy().save().entity(catalog).now();
-			rtn = ofy().load().key(key).now();
-	
-			return rtn;
+			Catalog old_catalog = null;
+			
+			if(catalog.getId() != null)
+				old_catalog = ofy().load().type(Catalog.class).id(catalog.getId()).now();
+			
+			if(old_catalog != null) {
+				old_catalog.setName(catalog.getName());
+				ofy().save().entity(old_catalog);
+				
+				return old_catalog;
+			}
+			else {			
+				Key<Catalog> key = ofy().save().entity(catalog).now();
+				rtn = ofy().load().key(key).now();
+		
+				return rtn;
+			}
 		}
 		
 		else

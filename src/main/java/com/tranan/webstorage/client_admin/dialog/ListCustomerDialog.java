@@ -16,12 +16,11 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.Event.NativePreviewEvent;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.Event.NativePreviewEvent;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.CheckBox;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -30,16 +29,10 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
-import com.tranan.webstorage.client_admin.dialog.ListItemDialog.ListItemDialog_Listener;
 import com.tranan.webstorage.client_admin.sub_ui.Pager;
 import com.tranan.webstorage.client_admin.sub_ui.Pager.PagerListener;
-import com.tranan.webstorage.client_admin.ui.ItemTable;
 import com.tranan.webstorage.shared.Customer;
-import com.tranan.webstorage.shared.Item;
 import com.tranan.webstorage.shared.ListCustomer;
-import com.tranan.webstorage.shared.ListItem;
-import com.tranan.webstorage.shared.Photo;
-import com.tranan.webstorage.shared.Item.Type;
 
 public class ListCustomerDialog extends DialogBox {
 

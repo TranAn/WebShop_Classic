@@ -2,7 +2,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-	@external .CreateItem_s1, .CreateItem_s2, .CreateItem_s3, .CreateItem_s4, .CreateItem_s5, .CreateItem_s6, .CreateItem_s7, .CreateItem_s8, .CreateItem_s9, .CreateItem_s10, .CreateItem_s11, .CreateItem_s12, .CreateItem_s12_deactive, .CreateItem_s13, .CreateItem_s14, .CreateItem_s15, .CreateItem_s15b, .CreateItem_s16, .CreateItem_s16_active, .CreateItem_s17, .CreateItem_s18, .CreateItem_s19, ..CreateItem_s20;
+	@external .CreateItem_s1, .CreateItem_s2, .CreateItem_s3, .CreateItem_s4, .CreateItem_s5, .CreateItem_s6, .CreateItem_s7, .CreateItem_s8, .CreateItem_s9, .CreateItem_s10, .CreateItem_s11, .CreateItem_s12, .CreateItem_s12_deactive, .CreateItem_s13, .CreateItem_s14, .CreateItem_s15, .CreateItem_s15b, .CreateItem_s16, .CreateItem_s16_active, .CreateItem_s17, .CreateItem_s18, .CreateItem_s19, ..CreateItem_s20, .ItemCatalog_validateNameFail;
 	.s1 {
 		position: relative;
 		width: 100%;
@@ -451,6 +451,7 @@
 		overflow: hidden;
 		width: 100%;
 		margin-top: 10px;
+		margin-bottom: 20px;
 		border-top: 1px #e2e9e6 solid;
 	}
 	
@@ -609,6 +610,16 @@
 		z-index: 1;
 		cursor: default;
 	}
+	
+	.s27 {
+		cursor: pointer;
+		margin-top: 10px;
+		margin-bottom: 15px;
+	}
+	
+	.ItemCatalog_validateNameFail {
+		border-bottom: 1px solid #F44336;
+	}
 	</ui:style>
 
 	<g:ScrollPanel ui:field="scroll" styleName="{style.s1}">
@@ -646,11 +657,13 @@
 								<i class="material-icons CreateItem_s2">&#xE3B0;</i>
 							</g:HTMLPanel>
 							
-							<g:HTMLPanel ui:field="avatarTitle1" styleName="{style.s22}" visible="false">Ảnh Đại Diện</g:HTMLPanel>
-							<g:HTMLPanel ui:field="avatarTitle2" styleName="{style.s23}" visible="false">Ảnh Đại Diện</g:HTMLPanel>
-							<g:HTMLPanel ui:field="avatarTitle3" styleName="{style.s24}" visible="false">Ảnh Đại Diện</g:HTMLPanel>
-							<g:HTMLPanel ui:field="avatarTitle4" styleName="{style.s25}" visible="false">Ảnh Đại Diện</g:HTMLPanel>
-							<g:HTMLPanel ui:field="avatarTitle5" styleName="{style.s26}" visible="false">Ảnh Đại Diện</g:HTMLPanel>
+							<g:HTMLPanel ui:field="avatarTitlePanel">
+								<g:HTMLPanel ui:field="avatarTitle1" styleName="{style.s22}" visible="false">Ảnh Đại Diện</g:HTMLPanel>
+								<g:HTMLPanel ui:field="avatarTitle2" styleName="{style.s23}" visible="false">Ảnh Đại Diện</g:HTMLPanel>
+								<g:HTMLPanel ui:field="avatarTitle3" styleName="{style.s24}" visible="false">Ảnh Đại Diện</g:HTMLPanel>
+								<g:HTMLPanel ui:field="avatarTitle4" styleName="{style.s25}" visible="false">Ảnh Đại Diện</g:HTMLPanel>
+								<g:HTMLPanel ui:field="avatarTitle5" styleName="{style.s26}" visible="false">Ảnh Đại Diện</g:HTMLPanel>
+							</g:HTMLPanel>
 						</g:HTMLPanel>
 
 						<g:HTMLPanel ui:field="container" styleName="{style.s10}">
@@ -720,14 +733,18 @@
 				<g:HTMLPanel ui:field="catalogRow" styleName="{style.s5}">
 					<g:Label styleName="{style.s6}">Danh mục</g:Label>
 					<g:HTMLPanel styleName="{style.s20}">
-					
-						<g:HTMLPanel ui:field="itemCatalogsTable" styleName="{style.s21}">
-							<g:HTMLPanel styleName="CreateItem_s16 CreateItem_s16_active">
+									
+						<g:HTMLPanel ui:field="itemCatalogsTable" styleName="{style.s21}" visible="false">
+							<!-- <g:HTMLPanel styleName="CreateItem_s16 CreateItem_s16_active">
 								<g:Label styleName="CreateItem_s17">Catalog1</g:Label>
 								<g:HTMLPanel styleName="CreateItem_s18">
 									<g:CheckBox></g:CheckBox>
 								</g:HTMLPanel>
-							</g:HTMLPanel>	
+							</g:HTMLPanel> -->	
+						</g:HTMLPanel>
+						
+						<g:HTMLPanel styleName="{style.s27}">
+							<g:Anchor ui:field="addCatalogButton" visible="false">Chọn danh mục</g:Anchor>
 						</g:HTMLPanel>
 						
 					</g:HTMLPanel>
