@@ -8,6 +8,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -23,6 +24,8 @@ public class LoginPage extends Composite {
 	interface LoginPageUiBinder extends UiBinder<Widget, LoginPage> {
 	}
 
+	@UiField 
+	HTMLPanel panel;
 	@UiField
 	Label noticeLabel;
 	@UiField
@@ -74,6 +77,10 @@ public class LoginPage extends Composite {
 				// TODO Auto-generated method stub
 			}		
 		}).inject();
+	}
+	
+	public void setPageSize() {
+		panel.setHeight(Window.getClientHeight() + "px");
 	}
 	
 	public static void clearUser() {

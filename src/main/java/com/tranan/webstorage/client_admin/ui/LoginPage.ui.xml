@@ -99,7 +99,7 @@
 		transition: color .6s linear, background-color .6s ease-in-out;
 	}
 	</ui:style>
-	<g:HTMLPanel styleName="{style.s1}">
+	<g:HTMLPanel styleName="{style.s1}" ui:field="panel">
 		<div class="container">
 			<div class="profile">
 				<button class="profile__avatar" id="toggleProfile">

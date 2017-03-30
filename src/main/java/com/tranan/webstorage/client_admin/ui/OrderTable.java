@@ -20,7 +20,6 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
-import com.tranan.webstorage.client_admin.Ruler;
 import com.tranan.webstorage.client_admin.dialog.ListCustomerDialog;
 import com.tranan.webstorage.client_admin.dialog.ListCustomerDialog.ListCustomerDialog_Listener;
 import com.tranan.webstorage.client_admin.place.CreateOrderPlace;
@@ -376,7 +375,7 @@ public class OrderTable extends Composite {
 	public OrderTable() {
 		initWidget(uiBinder.createAndBindUi(this));
 		
-		scrollTable.setHeight(Ruler.ItemTable_H + "px");
+//		scrollTable.setHeight(Ruler.ItemTable_H + "px");
 		
 		getListOrder("");
 		

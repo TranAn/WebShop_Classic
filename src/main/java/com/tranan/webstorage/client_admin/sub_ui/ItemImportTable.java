@@ -18,9 +18,9 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.IntegerBox;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
-import com.tranan.webstorage.client_admin.Ruler;
 import com.tranan.webstorage.client_admin.ui.ItemTable;
 import com.tranan.webstorage.client_admin.ui.LoginPage;
 import com.tranan.webstorage.client_admin.ui.OrderTable;
@@ -50,8 +50,10 @@ public class ItemImportTable extends Composite {
 		void onImportFail();
 	}
 
-	public ItemImportTable() {
+	public ItemImportTable(ScrollPanel scroll) {
 		initWidget(uiBinder.createAndBindUi(this));
+		
+		scroll.getElement().setAttribute("style", "overflow-y: scroll");
 	}
 	
 	public void clearSelectedItems() {
@@ -107,7 +109,7 @@ public class ItemImportTable extends Composite {
 			Timer t = new Timer() {
 				@Override
 				public void run() {	
-					row_width = Ruler.ItemImportTable_item_W + "px";
+					row_width = ((itemTable.getOffsetWidth()) / 2) + "px";
 					for(Item item: itemsDisplay) {
 						if( (itemsDisplay.indexOf(item)+1) % 3 == 0 )
 							addItemView(item, true);

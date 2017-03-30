@@ -5,11 +5,12 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
-import com.tranan.webstorage.client_admin.Ruler;
 import com.tranan.webstorage.client_admin.place.ItemPlace;
 import com.tranan.webstorage.client_admin.place.OrderPlace;
 import com.tranan.webstorage.client_admin.place.SalePlace;
@@ -21,7 +22,8 @@ public class RightPage extends Composite {
 
 	interface RightPageUiBinder extends UiBinder<Widget, RightPage> {
 	}
-	
+	 
+	@UiField ScrollPanel scroll;
 	@UiField HTMLPanel right_page;
 	@UiField HTMLPanel right_page_body;
 	
@@ -33,10 +35,15 @@ public class RightPage extends Composite {
 	public RightPage() {
 		initWidget(uiBinder.createAndBindUi(this));
 		
-		right_page.setWidth(Ruler.RightPage_W + "px");
-		
-//		right_page.add(new ItemTable());
-//		right_page.add(new CreateItem());
+		setPageSize();
+	}
+	
+	public void setPageSize() {	
+		scroll.setWidth(Window.getClientWidth() - 250 + "px");
+		scroll.setHeight(Window.getClientHeight()+ "px");
+		right_page.setWidth(Window.getClientWidth() - 250 + "px");
+//		right_page.setHeight(Window.getClientHeight()+ "px");
+		right_page_body.setHeight(Window.getClientHeight() - 65 + "px");	
 	}
 	
 	public void HideAllToolbar() {

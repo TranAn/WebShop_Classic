@@ -3,11 +3,15 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:pg="urn:import:com.tranan.webstorage.client_admin.sub_ui">
 	<ui:style>
 	@external .RightPage_s1, .RightPage_s2;
+	.s1_scroll {
+		overflow-y: hidden !important;
+	}
+	
 	.s1 {
 		position: relative;
-		float: left;
-		width: calc(100% - 250px);
 		height: 100%;
+		min-width: 1110px;
+		/* min-height: 600px; */
 		overflow: hidden;
 		font-family: 'Noto Serif', serif;
 	}
@@ -73,7 +77,8 @@
 	.s8 {
 		position: relative;
 		width: 100%;
-		overflow: hidden;		
+		overflow: hidden;
+			
 	}
 	
 	.s9 {
@@ -134,6 +139,7 @@
 		height: 100%;
  	}
 	</ui:style>
+	<g:ScrollPanel ui:field="scroll" styleName="{style.s1_scroll}">
 	<g:HTMLPanel ui:field="right_page" styleName="{style.s1}">
 		<g:HTMLPanel styleName="{style.s2}">
 			<g:HTMLPanel styleName="{style.s7}">
@@ -200,4 +206,5 @@
 
 		<g:HTMLPanel ui:field="right_page_body" styleName="{style.s8}"></g:HTMLPanel>
 	</g:HTMLPanel>
+	</g:ScrollPanel>
 </ui:UiBinder> 

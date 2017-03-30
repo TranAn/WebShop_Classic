@@ -31,7 +31,6 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
-import com.tranan.webstorage.client_admin.Ruler;
 import com.tranan.webstorage.client_admin.dialog.ListItemDialog;
 import com.tranan.webstorage.client_admin.dialog.ListItemDialog.ListItemDialog_Listener;
 import com.tranan.webstorage.client_admin.place.SalePlace;
@@ -232,7 +231,7 @@ public class CreateSale extends Composite {
 	public CreateSale() {
 		initWidget(uiBinder.createAndBindUi(this));
 		
-		scroll.setHeight(Ruler.ItemTable_H + "px");
+//		scroll.setHeight(Ruler.ItemTable_H + "px");
 		
 		descriptionTxb.getElement().setAttribute("id", "descriptionTxb");
 		

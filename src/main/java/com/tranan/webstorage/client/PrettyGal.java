@@ -2,12 +2,9 @@ package com.tranan.webstorage.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.tranan.webstorage.client.ui.Cart;
-import com.tranan.webstorage.client.ui.Contact;
 import com.tranan.webstorage.client.ui.Footer;
 import com.tranan.webstorage.client.ui.Header;
 import com.tranan.webstorage.client.ui.HomeCover;
-import com.tranan.webstorage.client.ui.Item;
 import com.tranan.webstorage.client.ui.Shop;
 
 public class PrettyGal implements EntryPoint {

@@ -6,6 +6,7 @@
 	.s1 {
 		position: relative;
 		width: 100%;
+		height: 100%;
 		overflow-x: hidden;
 		/* background: black; */
 	}
@@ -89,12 +90,12 @@
 		background: #42a5f5;
 		position: relative;
 		overflow: hidden;
+		width: 100%;
 		height: 32px;
 		/* font-weight: bold; */
 		display: table;
-		padding-left: 15px;
 		padding-top: 10px;
-		width: 100%;
+		margin: 0px 2px 0px 2px;
 		color: white;
 		box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.17);
 	}
@@ -104,14 +105,7 @@
 		/* float: left; */
 		margin: 1px 10px 0px 15px;
 		width: 70px;
-		display: table-cell;
-	}
-	
-	.s10_quantity {
-		position: relative;
-		/* float: left; */
-		margin: 1px 10px 0px 0px;
-		width: 80px;
+		min-width: 85px;
 		display: table-cell;
 	}
 	
@@ -119,23 +113,45 @@
 		position: relative;
 		/* float: left; */
 		margin: 1px 0px 0px 20px;
+		padding-right: 10px;
 		width: 130px;
+		min-width: 130px;
 		display: table-cell;
 	}
 	
 	.s10_type {
 		position: relative;
 		/* float: left; */
-		margin: 1px 0px 0px 20px;
-		padding-right: 15px;
-		width: 140px;
+		margin: 1px 0px 0px 0px;
+		padding-right: 35px;
+		width: 170px;
+		min-width: 170px;
 		display: table-cell;
+	}
+	
+	.s10_quantity {
+		position: relative;
+		/* float: left; */
+		margin: 1px 20px 0px 10px;
+		width: 80px;
+		min-width: 80px;
+		display: table-cell;
+	}
+	
+	.s10_delete {
+		position: relative;
+		/* float: right; */
+		display: table-cell;
+		vertical-align: middle;
+		margin: 10px 20px 0px 10px;
+		min-width: 48px;
 	}
 	
 	.s11 {
 		position: relative;
 		/* float: left; */
 		margin-top: 1px;
+		width: 49%;
 		display: table-cell;
 	}
 	
@@ -423,22 +439,22 @@
 					</g:HTMLPanel>
 
 					<g:HTMLPanel styleName="{style.s10_price}">
-						<div style="margin-left:-14px;">Giá gốc</div>
+						<div style="text-align:left">Giá gốc</div>
 					</g:HTMLPanel>
 
 					<g:HTMLPanel styleName="{style.s10_price}">
-						<div style="margin-left:-6px;">Giá bán</div>
+						<div style="text-align:left">Giá bán</div>
 					</g:HTMLPanel>
 
 					<g:HTMLPanel styleName="{style.s10_type}">
-						<div style="text-align:left; margin-right:-5px;">Chủng loại / Số lượng</div>
+						<div style="text-align:center">Chủng loại / Số lượng</div>
 					</g:HTMLPanel>
 					
 					<g:HTMLPanel styleName="{style.s10_quantity}">
-						<div style="text-align:center;">Khuyến mại</div>
+						<div style="text-align:left;">Khuyến mại</div>
 					</g:HTMLPanel>
 
-					<g:HTMLPanel styleName="{style.s10}">
+					<g:HTMLPanel styleName="{style.s10_delete}" width="30px">
 					</g:HTMLPanel>
 				</g:HTMLPanel>
 				

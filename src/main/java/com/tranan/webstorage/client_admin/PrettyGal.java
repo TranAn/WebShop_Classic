@@ -13,6 +13,8 @@ import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.place.shared.Place;
@@ -64,6 +66,18 @@ public class PrettyGal implements EntryPoint {
 		historyHandler.register(placeController, eventBus, new ItemPlace());
 		historyHandler.handleCurrentHistory();
 	}
+	
+	private void handlerResize() {
+		Window.addResizeHandler(new ResizeHandler() {
+			
+			@Override
+			public void onResize(ResizeEvent event) {
+				controlPage.setPageSize();
+				slideMenu.setPageSize();
+				loginPage.setPageSize();
+			}
+		});
+	}
 
 	@Override
 	public void onModuleLoad() {
@@ -74,6 +88,7 @@ public class PrettyGal implements EntryPoint {
 //		RootPanel.get().add(controlPage);
 		
 		handlerHistory();
+		handlerResize();
 	}
 	
 	public static void confirmChangePlace(final Place place) {

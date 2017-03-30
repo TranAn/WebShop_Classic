@@ -6,7 +6,6 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -14,7 +13,6 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
-import com.tranan.webstorage.client_admin.Ruler;
 import com.tranan.webstorage.client_admin.dialog.ConfirmDialog;
 import com.tranan.webstorage.client_admin.dialog.ConfirmDialog.ConfirmDialog_Listener;
 import com.tranan.webstorage.client_admin.ui.ItemTable;
@@ -59,7 +57,7 @@ public class ItemTable_Row extends Composite {
 	public ItemTable_Row(ItemTableRowListener listener) {
 		initWidget(uiBinder.createAndBindUi(this));
 
-		itemName.setWidth(Ruler.ItemTableRow_itemname_W + "px");
+//		itemName.setWidth(Ruler.ItemTableRow_itemname_W + "px");
 		
 		this.listener = listener;
 	}

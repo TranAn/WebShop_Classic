@@ -1,10 +1,20 @@
 package com.tranan.webstorage.server;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.googlecode.objectify.ObjectifyService;
-import com.tranan.webstorage.shared.*;
-
-import static com.googlecode.objectify.ObjectifyService.ofy;
+import com.tranan.webstorage.shared.Catalog;
+import com.tranan.webstorage.shared.Customer;
+import com.tranan.webstorage.shared.EntitiesSize;
+import com.tranan.webstorage.shared.Item;
+import com.tranan.webstorage.shared.Order;
+import com.tranan.webstorage.shared.OrderChannel;
+import com.tranan.webstorage.shared.OrderIn;
+import com.tranan.webstorage.shared.OrderTrack;
+import com.tranan.webstorage.shared.Photo;
+import com.tranan.webstorage.shared.Sale;
+import com.tranan.webstorage.shared.User;
 
 @SuppressWarnings("serial")
 public class DataRegister extends RemoteServiceServlet {

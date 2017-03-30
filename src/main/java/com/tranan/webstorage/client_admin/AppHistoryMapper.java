@@ -2,7 +2,14 @@ package com.tranan.webstorage.client_admin;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceHistoryMapper;
-import com.tranan.webstorage.client_admin.place.*;
+import com.tranan.webstorage.client_admin.place.CreateItemPlace;
+import com.tranan.webstorage.client_admin.place.CreateOrderPlace;
+import com.tranan.webstorage.client_admin.place.CreateSalePlace;
+import com.tranan.webstorage.client_admin.place.ItemPlace;
+import com.tranan.webstorage.client_admin.place.OrderPlace;
+import com.tranan.webstorage.client_admin.place.SalePlace;
+import com.tranan.webstorage.client_admin.place.ShopPlace;
+import com.tranan.webstorage.client_admin.place.StatisticPlace;
 
 /**
  * PlaceHistoryMapper interface is used to attach all places which the

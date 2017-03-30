@@ -35,7 +35,6 @@ import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
-import com.tranan.webstorage.client_admin.Ruler;
 import com.tranan.webstorage.client_admin.dialog.ListCustomerDialog;
 import com.tranan.webstorage.client_admin.dialog.ListCustomerDialog.ListCustomerDialog_Listener;
 import com.tranan.webstorage.client_admin.dialog.ListItemDialog;
@@ -138,7 +137,7 @@ public class CreateOrder extends Composite {
 	public CreateOrder() {
 		initWidget(uiBinder.createAndBindUi(this));
 		
-		scroll.setHeight(Ruler.ItemTable_H + "px");
+//		scroll.setHeight(Ruler.ItemTable_H + "px");
 		
 //		createDateBox.setFormat(new DateBox.DefaultFormat 
 //				 (DateTimeFormat.getFormat("dd - MM - yyyy"))); 

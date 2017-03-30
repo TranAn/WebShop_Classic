@@ -37,7 +37,6 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
-import com.tranan.webstorage.client_admin.Ruler;
 import com.tranan.webstorage.client_admin.dialog.ConfirmDialog;
 import com.tranan.webstorage.client_admin.dialog.ConfirmDialog.ConfirmDialog_Listener;
 import com.tranan.webstorage.client_admin.dialog.ListCatalogDialog;
@@ -221,7 +220,7 @@ public class CreateItem extends Composite {
 		costText.getElement().setAttribute("maxlength", "13");
 		saleText.getElement().setAttribute("maxlength", "2");
 		
-		scroll.setHeight(Ruler.ItemTable_H + "px");
+//		scroll.setHeight(Ruler.ItemTable_H + "px");
 		
 		replaceCkEditor();
 		replacePlupLoad();

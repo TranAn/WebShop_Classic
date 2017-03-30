@@ -11,8 +11,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.event.logical.shared.AttachEvent;
-import com.google.gwt.event.logical.shared.AttachEvent.Handler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -26,7 +24,6 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
-import com.tranan.webstorage.client_admin.Ruler;
 import com.tranan.webstorage.client_admin.place.CreateItemPlace;
 import com.tranan.webstorage.client_admin.sub_ui.ItemImportTable;
 import com.tranan.webstorage.client_admin.sub_ui.ItemImportTable.ItemImportTable_Listener;
@@ -364,8 +361,8 @@ public class ItemTable extends Composite {
 	public ItemTable() {
 		initWidget(uiBinder.createAndBindUi(this));
 
-		scrollTable.setHeight(Ruler.ItemTable_H + "px");
-		nameColumn.setWidth(Ruler.ItemTableRow_itemname_W + "px");
+//		scrollTable.setHeight(Ruler.ItemTable_H + "px");
+//		nameColumn.setWidth(Ruler.ItemTableRow_itemname_W + "px");
 		
 		searchTxb.addBlurHandler(new BlurHandler() {
 			
@@ -419,6 +416,7 @@ public class ItemTable extends Composite {
 		else
 			itemTableTitle.setText(catalog_name);
 		
+		scrollTable.getElement().setAttribute("style", "overflow-y: auto");
 		tableHeader.setVisible(true);
 		itemTable.setVisible(true);
 		itemImportTable.setVisible(false);
@@ -532,7 +530,7 @@ public class ItemTable extends Composite {
 		backButtonPanel.setVisible(false);
 		applyButtonPanel.setVisible(false);
 		
-		importTable = new ItemImportTable();
+		importTable = new ItemImportTable(scrollTable);
 		importTable.setDisplayItem(displayItem);
 		itemImportTable.clear();
 		itemImportTable.add(importTable);

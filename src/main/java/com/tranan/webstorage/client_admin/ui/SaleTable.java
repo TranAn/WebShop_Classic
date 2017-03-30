@@ -16,7 +16,6 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
-import com.tranan.webstorage.client_admin.Ruler;
 import com.tranan.webstorage.client_admin.place.CreateSalePlace;
 import com.tranan.webstorage.client_admin.sub_ui.NoticePanel;
 import com.tranan.webstorage.client_admin.sub_ui.SaleTable_Row;
@@ -91,7 +90,7 @@ public class SaleTable extends Composite {
 	public SaleTable() {
 		initWidget(uiBinder.createAndBindUi(this));
 		
-		scrollTable.setHeight(Ruler.ItemTable_H + "px");
+//		scrollTable.setHeight(Ruler.ItemTable_H + "px");
 
 		getSales();
 		
