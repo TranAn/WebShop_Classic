@@ -15,6 +15,7 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
 import com.google.gwt.user.client.Timer;
@@ -22,7 +23,12 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.LongBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.tranan.webstorage.client_admin.place.*;
+import com.tranan.webstorage.client_admin.dialog.ConfirmDialog;
+import com.tranan.webstorage.client_admin.dialog.ConfirmDialog.ConfirmDialog_Listener;
+import com.tranan.webstorage.client_admin.place.CreateItemPlace;
+import com.tranan.webstorage.client_admin.place.CreateOrderPlace;
+import com.tranan.webstorage.client_admin.place.CreateSalePlace;
+import com.tranan.webstorage.client_admin.place.ItemPlace;
 import com.tranan.webstorage.client_admin.ui.LeftMenu;
 import com.tranan.webstorage.client_admin.ui.LoginPage;
 import com.tranan.webstorage.client_admin.ui.RightPage;
@@ -70,6 +76,48 @@ public class PrettyGal implements EntryPoint {
 		handlerHistory();
 	}
 	
+	public static void confirmChangePlace(final Place place) {
+		boolean isConfirm = false;
+		if (placeController.getWhere() instanceof CreateItemPlace) {
+			if(AppActivityMapper.current_createitem_ui.isItemChange())
+				isConfirm = true;
+		}
+		else if (placeController.getWhere() instanceof CreateOrderPlace) {
+			if(AppActivityMapper.current_createorder_ui.isItemChange())
+				isConfirm = true;
+		}
+		else if (placeController.getWhere() instanceof CreateSalePlace) {
+			if(AppActivityMapper.current_createsale_ui.isItemChange())
+				isConfirm = true;
+		}
+		
+		if(isConfirm) {
+			final ConfirmDialog dialog = new ConfirmDialog("Bạn muốn thoát khi chưa lưu thay đổi?", 
+					new ConfirmDialog_Listener() {
+				
+				@Override
+				public void onConfirmClick() {
+					placeController.goTo(place);
+				}
+				
+				@Override
+				public void onCancelClick() {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			Timer t = new Timer() {
+
+				@Override
+				public void run() {
+					dialog.center();					
+				}};
+			t.schedule(50);
+		}
+		else
+			placeController.goTo(place);
+	}
+	
 	public static void onAuthSuccess() {
 		RootPanel.get().clear();
 		RootPanel.get().add(slideMenu);
@@ -83,9 +131,9 @@ public class PrettyGal implements EntryPoint {
 		Timer t = new Timer(){
 			@Override
 			public void run() {
-				LoginPage.openForm();
+				LoginPage.openLoginForm();
 			}};
-		t.schedule(800);
+		t.schedule(600);
 	}
 	
 	public static void setPriceLongBox(final LongBox ltxb) {

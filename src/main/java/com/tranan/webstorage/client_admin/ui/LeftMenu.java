@@ -66,26 +66,22 @@ public class LeftMenu extends Composite {
 	
 	@UiHandler("storeMenu")
 	void onStoreMenuClick(ClickEvent e) {
-		PrettyGal.placeController.goTo(new ItemPlace());
-		onStorePlace();
+		PrettyGal.confirmChangePlace(new ItemPlace());
 	}
 	
 	@UiHandler("orderMenu")
 	void onOrderMenuClick(ClickEvent e) {
-		PrettyGal.placeController.goTo(new OrderPlace());
-		onOrderPlace();
+		PrettyGal.confirmChangePlace(new OrderPlace());
 	}
 	
 	@UiHandler("saleMenu")
 	void onSaleMenuClick(ClickEvent e) {
-		PrettyGal.placeController.goTo(new SalePlace());
-		onSalePlace();
+		PrettyGal.confirmChangePlace(new SalePlace());
 	}
 	
 	@UiHandler("chartMenu")
 	void onChartMenuClick(ClickEvent e) {
-		PrettyGal.placeController.goTo(new StatisticPlace());
-		onStatisticPlace();
+		PrettyGal.confirmChangePlace(new StatisticPlace());
 	}
 	
 	@UiHandler("logout")

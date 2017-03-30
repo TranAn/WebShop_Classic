@@ -19,9 +19,9 @@ import com.tranan.webstorage.client_admin.ui.CreateSale;
 
 public class AppActivityMapper implements ActivityMapper {
 
-	CreateItem current_createitem_ui;
-	CreateOrder current_createorder_ui;
-	CreateSale current_createsale_ui;
+	public static CreateItem current_createitem_ui;
+	public static CreateOrder current_createorder_ui;
+	public static CreateSale current_createsale_ui;
 
 	/**
 	 * AppActivityMapper associates each Place with its corresponding
@@ -97,7 +97,8 @@ public class AppActivityMapper implements ActivityMapper {
 					PrettyGal.slideMenu.onStatisticPlace();
 					PrettyGal.controlPage.HideAllToolbar();
 
-					PrettyGal.controlPage.addPage(PrettyGal.UIC.getStatisticTable());
+					PrettyGal.controlPage.addPage(PrettyGal.UIC
+							.getStatisticTable());
 				}
 
 				@Override
@@ -121,10 +122,7 @@ public class AppActivityMapper implements ActivityMapper {
 
 				@Override
 				public String mayStop() {
-					if (current_createitem_ui.isItemChange())
-						return "Bạn muốn thoát khi chưa lưu thay đổi?";
-					else
-						return null;
+					return null;
 				}
 			};
 
@@ -143,10 +141,7 @@ public class AppActivityMapper implements ActivityMapper {
 
 				@Override
 				public String mayStop() {
-					if (current_createorder_ui.isItemChange())
-						return "Bạn muốn thoát khi chưa lưu thay đổi?";
-					else
-						return null;
+					return null;
 				}
 			};
 
@@ -165,10 +160,7 @@ public class AppActivityMapper implements ActivityMapper {
 
 				@Override
 				public String mayStop() {
-					if (current_createsale_ui.isItemChange())
-						return "Bạn muốn thoát khi chưa lưu thay đổi?";
-					else
-						return null;
+					return null;
 				}
 			};
 

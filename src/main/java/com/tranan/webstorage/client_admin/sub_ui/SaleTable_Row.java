@@ -9,15 +9,16 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
+import com.tranan.webstorage.client_admin.dialog.ConfirmDialog;
+import com.tranan.webstorage.client_admin.dialog.ConfirmDialog.ConfirmDialog_Listener;
 import com.tranan.webstorage.client_admin.place.CreateSalePlace;
-import com.tranan.webstorage.client_admin.ui.ItemTable;
 import com.tranan.webstorage.client_admin.ui.LoginPage;
 import com.tranan.webstorage.shared.Sale;
 
@@ -100,23 +101,41 @@ public class SaleTable_Row extends Composite {
 	
 	@UiHandler("deleteButton")
 	void onDeleteButtonClick(ClickEvent e) {
-		if(Window.confirm("Bạn muốn hủy chương trình khuyến mại này?")) {
-			NoticePanel.onLoading();
-			PrettyGal.dataService.deleteSale(sale.getId(), LoginPage.id_token, new AsyncCallback<Void>() {
+		final ConfirmDialog dialog = new ConfirmDialog("Bạn muốn hủy chương trình khuyến mại này?",  
+				new ConfirmDialog_Listener() {			
+			@Override
+			public void onConfirmClick() {
+				NoticePanel.onLoading();
+				PrettyGal.dataService.deleteSale(sale.getId(), LoginPage.id_token, new AsyncCallback<Void>() {
+					
+					@Override
+					public void onSuccess(Void result) {
+						PrettyGal.UIC.getItemTable().ClearListItem();
+						listener.onDeleteSale(sale);	
+						NoticePanel.successNotice("Chương trình khuyến mại đã bị hủy");					
+					}
+					
+					@Override
+					public void onFailure(Throwable caught) {
+						NoticePanel.failNotice(caught.getMessage());
+					}
+				});
+			}
+
+			@Override
+			public void onCancelClick() {
+				// TODO Auto-generated method stub
 				
-				@Override
-				public void onSuccess(Void result) {
-					PrettyGal.UIC.getItemTable().ClearListItem();
-					listener.onDeleteSale(sale);	
-					NoticePanel.successNotice("Chương trình khuyến mại đã bị hủy");					
-				}
-				
-				@Override
-				public void onFailure(Throwable caught) {
-					NoticePanel.failNotice(caught.getMessage());
-				}
-			});
-		}
+			}
+		});
+		
+		Timer t = new Timer() {
+
+			@Override
+			public void run() {
+				dialog.center();			
+			}};
+		t.schedule(50);
 	}
 
 }

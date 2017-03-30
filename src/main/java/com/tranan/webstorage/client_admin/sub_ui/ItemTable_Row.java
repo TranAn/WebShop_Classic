@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
@@ -14,6 +15,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
 import com.tranan.webstorage.client_admin.Ruler;
+import com.tranan.webstorage.client_admin.dialog.ConfirmDialog;
+import com.tranan.webstorage.client_admin.dialog.ConfirmDialog.ConfirmDialog_Listener;
 import com.tranan.webstorage.client_admin.ui.ItemTable;
 import com.tranan.webstorage.client_admin.ui.LoginPage;
 import com.tranan.webstorage.shared.Item;
@@ -113,25 +116,43 @@ public class ItemTable_Row extends Composite {
 
 	@UiHandler("deleteButton")
 	void onDeleteButtonClick(ClickEvent event) {
-		if(Window.confirm("Bạn muốn xóa sản phẩm này?")) {
-			NoticePanel.onLoading();
-			PrettyGal.dataService.deleteItem(item.getId(), LoginPage.id_token, new AsyncCallback<Boolean>() {
+		final ConfirmDialog dialog = new ConfirmDialog("Bạn muốn xóa sản phẩm này?", 
+				new ConfirmDialog_Listener() {
+			
+			@Override
+			public void onConfirmClick() {
+				NoticePanel.onLoading();
+				PrettyGal.dataService.deleteItem(item.getId(), LoginPage.id_token, new AsyncCallback<Boolean>() {
+					
+					@Override
+					public void onSuccess(Boolean result) {
+						if(result) {
+							listener.onDeleteItem(item);	
+							NoticePanel.successNotice("Sản phẩm đã bị xóa khỏi danh sách");
+						} else
+							NoticePanel.failNotice("");
+					}
+					
+					@Override
+					public void onFailure(Throwable caught) {
+						NoticePanel.failNotice(caught.getMessage());
+					}
+				});
+			}
+
+			@Override
+			public void onCancelClick() {
+				// TODO Auto-generated method stub
 				
-				@Override
-				public void onSuccess(Boolean result) {
-					if(result) {
-						listener.onDeleteItem(item);	
-						NoticePanel.successNotice("Sản phẩm đã bị xóa khỏi danh sách");
-					} else
-						NoticePanel.failNotice("");
-				}
-				
-				@Override
-				public void onFailure(Throwable caught) {
-					NoticePanel.failNotice(caught.getMessage());
-				}
-			});
-		}
+			}
+		});
+		Timer t = new Timer() {
+
+			@Override
+			public void run() {
+				dialog.center();			
+			}};
+		t.schedule(50);
 	}
 	
 	@UiHandler("itemViewButton")

@@ -38,6 +38,8 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
 import com.tranan.webstorage.client_admin.Ruler;
+import com.tranan.webstorage.client_admin.dialog.ConfirmDialog;
+import com.tranan.webstorage.client_admin.dialog.ConfirmDialog.ConfirmDialog_Listener;
 import com.tranan.webstorage.client_admin.dialog.ListCatalogDialog;
 import com.tranan.webstorage.client_admin.dialog.ListCatalogDialog.ListCatalogDialog_Listener;
 import com.tranan.webstorage.client_admin.place.ItemPlace;
@@ -1176,23 +1178,41 @@ public class CreateItem extends Composite {
 			deleteBtn.addClickHandler(new ClickHandler() {			
 				@Override
 				public void onClick(ClickEvent event) {
-					if(Window.confirm("Bạn muốn xóa catalog này?")) {
-						NoticePanel.onLoading();
-						PrettyGal.dataService.deleteCatalog(catalog, LoginPage.id_token, new AsyncCallback<Void>() {
+					final ConfirmDialog dialog = new ConfirmDialog("Bạn muốn xóa catalog này?", 
+							new ConfirmDialog_Listener() {
+						
+						@Override
+						public void onConfirmClick() {
+							NoticePanel.onLoading();
+							PrettyGal.dataService.deleteCatalog(catalog, LoginPage.id_token, new AsyncCallback<Void>() {
+								
+								@Override
+								public void onSuccess(Void result) {
+									NoticePanel.successNotice("Xóa catalog thành công");
+									ItemTable.listCatalog.remove(catalog);
+									showCatalogView(ItemTable.listCatalog);
+								}
+								
+								@Override
+								public void onFailure(Throwable caught) {
+									NoticePanel.failNotice(caught.getMessage());
+								}
+							});
+						}
+
+						@Override
+						public void onCancelClick() {
+							// TODO Auto-generated method stub
 							
-							@Override
-							public void onSuccess(Void result) {
-								NoticePanel.successNotice("Xóa catalog thành công");
-								ItemTable.listCatalog.remove(catalog);
-								showCatalogView(ItemTable.listCatalog);
-							}
-							
-							@Override
-							public void onFailure(Throwable caught) {
-								NoticePanel.failNotice(caught.getMessage());
-							}
-						});
-					}
+						}
+					});
+					Timer t = new Timer() {
+
+						@Override
+						public void run() {
+							dialog.center();			
+						}};
+					t.schedule(50);
 				}
 			});
 			

@@ -41,6 +41,8 @@ public class LoginPage extends Composite {
 	public static String id_token = "";
 	public static String user_name = "";
 	public static String user_photo = "";
+	
+	public static boolean isLoginFormOpen = false;
 
 	@SuppressWarnings("unchecked")
 	public LoginPage() {
@@ -81,7 +83,10 @@ public class LoginPage extends Composite {
 	}
 	
 	public static void openLoginForm() {
-		openForm();
+		if(!isLoginFormOpen) {
+			isLoginFormOpen = true;
+			openForm();
+		}
 		authLabelPanel.setVisible(false);
 	}
 	

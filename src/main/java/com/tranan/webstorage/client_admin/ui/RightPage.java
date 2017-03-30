@@ -73,17 +73,17 @@ public class RightPage extends Composite {
 	
 	@UiHandler("createOrderBackBtn")
 	void onCreateOrderBackBtnClick(ClickEvent e) {
-		PrettyGal.placeController.goTo(new OrderPlace());
+		PrettyGal.confirmChangePlace(new OrderPlace());
 	}
 	
 	@UiHandler("createItemBackBtn")
 	void onCreateItemBackBtnClick(ClickEvent e) {
-		PrettyGal.placeController.goTo(new ItemPlace());
+		PrettyGal.confirmChangePlace(new ItemPlace());
 	}
 	
 	@UiHandler("createSaleBackBtn")
 	void onCreateSaleBackBtnClick(ClickEvent e) {
-		PrettyGal.placeController.goTo(new SalePlace());
+		PrettyGal.confirmChangePlace(new SalePlace());
 	}
 	
 	@UiHandler("orderInBtn")
