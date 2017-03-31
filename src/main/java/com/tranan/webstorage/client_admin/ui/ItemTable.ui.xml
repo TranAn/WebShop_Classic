@@ -123,9 +123,9 @@
 		position: relative;
 		/* float: left; */
 		margin: 1px 0px 0px 0px;
-		padding-right: 35px;
-		width: 170px;
-		min-width: 170px;
+		padding-right: 30px;
+		width: 150px;
+		min-width: 150px;
 		display: table-cell;
 	}
 	
@@ -151,7 +151,8 @@
 		position: relative;
 		/* float: left; */
 		margin-top: 1px;
-		width: 49%;
+		width: 59%;
+		/*padding-right: 10px;*/
 		display: table-cell;
 	}
 	
@@ -439,19 +440,19 @@
 					</g:HTMLPanel>
 
 					<g:HTMLPanel styleName="{style.s10_price}">
-						<div style="text-align:left">Giá gốc</div>
+						<div style="text-align:left; margin-left: -5px;">Giá gốc</div>
 					</g:HTMLPanel>
 
 					<g:HTMLPanel styleName="{style.s10_price}">
-						<div style="text-align:left">Giá bán</div>
+						<div style="text-align:left; margin-left: -5px;">Giá bán</div>
 					</g:HTMLPanel>
 
 					<g:HTMLPanel styleName="{style.s10_type}">
-						<div style="text-align:center">Chủng loại / Số lượng</div>
+						<div style="text-align:center; margin-left: -5px;">Chủng loại / Số lượng</div>
 					</g:HTMLPanel>
 					
 					<g:HTMLPanel styleName="{style.s10_quantity}">
-						<div style="text-align:left;">Khuyến mại</div>
+						<div style="text-align:left; margin-left:-10px;">Khuyến mại</div>
 					</g:HTMLPanel>
 
 					<g:HTMLPanel styleName="{style.s10_delete}" width="30px">

@@ -8,6 +8,8 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
@@ -31,6 +33,8 @@ public class RightPage extends Composite {
 	@UiField HTMLPanel CreateOrderToolbar;
 	@UiField HTMLPanel CreateItemToolbar;
 	@UiField HTMLPanel CreateSaleToolbar;
+	@UiField Label userNameLb;
+	@UiField Image userImg;
 
 	public RightPage() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -44,6 +48,11 @@ public class RightPage extends Composite {
 		right_page.setWidth(Window.getClientWidth() - 250 + "px");
 //		right_page.setHeight(Window.getClientHeight()+ "px");
 		right_page_body.setHeight(Window.getClientHeight() - 65 + "px");	
+	}
+	
+	public void setUser(String userName, String userAvatar) {
+		userNameLb.setText(userName);
+		userImg.setUrl(userAvatar);
 	}
 	
 	public void HideAllToolbar() {

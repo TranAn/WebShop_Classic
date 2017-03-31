@@ -137,6 +137,7 @@ public class PrettyGal implements EntryPoint {
 		RootPanel.get().clear();
 		RootPanel.get().add(slideMenu);
 		RootPanel.get().add(controlPage);
+		controlPage.setUser(LoginPage.user_name, LoginPage.user_photo);
 	}
 	
 	public static void onAuthFail() {

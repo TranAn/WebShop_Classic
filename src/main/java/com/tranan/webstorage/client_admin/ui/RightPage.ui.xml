@@ -185,9 +185,9 @@
 			<g:HTMLPanel styleName="{style.s3}">
 				<div
 					style="float: left; width: 30px; height: 30px; border-radius: 40px; overflow: hidden; margin: 16px 8px 0px 15px;">
-					<g:Image width="100%" height="100%" url="../Resources/user.png"></g:Image>
+					<g:Image ui:field="userImg" width="100%" height="100%" url="../Resources/user.png"></g:Image>
 				</div>
-				<g:Label styleName="{style.s4}">User</g:Label>
+				<g:Label ui:field="userNameLb" styleName="{style.s4}">User</g:Label>
 				<g:HTMLPanel styleName="{style.s5}">
 					<i class="material-icons RightPage_s1">&#xE5C5;</i>
 				</g:HTMLPanel>
