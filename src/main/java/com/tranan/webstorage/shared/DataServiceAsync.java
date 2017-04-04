@@ -40,6 +40,8 @@ public interface DataServiceAsync {
 	
 	void deleteOrder(Long id, String token, AsyncCallback<Boolean> callback);
 	
+	void deleteOrderIn(Long id, String token, AsyncCallback<Void> callback);
+	
 	void updateOrderStatus(Long order_id, int status, String token, AsyncCallback<Order> callback);
 	
 	void getChannels(AsyncCallback<List<OrderChannel>> callback);

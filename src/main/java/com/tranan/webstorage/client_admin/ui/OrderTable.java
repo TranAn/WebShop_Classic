@@ -25,6 +25,7 @@ import com.tranan.webstorage.client_admin.dialog.ListCustomerDialog.ListCustomer
 import com.tranan.webstorage.client_admin.place.CreateOrderPlace;
 import com.tranan.webstorage.client_admin.sub_ui.NoticePanel;
 import com.tranan.webstorage.client_admin.sub_ui.OrderInTable_Row;
+import com.tranan.webstorage.client_admin.sub_ui.OrderInTable_Row.OrderInTableRow_Listener;
 import com.tranan.webstorage.client_admin.sub_ui.OrderTable_Row;
 import com.tranan.webstorage.client_admin.sub_ui.OrderTable_Row.OrderTableRowListener;
 import com.tranan.webstorage.client_admin.sub_ui.Pager;
@@ -302,7 +303,18 @@ public class OrderTable extends Composite {
 	private void setOrderInTableView(List<OrderIn> orders) {
 		orderInTable.clear();
 		for (OrderIn order: orders) {
-			OrderInTable_Row row = new OrderInTable_Row();
+			OrderInTable_Row row = new OrderInTable_Row(new OrderInTableRow_Listener() {
+				
+				@Override
+				public void onDeleteItem(OrderIn orderIn) {
+					listOrderIn.getListOrderIn().remove(orderIn);
+					if(listOrderIn.getListOrderIn().isEmpty())
+						listOrderIn.setTotal(0);
+					else
+						listOrderIn.setTotal(listOrderIn.getTotal() - 1);
+					orderin_pager.updatePage(listOrderIn.getTotal(), ListOrderIn.pageSize);
+				}
+			});
 			row.setOrder(order);
 			orderInTable.add(row);
 		}

@@ -264,6 +264,21 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 		ofy().save().entity(order_track);
 	}
 	
+	private void deimportItems(OrderIn orderIn) {
+		for(Item item: orderIn.getOrder_items()) {
+			Item db_item = ofy().load().type(Item.class).id(item.getId()).now();
+			for(Type t: item.getType()) {
+				if(!db_item.getType().contains(t))
+					break;
+				else {
+					int type_index = db_item.getType().indexOf(t);
+					db_item.getType().get(type_index).setQuantity( db_item.getType().get(type_index).getQuantity() - t.getQuantity() );					
+				}
+			}
+			ofy().save().entity(db_item);
+		}
+	}
+	
 	/**
 	 * Cron task check everyday in 00:05
 	 */
@@ -795,6 +810,23 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			}
 			
 			return false;
+		}
+		
+		else
+			throw new Exception(UNAUTHORIZED_MSG);
+	}
+
+	@Override
+	public void deleteOrderIn(Long id, String token) throws Exception {
+		if(checkAuth(token)) {
+			OrderIn orderIn = ofy().load().type(OrderIn.class).id(id).now();
+			if(orderIn != null) 
+				try {
+					ofy().delete().entity(orderIn).now();
+					deimportItems(orderIn);
+				} catch (Exception e) {
+					throw new Exception();
+				}
 		}
 		
 		else

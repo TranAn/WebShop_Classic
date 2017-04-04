@@ -199,6 +199,7 @@ public class ItemImportTable extends Composite {
 			IntegerBox txbQuantity = new IntegerBox();
 			txbQuantity.setStyleName("ItemImportTable_s6");
 			txbQuantity.getElement().setAttribute("type", "number");
+			txbQuantity.getElement().setAttribute("min", "0");
 			
 			typeNameTable.add(lbType);
 			typeQuantityTable.add(txbQuantity);

@@ -42,6 +42,8 @@ public interface DataService extends RemoteService {
 	
 	public boolean deleteOrder(Long id, String token) throws Exception;
 	
+	public void deleteOrderIn(Long id, String token) throws Exception;
+	
 	public Order updateOrderStatus(Long order_id, int status, String token) throws Exception;
 	
 	public List<OrderChannel> getChannels();

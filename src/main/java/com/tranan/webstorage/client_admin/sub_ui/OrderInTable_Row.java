@@ -1,15 +1,22 @@
 package com.tranan.webstorage.client_admin.sub_ui;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.i18n.shared.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.tranan.webstorage.client_admin.PrettyGal;
+import com.tranan.webstorage.client_admin.dialog.ConfirmDialog;
+import com.tranan.webstorage.client_admin.dialog.ConfirmDialog.ConfirmDialog_Listener;
+import com.tranan.webstorage.client_admin.ui.LoginPage;
 import com.tranan.webstorage.shared.Item;
 import com.tranan.webstorage.shared.Item.Type;
 import com.tranan.webstorage.shared.OrderIn;
@@ -28,6 +35,12 @@ public class OrderInTable_Row extends Composite {
 	@UiField Label orderCreateDate;
 			
 	private OrderIn orderIn;
+	
+	private OrderInTableRow_Listener listener;
+	
+	public interface OrderInTableRow_Listener {
+		void onDeleteItem(OrderIn orderIn);
+	}
 
 	private void addItemCol(Item item) {
 		HTMLPanel panel1 = new HTMLPanel("");
@@ -67,8 +80,9 @@ public class OrderInTable_Row extends Composite {
 		itemsCol.add(panel1);
 	}
 
-	public OrderInTable_Row() {
+	public OrderInTable_Row(OrderInTableRow_Listener listener) {
 		initWidget(uiBinder.createAndBindUi(this));
+		this.listener = listener;
 	}
 	
 	public void setOrder(OrderIn orderIn) {
@@ -88,6 +102,42 @@ public class OrderInTable_Row extends Composite {
 			String dateString = DateTimeFormat.getFormat("dd / MM / yyyy").format(orderIn.getCreate_date());
 			orderCreateDate.setText(dateString);
 		}
+	}
+	
+	@UiHandler("deleteButton")
+	void onDeleteButtonClick(ClickEvent e) {
+		final ConfirmDialog dialog = new ConfirmDialog("Bạn muốn hủy đơn hàng này?", 
+				new ConfirmDialog_Listener() {
+			
+			@Override
+			public void onConfirmClick() {
+				NoticePanel.onLoading();
+				PrettyGal.dataService.deleteOrderIn(orderIn.getId(), LoginPage.id_token, new AsyncCallback<Void>() {
+					
+					@Override
+					public void onSuccess(Void result) {						
+						PrettyGal.UIC.getItemTable().ClearListItem();						
+						listener.onDeleteItem(orderIn);	
+						NoticePanel.successNotice("Đơn hàng đã bị hủy");					
+					}
+					
+					@Override
+					public void onFailure(Throwable caught) {
+						NoticePanel.failNotice(caught.getMessage());
+					}
+				});
+			}
+
+			@Override
+			public void onCancelClick() {}
+		});
+		Timer t = new Timer() {
+
+			@Override
+			public void run() {
+				dialog.center();			
+			}};
+		t.schedule(50);
 	}
 
 }
