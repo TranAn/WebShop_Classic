@@ -10,7 +10,7 @@ public interface DataServiceAsync {
 
 	void createItem(Item item, String token, AsyncCallback<Item> callback);
 
-	void getItems(String cursor, AsyncCallback<ListItem> callback);
+	void getItems(String cursor, int pageSize, AsyncCallback<ListItem> callback);
 	
 	void getItemsInCatalog(String cursor, Long catalog_id, AsyncCallback<ListItem> callback);
 	

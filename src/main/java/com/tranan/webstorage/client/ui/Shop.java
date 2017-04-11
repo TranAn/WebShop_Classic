@@ -1,14 +1,28 @@
 package com.tranan.webstorage.client.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
 import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
+import com.tranan.webstorage.client.PrettyGal;
+import com.tranan.webstorage.client.sub_ui.Pager;
+import com.tranan.webstorage.client.sub_ui.Pager.PagerListener;
+import com.tranan.webstorage.shared.ListItem;
+import com.tranan.webstorage.shared.Photo;
 
 public class Shop extends Composite {
 
@@ -17,86 +31,147 @@ public class Shop extends Composite {
 	interface ShopUiBinder extends UiBinder<Widget, Shop> {
 	}
 	
-	@UiField HTMLPanel item1_view;
-	@UiField HTMLPanel item2_view;
-	@UiField HTMLPanel item3_view;
-	@UiField HTMLPanel item4_view;
-	@UiField HTMLPanel item5_view;
-	@UiField HTMLPanel item6_view;
+	@UiField HTMLPanel itemTable;
+	@UiField Pager pager;
+	
+	private ListItem listItem;
+	
+	private void getItem(String cursor) {
+		int page_size = ListItem.pageSize + 5;
+		PrettyGal.dataService.getItems(cursor, page_size, new AsyncCallback<ListItem>() {			
+			@Override
+			public void onSuccess(ListItem result) {				
+				if (listItem == null) {
+					if(result != null)
+						listItem = result;
+					else {
+						listItem = new ListItem();
+						listItem.setTotal(0);
+					}
+					initItemPager(result);
+				} else {
+					listItem.setCursorStr(result.getCursorStr());
+					listItem.getListItem().addAll(result.getListItem());
+				}
+				
+				setItemToView(result.getListItem());
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub				
+			}
+		});
+	}
+	
+	private void initItemPager(ListItem list_item) {
+		final int page_size = ListItem.pageSize + 5;
+		pager.setPage(list_item.getTotal(), page_size, new PagerListener() {
+			
+			@Override
+			public void pageIndex(int index) {
+				if (index < listItem.getListItem().size()) {
+					List<com.tranan.webstorage.shared.Item> displayItem;
+					if(listItem.getListItem().size() != 0) {
+						if ((index + page_size) <= listItem.getListItem().size())
+							displayItem = listItem.getListItem().subList(index, index + page_size);
+						else
+							displayItem = listItem.getListItem().subList(index, listItem.getListItem().size());
+					}
+					else
+						displayItem = new ArrayList<com.tranan.webstorage.shared.Item>();
+
+					setItemToView(displayItem);
+				} else {
+					getItem(listItem.getCursorStr());					
+				}
+				
+				Window.scrollTo(0, 0);
+			}
+		});
+	}
+	
+	private void setItemToView(List<com.tranan.webstorage.shared.Item> list_item) {
+		itemTable.clear();
+		for(final com.tranan.webstorage.shared.Item item: list_item) {
+			HTMLPanel itemPanel = new HTMLPanel("");
+			itemPanel.setStyleName("Shop_itemPanel");
+			
+			HTMLPanel itemImgPanel = new HTMLPanel("");
+			itemImgPanel.setStyleName("Shop_itemImgPanel");
+			
+			Anchor itemAnchor = new Anchor();
+			itemAnchor.setStyleName("Shop_itemAnchor");
+			final Image itemImg = new Image();
+			itemImg.setStyleName("Shop_itemImg");
+			final HTMLPanel itemQuickView = new HTMLPanel("Xem Sản Phẩm");
+			itemQuickView.setStyleName("Shop_itemQuickViewBtn");
+			
+			itemAnchor.addMouseOverHandler(new MouseOverHandler() {
+				
+				@Override
+				public void onMouseOver(MouseOverEvent event) {
+					itemQuickView.addStyleName("Shop_itemQuickViewBtn_show");
+				}
+			});
+			
+			itemAnchor.addMouseOutHandler(new MouseOutHandler() {
+				
+				@Override
+				public void onMouseOut(MouseOutEvent event) {
+					itemQuickView.removeStyleName("Shop_itemQuickViewBtn_show");
+				}
+			});
+			
+			Label itemName = new Label(item.getName());
+			itemName.setStyleName("Shop_itemLb1");
+			
+			Label itemPrice = new Label(PrettyGal.integerToPriceString(item.getPrice()));
+			itemPrice.setStyleName("Shop_itemLb2");
+			
+			Label itemSalePrice = new Label();
+			if(item.getSale_price() != null)
+				itemSalePrice.setText(PrettyGal.integerToPriceString(item.getSale_price()));
+			itemPrice.setStyleName("Shop_itemLb3");
+			
+			itemImgPanel.add(itemAnchor);
+			itemImgPanel.add(itemImg);
+			itemImgPanel.add(itemQuickView);
+			
+			itemPanel.add(itemImgPanel);
+			itemPanel.add(itemName);
+			itemPanel.add(itemPrice);
+			itemPanel.add(itemSalePrice);
+			
+			itemTable.add(itemPanel);
+			
+			if(!item.getAvatar_url().isEmpty())
+				itemImg.setUrl(item.getAvatar_url());
+			else {
+				if (!item.getPhoto_ids().isEmpty()) {
+					PrettyGal.dataService.getPhoto(item.getPhoto_ids().get(0),
+							new AsyncCallback<Photo>() {
+
+								@Override
+								public void onSuccess(Photo result) {
+									itemImg.setUrl(result.getServeUrl());
+									item.setAvatar_url(result.getServeUrl());
+								}
+
+								@Override
+								public void onFailure(Throwable caught) {
+								}
+							});
+				} else {
+					itemImg.setUrl("../Resources/photoDefault.png");
+				}
+			}
+		}
+	}
 
 	public Shop() {
 		initWidget(uiBinder.createAndBindUi(this));
-	}
-	
-	@UiHandler("item1")
-	public void onMouseOverItem1(MouseOverEvent event)
-	{
-		item1_view.addStyleName("Shop_s1_open");
-	}
-	
-	@UiHandler("item1")
-	public void onMouseOutItem1(MouseOutEvent event)
-	{
-		item1_view.removeStyleName("Shop_s1_open");
-	}
-	
-	@UiHandler("item2")
-	public void onMouseOverItem2(MouseOverEvent event)
-	{
-		item2_view.addStyleName("Shop_s1_open");
-	}
-	
-	@UiHandler("item2")
-	public void onMouseOutItem2(MouseOutEvent event)
-	{
-		item2_view.removeStyleName("Shop_s1_open");
-	}
-	
-	@UiHandler("item3")
-	public void onMouseOverItem3(MouseOverEvent event)
-	{
-		item3_view.addStyleName("Shop_s1_open");
-	}
-	
-	@UiHandler("item3")
-	public void onMouseOutItem3(MouseOutEvent event)
-	{
-		item3_view.removeStyleName("Shop_s1_open");
-	}
-	
-	@UiHandler("item4")
-	public void onMouseOverItem4(MouseOverEvent event)
-	{
-		item4_view.addStyleName("Shop_s1_open");
-	}
-	
-	@UiHandler("item4")
-	public void onMouseOutItem4(MouseOutEvent event)
-	{
-		item4_view.removeStyleName("Shop_s1_open");
-	}
-	
-	@UiHandler("item5")
-	public void onMouseOverItem5(MouseOverEvent event)
-	{
-		item5_view.addStyleName("Shop_s1_open");
-	}
-	
-	@UiHandler("item5")
-	public void onMouseOutItem5(MouseOutEvent event)
-	{
-		item5_view.removeStyleName("Shop_s1_open");
-	}
-	
-	@UiHandler("item6")
-	public void onMouseOverItem6(MouseOverEvent event)
-	{
-		item6_view.addStyleName("Shop_s1_open");
-	}
-	
-	@UiHandler("item6")
-	public void onMouseOutItem6(MouseOutEvent event)
-	{
-		item6_view.removeStyleName("Shop_s1_open");
+		
+		getItem("");
 	}
 }

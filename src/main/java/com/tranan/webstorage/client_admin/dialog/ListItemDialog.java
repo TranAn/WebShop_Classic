@@ -84,7 +84,7 @@ public class ListItemDialog extends DialogBox {
 	void getListItem(String cursor) {
 		onLoading();
 		if(ItemTable.listItem == null || !cursor.equals("")) {
-			PrettyGal.dataService.getItems(cursor, new AsyncCallback<ListItem>() {
+			PrettyGal.dataService.getItems(cursor, ListItem.pageSize, new AsyncCallback<ListItem>() {
 	
 				@Override
 				public void onSuccess(ListItem result) {

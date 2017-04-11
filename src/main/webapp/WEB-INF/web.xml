@@ -29,6 +29,15 @@
 
 	<!-- DataStore service -->
 	<servlet>
+		<servlet-name>data_service0</servlet-name>
+		<servlet-class>com.tranan.webstorage.server.DataServiceImpl</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>data_service0</servlet-name>
+		<url-pattern>/prettygal/dataservice</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>data_service1</servlet-name>
 		<servlet-class>com.tranan.webstorage.server.DataServiceImpl</servlet-class>
 	</servlet>

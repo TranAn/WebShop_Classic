@@ -432,11 +432,11 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public ListItem getItems(String cursor) {
+	public ListItem getItems(String cursor, int pageSize) {
 		List<Item> result = new ArrayList<Item>();
 
 		Query<Item> query = ofy().load().type(Item.class)
-				.limit(ListItem.pageSize);
+				.limit(pageSize);
 		if (cursor != null)
 			query = query.startAt(Cursor.fromWebSafeString(cursor));
 

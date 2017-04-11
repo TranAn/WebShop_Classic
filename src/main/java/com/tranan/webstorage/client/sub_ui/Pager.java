@@ -1,4 +1,4 @@
-package com.tranan.webstorage.client_admin.sub_ui;
+package com.tranan.webstorage.client.sub_ui;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

@@ -23,7 +23,7 @@ public class Header extends Composite {
 	void onHomePageClick(ClickEvent e) {
 		RootPanel.get().clear();
 		RootPanel.get().add(new Header());
-		RootPanel.get().add(new HomeCover());
+		RootPanel.get().add(new HomeWall());
 		RootPanel.get().add(new Shop());
 //		RootPanel.get().add(new Item());
 //		RootPanel.get().add(new Contact());

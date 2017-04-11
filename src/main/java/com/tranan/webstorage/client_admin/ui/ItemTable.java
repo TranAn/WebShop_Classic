@@ -175,7 +175,7 @@ public class ItemTable extends Composite {
 	public void getListItem(String cursor) {
 		if(ItemTable.listItem == null || !cursor.equals("")) {
 			NoticePanel.onLoading();
-			PrettyGal.dataService.getItems(cursor, new AsyncCallback<ListItem>() {
+			PrettyGal.dataService.getItems(cursor, ListItem.pageSize, new AsyncCallback<ListItem>() {
 	
 				@Override
 				public void onSuccess(ListItem result) {

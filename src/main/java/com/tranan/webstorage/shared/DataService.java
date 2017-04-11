@@ -12,7 +12,7 @@ public interface DataService extends RemoteService {
 
 	public Item createItem(Item item, String token) throws Exception;
 	
-	public ListItem getItems(String cursor);
+	public ListItem getItems(String cursor, int pageSize);
 	
 	public ListItem getItemsInCatalog(String cursor, Long catalog_id);
 	

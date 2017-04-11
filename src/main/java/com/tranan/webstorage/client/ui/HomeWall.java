@@ -7,17 +7,17 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-public class HomeCover extends Composite {
+public class HomeWall extends Composite {
 
 	private static HomeCoverUiBinder uiBinder = GWT
 			.create(HomeCoverUiBinder.class);
 
-	interface HomeCoverUiBinder extends UiBinder<Widget, HomeCover> {
+	interface HomeCoverUiBinder extends UiBinder<Widget, HomeWall> {
 	}
 	
 	@UiField Label mid_box_label;
 
-	public HomeCover() {
+	public HomeWall() {
 		initWidget(uiBinder.createAndBindUi(this));
 		
 		mid_box_label.setText("FALL & WINTER");
