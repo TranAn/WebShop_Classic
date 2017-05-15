@@ -2,7 +2,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-	@external .CartItem_s1;
+	@external .CartItem_s1, .CartItem_Price, .CartItem_SalePrice;
 	.s1 {
 		position: relative;
 		overflow: hidden;
@@ -34,7 +34,7 @@
 	.s5 {
 		position: relative;
 		float: left;
-		margin-left: 35px;
+		margin-left: 42px;
 	}
 	
 	.s6 {
@@ -51,24 +51,25 @@
 		margin-bottom: 10px;
 	}
 	
-	.s8 {
+	.CartItem_SalePrice {
 		opacity: 0.5;
 		color: #303132;
 		font-weight: 400;
 		margin-right: 10px;
 		margin-left: 5px;
-		font-size: 15px;
+		font-size: 16px;
 		font-family: 'Raleway', sans-serif;
 		text-decoration: line-through;
 		float: left;
 	}
 	
-	.s9 {
+	.CartItem_Price {
 		float: left;
 		color: #303132;
 		font-weight: 400;
-		font-size: 15px;
+		font-size: 16px;
 		font-family: 'Raleway', sans-serif;
+		margin-right: 10px;
 	}
 	
 	.s10 {
@@ -77,7 +78,7 @@
 		text-decoration: underline;
 		color: #303132;
 		cursor: pointer;
-		font-size: 12px;
+		font-size: 14px;
 		font-family: 'Raleway', sans-serif;
 		font-weight: 400;
 	}
@@ -113,27 +114,27 @@
 	<g:HTMLPanel styleName="{style.s1}">
 		<g:HTMLPanel styleName="{style.s2}">
 			<g:HTMLPanel styleName="{style.s3}">
-				<g:Image ui:field="itemImg" width="100%" height="100%" url="Resources/6.png"></g:Image>
+				<g:Image ui:field="itemImg" width="100%" height="100%"></g:Image>
 			</g:HTMLPanel>
 
 			<g:HTMLPanel styleName="{style.s4}">
-				<g:Label styleName="{style.s7}">I'm a Product</g:Label>
+				<g:Label ui:field="itemName" styleName="{style.s7}">I'm a Product</g:Label>
 				<g:HTMLPanel>
-					<g:Label styleName="{style.s9}">Price: </g:Label>
-					<g:Label styleName="{style.s8}">$19.99 </g:Label>
-					<g:Label styleName="{style.s9}">$14.99</g:Label>
+					<g:Label styleName="CartItem_Price">Đơn giá: </g:Label>
+					<g:Label ui:field="itemPrice" styleName="CartItem_Price">$19.99 </g:Label>
+					<g:Label ui:field="itemSalePrice" styleName="CartItem_Price" visible="false">$14.99</g:Label>
 				</g:HTMLPanel>
-				<g:Anchor styleName="{style.s10}">Remove Item</g:Anchor>
+				<g:Anchor ui:field="removeItemBtn" styleName="{style.s10}">Bỏ sản phẩm khỏi giỏ hàng</g:Anchor>
 			</g:HTMLPanel>
 
 			<g:HTMLPanel styleName="{style.s5}">
-				<g:Anchor styleName="{style.s11}">-</g:Anchor>
+				<g:Anchor ui:field="decreaseItemBtn" styleName="{style.s11}">-</g:Anchor>
 				<g:TextBox height="23px" width="25px" ui:field="txbQuantity">1</g:TextBox>
-				<g:Anchor styleName="{style.s12}">+</g:Anchor>
+				<g:Anchor ui:field="increaseItemBtn" styleName="{style.s12}">+</g:Anchor>
 			</g:HTMLPanel>
 
 			<g:HTMLPanel>
-				<g:Label styleName="{style.s13}">$14.99</g:Label>
+				<g:Label ui:field="total" styleName="{style.s13}">$14.99</g:Label>
 			</g:HTMLPanel>
 		</g:HTMLPanel>
 		<div style="width: 100%; margin-top: 10px; border-bottom: 1px #D3D3D3 solid"></div>

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOutHandler;
 import com.google.gwt.event.dom.client.MouseOverEvent;
@@ -104,7 +106,7 @@ public class Shop extends Composite {
 			itemAnchor.setStyleName("Shop_itemAnchor");
 			final Image itemImg = new Image();
 			itemImg.setStyleName("Shop_itemImg");
-			final HTMLPanel itemQuickView = new HTMLPanel("Xem Sản Phẩm");
+			final HTMLPanel itemQuickView = new HTMLPanel("Đặt Hàng");
 			itemQuickView.setStyleName("Shop_itemQuickViewBtn");
 			
 			itemAnchor.addMouseOverHandler(new MouseOverHandler() {
@@ -123,6 +125,14 @@ public class Shop extends Composite {
 				}
 			});
 			
+			itemAnchor.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					Window.Location.assign("/item/" + item.getName() + "-" + item.getId());
+				}
+			});
+			
 			Label itemName = new Label(item.getName());
 			itemName.setStyleName("Shop_itemLb1");
 			
@@ -130,9 +140,11 @@ public class Shop extends Composite {
 			itemPrice.setStyleName("Shop_itemLb2");
 			
 			Label itemSalePrice = new Label();
-			if(item.getSale_price() != null)
-				itemSalePrice.setText(PrettyGal.integerToPriceString(item.getSale_price()));
-			itemPrice.setStyleName("Shop_itemLb3");
+			if(item.getSale() != 0) {
+				itemSalePrice.setText(PrettyGal.integerToPriceString(item.getSale_price()) + " (-" + item.getSale() + "%)");
+				itemPrice.addStyleName("Shop_itemLb2_LineThrough");
+			}
+			itemSalePrice.setStyleName("Shop_itemLb3");
 			
 			itemImgPanel.add(itemAnchor);
 			itemImgPanel.add(itemImg);

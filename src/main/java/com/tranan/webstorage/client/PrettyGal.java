@@ -11,12 +11,15 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
+import com.google.gwt.user.client.Cookies;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.tranan.webstorage.client.place.HomePlace;
 import com.tranan.webstorage.client.ui.Footer;
 import com.tranan.webstorage.client.ui.Header;
+import com.tranan.webstorage.client.ui.ItemUI;
 import com.tranan.webstorage.shared.DataService;
 import com.tranan.webstorage.shared.DataServiceAsync;
 
@@ -27,7 +30,19 @@ public class PrettyGal implements EntryPoint {
 	
 	public static PlaceController placeController;
 	public static UIController UIC = new UIController();
+	public static Header header = new Header();
 	public static HTMLPanel controlPage = new HTMLPanel("");
+	
+	public static final String COOKIE_DELIMITER = ",,,";
+	public static final String ORDER_ITEMS = "order_item";
+	public static final String CUSTOMER_NAME = "customer_name";
+	public static final String CUSTOMER_ADDRESS = "customer_address";
+	public static final String CUSTOMER_PHONE = "customer_phone";
+	public static final String CUSTOMER_EMAIL = "customer_email";
+	public static final String WEB_SALE_CHANNEL = "Website";
+	public static final String ITEM_AVAILABLE = "(còn hàng)";
+	public static final String ITEM_UNAVAILABLE = "(hết hàng)";
+	public static final String ITEM_SALE_TITLE = "giảm giá";
 	
 	private void handlerHistory() {
 		EventBus eventBus = new SimpleEventBus();
@@ -44,18 +59,39 @@ public class PrettyGal implements EntryPoint {
 		historyHandler.register(placeController, eventBus, new HomePlace());
 		historyHandler.handleCurrentHistory();
 	}
-
+	
 	@Override
 	public void onModuleLoad() {
-		controlPage.getElement().setAttribute("style", "overflow: hidden; margin-top: 75px;");
+		if(!Window.Location.getPath().contains("item")) {
+			controlPage.getElement().setAttribute("style", "overflow: hidden; margin-top: 70px;");
+					
+			RootPanel.get().add(header);
+			RootPanel.get().add(controlPage);		
+			RootPanel.get().add(new Footer());
+			
+			handlerHistory();
+		}
+		else {
+			RootPanel.get().add(header);
+			RootPanel.get("item_content").add(new ItemUI());
+			RootPanel.get().add(new Footer());
+		}
 		
-		RootPanel.get().add(new Header());
-		RootPanel.get().add(controlPage);		
-		RootPanel.get().add(new Footer());
-		
-		handlerHistory();
+		showHeaderItemOrder();
 	}
 	
+	public static void showHeaderItemOrder() {
+		String order_items = Cookies.getCookie(PrettyGal.ORDER_ITEMS);
+		if(order_items == null)
+			order_items = COOKIE_DELIMITER;
+		String item_count[] = order_items.split(COOKIE_DELIMITER);
+		
+		if(item_count.length != 0 && header != null)
+			header.setOrderItems(String.valueOf(item_count.length - 1));
+		else
+			header.setOrderItems("0");
+	}
+
 	public static String integerToPriceString(Long number) {
 		boolean isZeroLess = false;
 		
@@ -87,6 +123,13 @@ public class PrettyGal implements EntryPoint {
 			return "- " + rtn;
 		else
 			return rtn;
+	}
+	
+	public static String phoneFormat(String phone) {
+		if(phone.equals("1"))
+			return "";
+		else
+			return phone.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "$1 - $2 - $3");
 	}
 
 }

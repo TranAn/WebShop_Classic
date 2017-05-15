@@ -3,20 +3,20 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui"
 	xmlns:m="urn:import:com.tranan.webstorage.client.sub_ui">
 	<ui:style>
-	@external .Shop_itemPanel, .Shop_itemImgPanel, .Shop_itemAnchor, .Shop_itemImg, .Shop_itemQuickViewBtn, .Shop_itemQuickViewBtn_show, .Shop_itemLb1, .Shop_itemLb2, .Shop_itemLb3;
+	@external .Shop_itemPanel, .Shop_itemImgPanel, .Shop_itemAnchor, .Shop_itemImg, .Shop_itemQuickViewBtn, .Shop_itemQuickViewBtn_show, .Shop_itemLb1, .Shop_itemLb2, .Shop_itemLb3, .Shop_itemLb2_LineThrough;
 	.s1 {
 		text-align: center;
 		margin-left: 15px;
 		font-size: 35px;
-		letter-spacing: 10px;
+		letter-spacing: 8px;
 		color: #303132;
-		margin-top: 120px;
+		margin-top: 50px;
 		font-family: times new roman, times, serif;
 		font-weight: 600;
 	}
 	
 	.s2 {
-		width: 30%;
+		width: 350px;
 		margin: auto;
 		margin-top: 30px;
 		border-bottom: 1px black solid;
@@ -25,7 +25,7 @@
 	.s3 {
 		display: grid;
 		position: relative;
-		grid-template-columns: 33% 33% 33%;
+		grid-template-columns: 25% 25% 25% 25%;
   		grid-gap: 10px;
 		overflow: hidden;
 		width: 900px;
@@ -47,7 +47,7 @@
 		overflow: hidden;
 		width: 900px;
 		margin: auto;
-		margin-top: 10px;
+		margin-top: 40px;
 	}
 	
 	.s5 {
@@ -72,8 +72,8 @@
 	
 	.Shop_itemImgPanel {
 		position: relative;
-		width: 280px;
-		height: 300px;
+		width: 200px;
+		height: 220px;
 		background: rgb(231, 231, 231);
 		overflow: hidden;
 		cursor: pointer;
@@ -101,7 +101,8 @@
 		bottom: 0;
 		width: 100%;
 		height: 0px;
-		background: rgba(255, 255, 255, .75);
+		background: rgba(243, 112, 33, .9);
+		color: #ffffff;
 		font-family: 'Raleway', sans-serif;
 		text-align: center;
 		font-size: 16px;
@@ -123,29 +124,32 @@
 		font-family: 'Raleway', sans-serif;
 	}
 	
-	.Shop_itemLb2 {
-		opacity: 0.5;
+	.Shop_itemLb2 {		
 		color: #303132;
 		font-weight: 400;
 		margin-top: 10px;
 		margin-right: 10px;
-		font-size: 15px;
+		font-size: 16px;
 		font-family: 'Raleway', sans-serif;
-		text-decoration: line-through;
 		float: left;
+	}
+	
+	.Shop_itemLb2_LineThrough {
+		text-decoration: line-through;
+		opacity: 0.5;
 	}
 	
 	.Shop_itemLb3 {
 		float: left;
-		color: #303132;
-		font-weight: 400;
+		color: red;
+		font-weight: 500;
 		margin-top: 10px;
-		font-size: 15px;
+		font-size: 17px;
 		font-family: 'Raleway', sans-serif;
 	}
 	</ui:style>
 	<g:HTMLPanel styleName="{style.s5}">
-		<g:Label styleName="{style.s1}">ON SALE</g:Label>
+		<g:Label styleName="{style.s1}">Cửa Hàng</g:Label>
 		<g:HTMLPanel styleName="{style.s2}"></g:HTMLPanel>
 
 		<g:HTMLPanel ui:field="itemTable" styleName="{style.s3}">

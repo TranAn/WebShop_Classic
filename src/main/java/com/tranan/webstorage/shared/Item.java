@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gwt.json.client.JSONArray;
+import com.google.gwt.json.client.JSONParser;
+import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.rpc.IsSerializable;
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
@@ -20,6 +23,7 @@ public class Item implements Serializable, IsSerializable {
 	private static final long serialVersionUID = 1L;
 
 	public static final String DEFAULT_TYPE = "Default";
+	public static final String ITEM_COMPACT_LINK = ";;;";
 
 	@Id
 	Long id;
@@ -50,13 +54,13 @@ public class Item implements Serializable, IsSerializable {
 			super();
 			// TODO Auto-generated constructor stub
 		}
-		
+
 		public Type(String name, int quantity) {
 			super();
 			this.name = name;
 			this.quantity = quantity;
 		}
-		
+
 		public Type(Type t) {
 			super();
 			this.name = t.getName();
@@ -96,7 +100,7 @@ public class Item implements Serializable, IsSerializable {
 			if (getClass() != obj.getClass())
 				return false;
 			Type other = (Type) obj;
-			
+
 			if (name == null) {
 				if (other.name != null)
 					return false;
@@ -111,8 +115,9 @@ public class Item implements Serializable, IsSerializable {
 	}
 
 	public Item(Long id, List<Long> photo_ids, List<Long> catalog_ids,
-			String name, Long cost, Long price, int sale, Long sale_id, Long sale_price, 
-			String description, List<Type> type, String avatar_url) {
+			String name, Long cost, Long price, int sale, Long sale_id,
+			Long sale_price, String description, List<Type> type,
+			String avatar_url) {
 		super();
 		this.id = id;
 		this.photo_ids.addAll(photo_ids);
@@ -127,8 +132,8 @@ public class Item implements Serializable, IsSerializable {
 		this.type.addAll(type);
 		this.avatar_url = avatar_url;
 	}
-	
-	//Deep copy an item
+
+	// Deep copy an item
 	public Item(Item i) {
 		super();
 		this.id = i.getId();
@@ -141,7 +146,7 @@ public class Item implements Serializable, IsSerializable {
 		this.sale_id = i.getSale_id();
 		this.sale_price = i.getSale_price();
 		this.description = i.getDescription();
-		for(Type t: i.getType())
+		for (Type t : i.getType())
 			this.type.add(new Type(t));
 		this.avatar_url = i.getAvatar_url();
 	}
@@ -281,6 +286,100 @@ public class Item implements Serializable, IsSerializable {
 		} else if (!type.equals(other.type))
 			return false;
 		return true;
+	}
+	
+	public String compactItem() {
+		return id + ITEM_COMPACT_LINK + type.get(0).getName();
+	}
+
+	public Item fromJson(String json) {
+		Item i = new Item();
+		JSONValue v = JSONParser.parseStrict(json);
+
+		try {
+			i.id = (long) (v.isObject().get("id").isNumber().doubleValue());
+		} catch (Exception e) {
+		}
+
+		try {
+			JSONArray photo_ids = v.isObject().get("photo_ids").isArray();
+			for (int t = 0; t < photo_ids.size(); t++) {
+				Long photo_id = (long) (photo_ids.get(t).isNumber()
+						.doubleValue());
+				i.photo_ids.add(photo_id);
+			}
+		} catch (Exception e) {
+		}
+
+		try {
+			JSONArray catalog_ids = v.isObject().get("catalog_ids").isArray();
+			for (int t = 0; t < catalog_ids.size(); t++) {
+				Long catalog_id = (long) (catalog_ids.get(t).isNumber()
+						.doubleValue());
+				i.catalog_ids.add(catalog_id);
+			}
+		} catch (Exception e) {
+		}
+
+		try {
+			i.name = v.isObject().get("name").isString().stringValue();
+		} catch (Exception e) {
+		}
+
+		try {
+			i.cost = (long) (v.isObject().get("cost").isNumber().doubleValue());
+		} catch (Exception e) {
+		}
+
+		try {
+			i.price = (long) (v.isObject().get("price").isNumber()
+					.doubleValue());
+		} catch (Exception e) {
+		}
+
+		try {
+			i.sale_id = (long) (v.isObject().get("sale_id").isNumber()
+					.doubleValue());
+		} catch (Exception e) {
+		}
+
+		try {
+			i.sale = (int) (v.isObject().get("sale").isNumber().doubleValue());
+		} catch (Exception e) {
+		}
+
+		try {
+			i.sale_price = (long) (v.isObject().get("sale_price").isNumber()
+					.doubleValue());
+		} catch (Exception e) {
+		}
+
+		try {
+			i.description = v.isObject().get("description").isString()
+					.stringValue();
+		} catch (Exception e) {
+		}
+
+		try {
+			JSONArray type = v.isObject().get("type").isArray();
+			for (int k = 0; k < type.size(); k++) {
+				Type t = new Type();
+				t.name = type.get(k).isObject().get("name").isString()
+						.stringValue();
+				t.quantity = (int) (type.get(k).isObject().get("quantity")
+						.isNumber().doubleValue());
+				i.type.add(t);
+			}
+		} catch (Exception e) {
+		}
+
+		try {
+			i.avatar_url = v.isObject().get("avatar_url").isString()
+					.stringValue();
+		} catch (Exception e) {
+		}
+
+		return i;
 	}
 
 }

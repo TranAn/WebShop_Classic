@@ -9,6 +9,8 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface DataService extends RemoteService {
 	
 	public Item getItemById(Long id);
+	
+	public List<Item> getItemByListIds(List<Long> ids); 
 
 	public Item createItem(Item item, String token) throws Exception;
 	
@@ -63,5 +65,7 @@ public interface DataService extends RemoteService {
 	public StatisticData getStatisticData(String data_id);
 	
 	public boolean checkAuth(String idToken);
+	
+	public void submitOrder(Order order);
 	
 }

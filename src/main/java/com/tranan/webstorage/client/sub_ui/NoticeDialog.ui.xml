@@ -1,0 +1,128 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:m="urn:import:com.tranan.webstorage.client_admin.sub_ui">
+	<ui:style>
+	@external .Dialog, .ConfirmDialog_s1;
+	.s1 {
+		background: white;
+		overflow: hidden;
+		-webkit-transition: height 10s; /* For Safari 3.1 to 6.0 */
+		transition: height 10s;
+	}
+	
+	.s2 {
+		overflow: hidden;
+		padding: 10px 15px;
+		background: rgba(83, 81, 81, 1);
+		color: white;
+		font-size: 14px;
+		font-weight: bold;
+		height: 20px;
+	}
+	
+	.s3 {
+		overflow: hidden;
+		text-align: center;
+	}
+	
+	.s4 {
+		position: relative;
+		float: left;
+		padding: 10px 15px;
+		margin-left: 20px;
+		margin-right: 15px;
+		margin-bottom: 15px;
+		font-size: 12px;
+		color: #ffffff;
+		background-color: silver;
+		border: 1px solid #0d89ed;
+		border-radius: 2px;
+		cursor: pointer;
+		font-weight: bold;
+		font-family: sans-serif;
+	}
+	
+	.s4:hover {
+		background: #42a5f5;
+		border: 1px solid #42a5f5;
+		-webkit-transition: color .2s linear, background-color .5s ease-in-out;
+		-moz-transition: color .2s linear, background-color .5s ease-in-out;
+		-o-transition: color .2s linear, background-color .5s ease-in-out;
+		transition: color .2s linear, background-color .5s ease-in-out;
+	}
+	
+	.s5 {
+		position: relative;
+		float: left;
+		padding: 10px 15px;
+		margin-bottom: 15px;
+		font-size: 12px;
+		color: #444;
+		background-color: #ffffff;
+		border: 1px solid #efefef;
+		border-radius: 2px;
+		cursor: pointer;
+		font-weight: bold;
+		font-family: sans-serif;
+	}
+	
+	.s5:hover {
+		background: #efefef;
+		border: 1px solid #efefef;
+	}
+	
+	.s5 i {
+		font-size: 16px !important;
+		font-weight: bold;
+	}
+	
+	.s6 {
+		padding: 20px;
+		font-size: 16px;
+		line-height: 1.5;
+	}
+	
+	.Dialog {
+		background: #f6f7f8;
+		opacity: 1;
+		border: 1px solid #efefef;
+		box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17);
+		-webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17);
+		margin-right: 150px;
+	}
+	
+	.anchor {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		cursor: pointer;
+	}
+	
+	.ConfirmDialog_s1 {
+		background: #f6f7f8;
+		opacity: 1;
+		border: 1px solid #efefef;
+		box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17);
+		-webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17);
+		margin-right: 150px;
+	}
+	</ui:style>
+	<g:HTMLPanel ui:field="dialog" styleName="{style.s1}">
+		<g:HTMLPanel styleName="{style.s2}"></g:HTMLPanel>
+
+		<g:HTMLPanel styleName="{style.s3}">
+			<g:Label ui:field="noticeText" styleName="{style.s6}"></g:Label>
+		</g:HTMLPanel>
+
+		<div style="overflow: hidden;">
+			<div style="width:180px; margin:auto;">
+				<g:HTMLPanel styleName="{style.s4}">
+					Quay Lại Cửa Hàng
+					<g:Anchor ui:field="dialogButton" styleName="{style.anchor}"></g:Anchor>
+				</g:HTMLPanel>
+			</div>
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder> 

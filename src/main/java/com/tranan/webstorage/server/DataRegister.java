@@ -43,6 +43,10 @@ public class DataRegister extends RemoteServiceServlet {
 		User user = new User();
 		user.setEmail("antp17290@gmail.com");
 		ofy().save().entity(user);
+		
+		OrderChannel web_channel = new OrderChannel();
+		web_channel.setName("Website");
+		ofy().save().entity(web_channel);
 	}
 
 }

@@ -2,14 +2,15 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
+	@external .Header_ActiveMenu;
 	.s1 {
 		position: fixed;
 		top: 0;
-		z-index: 1;
+		z-index: 2;
 		background-color: rgba(83, 81, 81, 1);
 		border-top: 0px solid rgba(83, 81, 81, 1);
 		border-bottom: 0px solid rgba(83, 81, 81, 1);
-		height: 75px;
+		height: 70px;
 		width: 100%;
 	}
 	
@@ -93,9 +94,27 @@
 		top: -24px;
 		left: 0;
 		text-align: center;
-		background: #9E7076;
+		background: #da6d2b;
 		font-size: 14px;
 		padding-bottom: 2px;
+		color: white;
+	}
+	
+	.anchor {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		cursor: pointer;
+	}
+	
+	.Header_ActiveMenu {
+		font-size: 17px;
+		color: white;
+	}
+	
+	.Header_ActiveMenu i {
 		color: white;
 	}
 	</ui:style>
@@ -103,13 +122,14 @@
 		<g:HTMLPanel styleName="{style.s2}">
 			<g:Label styleName="{style.s3}">PRETTY GAL</g:Label>
 
-			<g:HTMLPanel styleName="{style.s5}">
-				<g:Label ui:field="cartPage" styleName="{style.s6}">1</g:Label>
+			<g:HTMLPanel ui:field="cartPage" styleName="{style.s5}">
+				<g:Label ui:field="itemCount" styleName="{style.s6}" visible="false">0</g:Label>
 				<i class="material-icons">shopping_cart</i>
+				<g:Anchor ui:field="cartPageBtn" styleName="{style.anchor}"></g:Anchor>
 			</g:HTMLPanel>
-			<g:Label ui:field="contactPage" styleName="{style.s4}">Contact</g:Label>
-			<g:Label ui:field="shopPage" styleName="{style.s4}">Shop</g:Label>
-			<g:Label ui:field="homePage" styleName="{style.s4_active}">Home</g:Label>
+			<g:Label ui:field="contactPage" styleName="{style.s4}">Liên Hệ</g:Label>
+			<g:Label ui:field="shopPage" styleName="{style.s4}">Sản Phẩm</g:Label>
+			<g:Label ui:field="homePage" styleName="{style.s4}">Trang Chủ</g:Label>
 		</g:HTMLPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

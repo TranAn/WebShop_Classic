@@ -7,6 +7,8 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public interface DataServiceAsync {
 
 	void getItemById(Long id, AsyncCallback<Item> callback);
+	
+	void getItemByListIds(List<Long> ids, AsyncCallback<List<Item>> callback); 
 
 	void createItem(Item item, String token, AsyncCallback<Item> callback);
 
@@ -61,5 +63,7 @@ public interface DataServiceAsync {
 	void getStatisticData(String data_id, AsyncCallback<StatisticData> callback);
 	
 	void checkAuth(String idToken, AsyncCallback<Boolean> callback);
+	
+	void submitOrder(Order order, AsyncCallback<Void> callback);
 
 }

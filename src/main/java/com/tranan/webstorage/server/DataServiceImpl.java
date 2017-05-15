@@ -31,6 +31,7 @@ import com.google.appengine.api.search.SearchServiceFactory;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
+import com.tranan.webstorage.client.PrettyGal;
 import com.tranan.webstorage.shared.Catalog;
 import com.tranan.webstorage.shared.Customer;
 import com.tranan.webstorage.shared.DataService;
@@ -366,6 +367,17 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 	public Item getItemById(Long id) {
 		Item item = ofy().load().type(Item.class).id(id).now();
 		return item;
+	}
+
+	@Override
+	public List<Item> getItemByListIds(List<Long> ids) {
+		List<Item> rtn = new ArrayList<Item>();
+		
+		Collection<Item> listItems = ofy().load().type(Item.class)
+				.ids(ids).values();
+		rtn.addAll(listItems);
+		
+		return rtn;
 	}
 
 	@Override
@@ -1047,6 +1059,30 @@ public class DataServiceImpl extends RemoteServiceServlet implements
 			return data;
 		}
 		return null;
+	}
+
+	@Override
+	public void submitOrder(Order order) {
+		order.setCreate_date(getCurrentDate());
+		order.setStatus(Order.PENDING);
+
+		//Save order
+		Key<Order> key = ofy().save().entity(order).now();
+		Order rtn = ofy().load().key(key).now();
+		//Track order
+		trackOrder(rtn);
+		
+		//Save new customer
+		if(rtn.getCustomer() != null)
+			addCustomerOrder(rtn.getCustomer(), rtn.getId());
+		
+		//Update size
+		List<EntitiesSize> entitiesSizes = ofy().load()
+				.type(EntitiesSize.class).list();
+		EntitiesSize es = entitiesSizes.get(0);
+		es.setOrder_size(es.getOrder_size() + 1);
+		addOrderStatusSize(es, order);
+		ofy().save().entity(es);							 		
 	}
 
 }

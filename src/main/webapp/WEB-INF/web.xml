@@ -9,6 +9,16 @@
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>admin.html</welcome-file>
 	</welcome-file-list>
+	
+	<!-- Item JSP Page -->
+	<servlet>
+		<servlet-name>itemPage</servlet-name>
+		<jsp-file>/item/item.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>itemPage</servlet-name>
+		<url-pattern>/item/*</url-pattern>
+	</servlet-mapping>
 
 	<!-- Register objectify entity -->
 	<servlet>

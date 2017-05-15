@@ -2,6 +2,7 @@ package com.tranan.webstorage.client;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceHistoryMapper;
+import com.tranan.webstorage.client.place.CartPlace;
 import com.tranan.webstorage.client.place.HomePlace;
 import com.tranan.webstorage.client.place.ShopPlace;
 
@@ -33,6 +34,9 @@ public class AppHistoryMapper implements PlaceHistoryMapper {
 		// Mapping place
 		if (tokens[0].equals("shop"))
 			return new ShopPlace();
+		
+		if (tokens[0].equals("cart"))
+			return new CartPlace();
 			
 		else
 			return new HomePlace();
@@ -48,6 +52,9 @@ public class AppHistoryMapper implements PlaceHistoryMapper {
 		
 		if (place instanceof ShopPlace)
 			return "shop";
+		
+		if (place instanceof CartPlace)
+			return "cart";
 
 		return null;
 	}
